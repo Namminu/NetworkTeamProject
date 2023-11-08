@@ -38,20 +38,20 @@ public class PlayerController : MonoBehaviour
 
                 if(transform.position.x >= 0)
                 {
-                    bombX = Mathf.FloorToInt(transform.position.x) + 0.5f;
+                    bombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
                 }
                 else
                 {
-                    bombX = Mathf.CeilToInt(transform.position.x) - 0.5f;
+                    bombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
                 }
 
                 if (transform.position.y >= 0)
                 {
-                    bombY = Mathf.FloorToInt(transform.position.y) + 0.5f;
+                    bombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
                 }
                 else
                 {
-                    bombY = Mathf.CeilToInt(transform.position.y) - 0.5f;
+                    bombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
                 }
 
                 Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
