@@ -29,6 +29,6 @@ public class BombController : MonoBehaviour
             Instantiate(BombStream, transform.position + new Vector3(-i, 0, 0), Quaternion.identity);
             Instantiate(BombStream, transform.position + new Vector3(i, 0, 0), Quaternion.identity);
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.8f);
     }
 }

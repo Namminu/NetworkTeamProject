@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
 
@@ -13,10 +14,14 @@ public class PlayerController : MonoBehaviour
     public GameObject Bomb;
 
     public int bombNum = 1;
+
+    private Animator animator;
+    private SpriteRenderer rend;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -98,18 +103,45 @@ public class PlayerController : MonoBehaviour
             {
                 case KeyCode.UpArrow:
                     moveY = moveSpeed * Time.deltaTime;
+                    animator.SetBool("goUp", true);
+                    animator.SetBool("goDown", false);
+                    animator.SetBool("goSide", false);
+
+                    rend.flipX = false;
                     break;
                 case KeyCode.DownArrow:
                     moveY = -moveSpeed * Time.deltaTime;
+                    animator.SetBool("goUp", false);
+                    animator.SetBool("goDown", true);
+                    animator.SetBool("goSide", false);
+
+                    rend.flipX = false;
                     break;
                 case KeyCode.LeftArrow:
                     moveX = -moveSpeed * Time.deltaTime;
+                    animator.SetBool("goUp", false);
+                    animator.SetBool("goDown", false);
+                    animator.SetBool("goSide", true);
+                    rend.flipX = false;
+
                     break;
                 case KeyCode.RightArrow:
                     moveX = moveSpeed * Time.deltaTime;
+                    animator.SetBool("goUp", false);
+                    animator.SetBool("goDown", false);
+                    animator.SetBool("goSide", true);
+                    rend.flipX = true;
                     break;
             }
         }
+        else
+        {
+            animator.SetBool("goUp", false);
+            animator.SetBool("goDown", false);
+            animator.SetBool("goSide", false);
+
+        }
+        
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
         transform.position += moveDirection;
