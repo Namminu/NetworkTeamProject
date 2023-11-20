@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BOMBSTREAM
+  - BOMB
   layers:
   - Default
   - TransparentFX
@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - BackGround
+  - 
   - 
   - 
   - 
@@ -39,9 +39,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BackGround
-    uniqueID: 3351994965
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
