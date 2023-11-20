@@ -145,6 +145,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
         transform.position += moveDirection;
+            
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("나 맞았어요");
+    }
+
+
+
 }
+
