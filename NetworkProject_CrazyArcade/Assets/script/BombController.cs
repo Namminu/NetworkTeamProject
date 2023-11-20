@@ -21,14 +21,15 @@ public class BombController : MonoBehaviour
 
     void BombAction()
     {
-        Instantiate(BombStream, transform.position, Quaternion.identity);
+        //Instantiate(BombStream, transform.position, Quaternion.identity);
         for (int i = 1; i <= streamLength; i++)
         {
-            Instantiate(BombStream, transform.position + new Vector3(0, -i, 0), Quaternion.identity);
-            Instantiate(BombStream, transform.position + new Vector3(0, i, 0), Quaternion.identity);
-            Instantiate(BombStream, transform.position + new Vector3(-i, 0, 0), Quaternion.identity);
-            Instantiate(BombStream, transform.position + new Vector3(i, 0, 0), Quaternion.identity);
+            Instantiate(BombStream, transform.position + new Vector3(0, -i, 0), Quaternion.Euler(new Vector3(0, 0 ,-90)));
+            Instantiate(BombStream, transform.position + new Vector3(0, i, 0), Quaternion.Euler(new Vector3(0, 0, 90)));
+            Instantiate(BombStream, transform.position + new Vector3(-i, 0, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
+            Instantiate(BombStream, transform.position + new Vector3(i, 0, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
         }
         Destroy(gameObject, 0.8f);
     }
 }
+
