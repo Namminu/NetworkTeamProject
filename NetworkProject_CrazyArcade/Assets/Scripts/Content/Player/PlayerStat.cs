@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
-    //[SerializeField]
-    private float playerSpeed;
-    private int numberOfBombs;
-    private int bombLength;
+    //플레이어 스탯
+    [SerializeField] private float playerSpeed;
+    [SerializeField] private int numberOfBombs;
+    [SerializeField] private int bombLength; 
 }
