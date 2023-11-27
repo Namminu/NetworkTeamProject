@@ -13,10 +13,10 @@ public class SpeedBoostItem : MonoBehaviour
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             if (player != null)
             {
-                //player.playerstat.playerSpeed  += speedBoost; // 플레이어의 속도 증가
-                //Destroy(gameObject); // 아이템 사용 후 제거
-                //Debug.Log("먹음");
-                //Debug.Log(player.playerstat.playerSpeed);
+                player.playerstat.playerSpeed  += speedBoost; // 플레이어의 속도 증가
+                Destroy(gameObject); // 아이템 사용 후 제거
+                Debug.Log("먹음");
+                Debug.Log(player.playerstat.playerSpeed);
             }
         }
     }

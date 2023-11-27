@@ -34,9 +34,16 @@ public class PlayerController : MonoBehaviour
     private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
     private int bombCount = 0;
 
+    public PlayerStat playerstat;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerstat.bombLength = 1;
+        playerstat.playerSpeed= 5.0f;
+        playerstat.numberOfBombs= 1;
+        playerstat = GetComponent<PlayerStat>();
+
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
 
