@@ -10501,6 +10501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: palyer
       objectReference: {fileID: 0}
+    - target: {fileID: 3567514138317328186, guid: f7891b64061111d4e89e24c3c9fa48ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7856612173346198328, guid: f7891b64061111d4e89e24c3c9fa48ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.51
