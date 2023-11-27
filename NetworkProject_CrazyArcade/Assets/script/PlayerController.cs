@@ -5,6 +5,14 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+enum Direction
+{
+    None,
+    Up,
+    Down,
+    Left,
+    Right
+}
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private PhotonView pv;
     private Vector2 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
     private Quaternion currentRot;  //회전이 필요한가?
+
+    private Direction dir = Direction.Down;
+    private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
+    private int bombCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +84,9 @@ public class PlayerController : MonoBehaviour
                     bombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
                 }
 
-                Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
+                GameObject bomb = Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
+                bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
+                bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
             }
         }
     }
@@ -108,12 +122,16 @@ public class PlayerController : MonoBehaviour
         // 가장 최근에 눌린 키 찾기
         KeyCode latestKey = keyTimes.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
 
+        if (CheckDir(hitObjectDirs, latestKey))
+            return;
+
         // 그 키에 따라 캐릭터 움직이기
-        if (keyTimes[latestKey] != float.MinValue) 
+        if (keyTimes[latestKey] != float.MinValue)
         {
             switch (latestKey)
             {
                 case KeyCode.UpArrow:
+                    dir = Direction.Up;
                     moveY = moveSpeed * Time.deltaTime;
                     animator.SetBool("goUp", true);
                     animator.SetBool("goDown", false);
@@ -122,6 +140,7 @@ public class PlayerController : MonoBehaviour
                     rend.flipX = false;
                     break;
                 case KeyCode.DownArrow:
+                    dir = Direction.Down;
                     moveY = -moveSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", true);
@@ -130,6 +149,7 @@ public class PlayerController : MonoBehaviour
                     rend.flipX = false;
                     break;
                 case KeyCode.LeftArrow:
+                    dir = Direction.Left;
                     moveX = -moveSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
@@ -138,6 +158,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 case KeyCode.RightArrow:
+                    dir = Direction.Right;
                     moveX = moveSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
@@ -148,21 +169,113 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            dir = Direction.None;
             animator.SetBool("goUp", false);
             animator.SetBool("goDown", false);
             animator.SetBool("goSide", false);
 
         }
-        
+
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
         transform.position += moveDirection;
             
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("나 맞았어요");
+        if (collision.gameObject.tag == "BOMB" || collision.gameObject.tag == "VEHICLE")
+        {
+            if (collision.gameObject.tag == "BOMB")
+                if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
+                    return;
+
+            SetHitDir(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BOMB")
+        {
+            if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
+            {
+                collision.GetComponent<BombController>().overlappingPlayer = "";
+                return;
+            }
+
+            if (hitObjectDirs.Count > 0)
+                hitObjectDirs.Remove(collision.gameObject.GetComponent<BombController>().getBombName());
+        }
+
+        if (collision.gameObject.tag == "VEHICLE")
+        {
+            if (hitObjectDirs.Count > 0)
+                hitObjectDirs.Remove(collision.gameObject.name);
+        }
+    }
+
+    bool CheckDir(Dictionary<string, Direction> object_directions, KeyCode latestKey)
+    {
+        if (object_directions.Count != 0)
+        {
+            foreach (KeyValuePair<string, Direction> direction in object_directions)
+            {
+                if (direction.Value == Direction.Up && latestKey == KeyCode.UpArrow)
+                    return true;
+                else if (direction.Value == Direction.Down && latestKey == KeyCode.DownArrow)
+                    return true;
+                else if (direction.Value == Direction.Left && latestKey == KeyCode.LeftArrow)
+                    return true;
+                else if (direction.Value == Direction.Right && latestKey == KeyCode.RightArrow)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    void SetHitDir(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "BOMB")
+        {
+            switch (dir)
+            {
+                case Direction.Up:
+                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Up;
+                    break;
+                case Direction.Down:
+                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Down;
+                    break;
+                case Direction.Left:
+                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Left;
+                    break;
+                case Direction.Right:
+                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Right;
+                    break;
+                case Direction.None:
+                    break;
+            }
+        }
+        else if (coll.gameObject.tag == "VEHICLE")
+        {
+            switch (dir)
+            {
+                case Direction.Up:
+                    hitObjectDirs[coll.gameObject.name] = Direction.Up;
+                    break;
+                case Direction.Down:
+                    hitObjectDirs[coll.gameObject.name] = Direction.Down;
+                    break;
+                case Direction.Left:
+                    hitObjectDirs[coll.gameObject.name] = Direction.Left;
+                    break;
+                case Direction.Right:
+                    hitObjectDirs[coll.gameObject.name] = Direction.Right;
+                    break;
+                case Direction.None:
+                    break;
+            }
+        }
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

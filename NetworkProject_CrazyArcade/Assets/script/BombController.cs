@@ -11,6 +11,11 @@ public class BombController : MonoBehaviour
     private Animator animator;
     private bool isBomb = false;
 
+    private string bombName = "";
+    public string overlappingPlayer = "";               // Player가 폭탄 배치시 오버랩된 플레이어를 판별하기 위한 string
+
+    public string getBombName() { return bombName; }
+    public void setBombName(string name) { bombName = name; }
 
     private int raycastDistance;
     private float distanceUp;
@@ -101,7 +106,7 @@ public class BombController : MonoBehaviour
         if (isBomb)
             return;
 
-
+        Instantiate(BombStream, transform.position, Quaternion.identity);
         for (int i = 1; i <= streamLength; i++)
         {
 
