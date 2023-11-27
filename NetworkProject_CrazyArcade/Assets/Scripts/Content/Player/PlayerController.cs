@@ -8,8 +8,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    public float moveSpeed = 5.0f;
     public Transform playerBomb;
     public GameObject Bomb;
 
@@ -17,9 +15,16 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer rend;
+
+    public PlayerStat playerstat;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerstat.playerSpeed = 5.0f;
+        playerstat.numberOfBombs = 1;
+        playerstat.bombLength = 1;
+        playerstat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
     }
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetKeyUp(key))
             {
                 keyTimes[key] = float.MinValue;
-            }
+            } 
         }
 
         // 가장 최근에 눌린 키 찾기
@@ -102,7 +107,7 @@ public class PlayerController : MonoBehaviour
             switch (latestKey)
             {
                 case KeyCode.UpArrow:
-                    moveY = moveSpeed * Time.deltaTime;
+                    moveY = playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", true);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", false);
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
                     rend.flipX = false;
                     break;
                 case KeyCode.DownArrow:
-                    moveY = -moveSpeed * Time.deltaTime;
+                    moveY = -playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", true);
                     animator.SetBool("goSide", false);
@@ -118,7 +123,7 @@ public class PlayerController : MonoBehaviour
                     rend.flipX = false;
                     break;
                 case KeyCode.LeftArrow:
-                    moveX = -moveSpeed * Time.deltaTime;
+                    moveX = -playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
@@ -126,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
                     break;
                 case KeyCode.RightArrow:
-                    moveX = moveSpeed * Time.deltaTime;
+                    moveX = playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);

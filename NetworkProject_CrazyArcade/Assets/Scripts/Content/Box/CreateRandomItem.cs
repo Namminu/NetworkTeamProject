@@ -5,11 +5,13 @@ using UnityEngine;
 public class CreateRandomItem : MonoBehaviour
 {
     public GameObject[] objectsToSpawn; // 생성할 오브젝트 배열
+    private bool createItem = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BombStream")
+        if (other.tag == "BombStream" && !createItem)
         {
+            createItem = true;
             Destroy(gameObject);
             SpawnRandomObject();
         }
