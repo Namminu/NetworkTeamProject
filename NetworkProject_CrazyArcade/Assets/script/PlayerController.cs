@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         //if (pv.isMine) Camera.main.GetComponent<FollowCam>().targetTr = tr;
 
         //동기화 연결 위함
-        pv.ObservedComponents[0] = this;
+       // pv.ObservedComponents[0] = this;
     }
 
     // Update is called once per frame
