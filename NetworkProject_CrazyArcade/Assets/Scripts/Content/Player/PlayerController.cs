@@ -16,7 +16,6 @@ enum Direction
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5.0f;
     public Transform playerBomb;
     public GameObject Bomb;
 
@@ -39,10 +38,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerstat = GetComponent<PlayerStat>();
         playerstat.bombLength = 1;
         playerstat.playerSpeed= 5.0f;
         playerstat.numberOfBombs= 1;
-        playerstat = GetComponent<PlayerStat>();
 
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
             {
                 case KeyCode.UpArrow:
                     dir = Direction.Up;
-                    moveY = moveSpeed * Time.deltaTime;
+                    moveY = playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", true);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", false);
@@ -148,7 +147,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.DownArrow:
                     dir = Direction.Down;
-                    moveY = -moveSpeed * Time.deltaTime;
+                    moveY = -playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", true);
                     animator.SetBool("goSide", false);
@@ -157,7 +156,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.LeftArrow:
                     dir = Direction.Left;
-                    moveX = -moveSpeed * Time.deltaTime;
+                    moveX = -playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
@@ -166,7 +165,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.RightArrow:
                     dir = Direction.Right;
-                    moveX = moveSpeed * Time.deltaTime;
+                    moveX = playerstat.playerSpeed * Time.deltaTime;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
