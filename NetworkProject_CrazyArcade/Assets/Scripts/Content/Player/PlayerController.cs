@@ -21,10 +21,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerstat = GetComponent<PlayerStat>();
         playerstat.playerSpeed = 5.0f;
         playerstat.numberOfBombs = 1;
         playerstat.bombLength = 1;
-        playerstat = GetComponent<PlayerStat>();
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
     }
