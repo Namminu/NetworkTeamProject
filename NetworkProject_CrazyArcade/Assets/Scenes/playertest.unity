@@ -195,7 +195,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 601107818}
   m_SourcePrefab: {fileID: 100100000, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
 --- !u!1 &333728854
 GameObject:
@@ -452,6 +455,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1656207201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &601107813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+  m_PrefabInstance: {fileID: 24918976}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &601107818
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601107813}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &680665256
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +598,7 @@ GameObject:
   - component: {fileID: 1656207202}
   - component: {fileID: 1656207203}
   - component: {fileID: 1656207204}
+  - component: {fileID: 1656207205}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -747,6 +783,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1656207205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656207198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73304f2d3abe7484d8ea2cf75c703776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 0
+  numberOfBombs: 0
+  bombLength: 0
 --- !u!1 &1977989013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4029292474237689570, guid: 687e5d40ee058fa42b12e00c0215d230, type: 3}

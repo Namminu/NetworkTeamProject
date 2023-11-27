@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BOMB
   - Wall
+  - BombStream
   layers:
   - Default
   - TransparentFX
