@@ -16,13 +16,18 @@ public class CreateRandomItem : MonoBehaviour
     public GameObject[] objectsToSpawn; // 생성할 오브젝트 배열
     private bool createItem = false;
 
-    public GameObject spawnObject = null;
-    private MaxItemInfo itemSpawnInfo;
+    private GameObject spawnObject = null;
+    private SpawnController itemSpawnInfo;
+
+    [Header("개발자 전용")]
+    [Tooltip ("체크 시 아이템 박스에서 무조건 아이템이 나오도록 보장해줍니다")]
+    [SerializeField] bool isAlwaysSpawnObject = false;
 
     private void Start()
     {
-        itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<MaxItemInfo>();
-        if(Random.Range(1, 10) > 6)
+        itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
+        Debug.Log((itemSpawnInfo.spawnRate * 10f));
+        if(Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
             SetRandomSpawnObject();
     }
 

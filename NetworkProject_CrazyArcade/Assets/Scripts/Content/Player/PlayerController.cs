@@ -39,10 +39,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerstat = GetComponent<PlayerStat>();
-        playerstat.bombLength = 1;
-        playerstat.playerSpeed= 3.0f;
-        playerstat.numberOfBombs= 1;
-
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
 

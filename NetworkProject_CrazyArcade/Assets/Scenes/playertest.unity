@@ -855,6 +855,12 @@ MonoBehaviour:
   playerSpeed: 0
   numberOfBombs: 0
   bombLength: 0
+  startPlayerSpeed: 3
+  startNumberOfBombs: 1
+  startBombLength: 1
+  MaxSpeed: 7
+  MaxBombs: 8
+  MaxBombStream: 8
 --- !u!1001 &1784810604
 PrefabInstance:
   m_ObjectHideFlags: 0

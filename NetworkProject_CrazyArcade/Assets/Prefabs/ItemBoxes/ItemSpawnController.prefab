@@ -47,3 +47,4 @@ MonoBehaviour:
   maxFeathers: 5
   maxBackPacks: 5
   maxScrolls: 5
+  spawnRate: 0.4
