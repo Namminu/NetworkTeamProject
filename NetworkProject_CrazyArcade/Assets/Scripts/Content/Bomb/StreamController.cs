@@ -14,15 +14,18 @@ public class StreamController : MonoBehaviour
     void Update()
     {
         
-    }
+    } 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("²¥¾Æ¾Æ1");
         if (other.tag == "BOMB")
         {
-            Debug.Log("²¥¾Æ¾Æ2");
             other.gameObject.GetComponent<BombController>().BombBombBomb();
+        }
+        if (other.gameObject.layer == LayerMask.NameToLayer("HitBox"))
+        {
+            print("1");
+            other.gameObject.GetComponentInParent<PlayerController>().IsDie();
         }
     }
 

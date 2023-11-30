@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 enum Direction
@@ -198,10 +199,13 @@ public class PlayerController : MonoBehaviour
 
             SetHitDir(collision);
         }
+        
+
+
         if (collision.gameObject.tag == "BombStream")
         {
-            Debug.Log("난 꿈이 있어요~");
-            //IsDie();
+            //Debug.Log("난 꿈이 있어요~");
+            
         }
     }
 
@@ -287,6 +291,11 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+        if (coll.gameObject.layer == LayerMask.NameToLayer("BombStream"))
+        {
+            print("1");
+            //IsDie();  
+        }
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -304,12 +313,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-        
-    }
-
-    void IsDie()
+    public void IsDie()
     {
         animator.SetTrigger("isDie");
         Destroy(this, 1.0f);
