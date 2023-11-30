@@ -16,13 +16,14 @@ public class CreateRandomItem : MonoBehaviour
     public GameObject[] objectsToSpawn; // 생성할 오브젝트 배열
     private bool createItem = false;
 
-    public GameObject spawnObject;
+    public GameObject spawnObject = null;
     private MaxItemInfo itemSpawnInfo;
 
     private void Start()
     {
         itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<MaxItemInfo>();
-        SetRandomSpawnObject();
+        if(Random.Range(1, 10) > 6)
+            SetRandomSpawnObject();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -37,31 +38,35 @@ public class CreateRandomItem : MonoBehaviour
 
     void SetRandomSpawnObject()
     {
-        int randomIndex = Random.Range(0, objectsToSpawn.Length); // 랜덤 인덱스 생성
-        if(itemCount[(int)ItemNumber.FEATHER] > itemSpawnInfo.maxFeathers)
+        int randomItemIndex = Random.Range(0, objectsToSpawn.Length); // 랜덤 인덱스 생성
+        itemCount[randomItemIndex]++;
+        if (itemCount[(int)ItemNumber.FEATHER] > itemSpawnInfo.maxFeathers)
         {
+            itemCount[(int)ItemNumber.FEATHER]--;
             SetRandomSpawnObject();
             return;
         }
 
         if (itemCount[(int)ItemNumber.BACKPACK] > itemSpawnInfo.maxBackPacks)
         {
+            itemCount[(int)ItemNumber.BACKPACK]--;
             SetRandomSpawnObject();
             return;
         }
 
         if (itemCount[(int)ItemNumber.SCROLL] > itemSpawnInfo.maxScrolls)
         {
+            itemCount[(int)ItemNumber.SCROLL]--;
             SetRandomSpawnObject();
             return;
         }
 
-        spawnObject = objectsToSpawn[randomIndex];
-        itemCount[randomIndex]++;
+        spawnObject = objectsToSpawn[randomItemIndex];
     }
 
     void SpawnRandomObject()
     {
-        Instantiate(spawnObject, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+        if(spawnObject)
+            Instantiate(spawnObject, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
     }
 }

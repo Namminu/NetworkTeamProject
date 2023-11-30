@@ -21,7 +21,7 @@ public abstract class BaseItem : MonoBehaviour
 
         if(other.gameObject.tag == "BombStream")
         {
-            //Destroy(gameObject);          // 폭발 물줄기에 닿으면 ItemBox가 사라지는 것을 구현한 후에 주석 풀어야 됨
+            Destroy(gameObject);          // 폭발 물줄기에 닿으면 ItemBox가 사라지는 것을 구현한 후에 주석 풀어야 됨
         }
     }
 }
