@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         playerstat = GetComponent<PlayerStat>();
         playerstat.bombLength = 1;
-        playerstat.playerSpeed= 5.0f;
+        playerstat.playerSpeed= 3.0f;
         playerstat.numberOfBombs= 1;
 
         animator = GetComponent<Animator>();
