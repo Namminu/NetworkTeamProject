@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1969011324178302709}
   - component: {fileID: 1969011324178302708}
   - component: {fileID: 1606200492422171221}
-  - component: {fileID: 7740992588202539235}
+  - component: {fileID: 9205516442601579364}
   m_Layer: 0
   m_Name: YellowBox
   m_TagString: VEHICLE
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
---- !u!114 &7740992588202539235
+--- !u!114 &9205516442601579364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,4 +147,4 @@ MonoBehaviour:
   - {fileID: 7600012579988621560, guid: 8a8e45727a705c343baf7319991530b1, type: 3}
   - {fileID: 5519369541515782920, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
   - {fileID: 4029292474237689570, guid: 46730e63151c04e499aa7257b46abdbb, type: 3}
-  spawnObject: {fileID: 0}
+  isAlwaysSpawnObject: 0

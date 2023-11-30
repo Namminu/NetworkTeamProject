@@ -43,6 +43,13 @@ public class CreateRandomItem : MonoBehaviour
 
     void SetRandomSpawnObject()
     {
+        if(itemCount[(int)ItemNumber.FEATHER] == itemSpawnInfo.maxFeathers && 
+            itemCount[(int)ItemNumber.BACKPACK] == itemSpawnInfo.maxBackPacks && 
+            itemCount[(int)ItemNumber.SCROLL] == itemSpawnInfo.maxScrolls)
+        {
+            return;
+        }
+
         int randomItemIndex = Random.Range(0, objectsToSpawn.Length); // ·£´ý ÀÎµ¦½º »ý¼º
         itemCount[randomItemIndex]++;
         if (itemCount[(int)ItemNumber.FEATHER] > itemSpawnInfo.maxFeathers)
