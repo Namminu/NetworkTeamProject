@@ -6,9 +6,9 @@ public class PlayerStat : MonoBehaviour
 {
     //플레이어 스탯
     [Header ("Player Stats")]
-    public float playerSpeed;
-    public int numberOfBombs;
-    public int bombLength;
+    [HideInInspector] public float playerSpeed;
+    [HideInInspector] public int numberOfBombs;
+    [HideInInspector] public int bombLength;
 
     [Header("Player Start Stats")]
     [SerializeField] float startPlayerSpeed;
