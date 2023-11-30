@@ -198,6 +198,11 @@ public class PlayerController : MonoBehaviour
 
             SetHitDir(collision);
         }
+        if (collision.gameObject.tag == "BombStream")
+        {
+            Debug.Log("난 꿈이 있어요~");
+            //IsDie();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -298,5 +303,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        
+    }
+
+    void IsDie()
+    {
+        animator.SetTrigger("isDie");
+        Destroy(this, 1.0f);
+    }
 }
 
