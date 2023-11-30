@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PhotonInit : Photon.PunBehaviour
 {
-    void Awake()
+	public InputField playerInput;
+	bool isGameStart = false;
+	string playerName = "";
+
+	void Awake()
     {
         //서버 버전별 분리
         PhotonNetwork.ConnectUsingSettings("NetworkProject Server 1.0");
@@ -44,13 +50,25 @@ public class PhotonInit : Photon.PunBehaviour
 	/* 추후 랜덤 플레이어 캐릭터를 지정된 위치에서 생성하도록 수정 예정 */
 	IEnumerator CreatePlayer()
 	{
-		PhotonNetwork.Instantiate("Player", new Vector2(0, 0), Quaternion.identity, 0);
-		yield return null;
+		GameObject tempPlayer = PhotonNetwork.Instantiate("player", new Vector2(0, 0), Quaternion.identity, 0);
+        tempPlayer.GetComponent<PlayerController>().playerstat.playerName.text = playerName;
+        yield return null;
 	}
 
 	void OnGUI()
 	{
 		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
 	}
+
+	/// <summary>
+	///  캐릭터 아이디를 갖고 로비씬으로 이동
+	/// </summary>
+    public void MoveToLobby()
+    {
+        SceneManager.LoadScene("LobbyLevel");
+        //PhotonNewtwork.LoadLevel("LobbyLevel");
+		playerName = playerInput.text;
+		isGameStart = true;
+    }
 }
  

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer rend;
 
+    //private Text playerName;
     private Transform tr;
     private PhotonView pv;
     private Vector2 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerstat = GetComponent<PlayerStat>();
+        playerstat.playerName = "";
         playerstat.bombLength = 1;
         playerstat.playerSpeed= 5.0f;
         playerstat.numberOfBombs= 1;
