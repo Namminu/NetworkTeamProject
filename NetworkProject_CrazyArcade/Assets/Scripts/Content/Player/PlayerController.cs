@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private int bombCount = 0;
 
     public PlayerStat playerstat;
+    public float unboundValue;
 
     // Start is called before the first frame update
     void Start()
@@ -200,20 +201,25 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BOMB")
         {
-            if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
+            BombController bombColl = collision.GetComponent<BombController>();
+            if (bombColl.overlappingPlayer == gameObject.name)
             {
-                collision.GetComponent<BombController>().overlappingPlayer = "";
+                bombColl.overlappingPlayer = "";
                 return;
             }
 
-            if (hitObjectDirs.Count > 0)
-                hitObjectDirs.Remove(collision.gameObject.GetComponent<BombController>().getBombName());
+            if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(bombColl.getBombName()))
+            {
+                hitObjectDirs.Remove(bombColl.getBombName());
+            }
         }
 
         if (collision.gameObject.tag == "VEHICLE")
         {
-            if (hitObjectDirs.Count > 0)
+            if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(collision.gameObject.name))
+            {
                 hitObjectDirs.Remove(collision.gameObject.name);
+            }
         }
     }
 
@@ -293,6 +299,5 @@ public class PlayerController : MonoBehaviour
             currentRot = (Quaternion)stream.ReceiveNext();
         }
     }
-
 }
 
