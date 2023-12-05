@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum Direction
 {
@@ -35,11 +36,8 @@ public class PlayerController : MonoBehaviour
     private int bombCount = 0;
 
     public PlayerStat playerstat;
-
-    // Start is called before the first frame update
     void Start()
     {
-        playerstat = GetComponent<PlayerStat>();
         playerstat.playerName = "";
         playerstat.bombLength = 1;
         playerstat.playerSpeed= 5.0f;
@@ -62,6 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         playerMove();
         PutBomb();
+
     }
 
     //ÆøÅº ³õ±â
