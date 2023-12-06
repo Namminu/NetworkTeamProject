@@ -75,7 +75,7 @@ public class CreateRandomItem : MonoBehaviour
         spawnObject = objectsToSpawn[randomItemIndex];
     }
 
-    void SpawnRandomObject()
+    public void SpawnRandomObject()
     {
         if (spawnObject)
         {
