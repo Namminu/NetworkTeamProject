@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
     private int bombCount = 0;
 
+    private bool isPlayerDie;
+
     public PlayerStat playerstat;
 
     // Start is called before the first frame update
@@ -49,18 +51,24 @@ public class PlayerController : MonoBehaviour
 
         tr = GetComponent<Transform>();
         pv = GetComponent<PhotonView>();
+
+        isPlayerDie = false;
         //이 게임에서는 플레이어에 카메라가 부착될 필요가 없다고 생각해서 일단 주석처리
         //if (pv.isMine) Camera.main.GetComponent<FollowCam>().targetTr = tr;
 
         //동기화 연결 위함
-       // pv.ObservedComponents[0] = this;
+        // pv.ObservedComponents[0] = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerMove();
-        PutBomb();
+        if(!isPlayerDie)
+        {
+            playerMove();
+            PutBomb();
+        }
+        
     }
 
     //폭탄 놓기
@@ -291,11 +299,6 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        if (coll.gameObject.layer == LayerMask.NameToLayer("BombStream"))
-        {
-            print("1");
-            //IsDie();  
-        }
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -315,6 +318,7 @@ public class PlayerController : MonoBehaviour
 
     public void IsDie()
     {
+        isPlayerDie = true;
         animator.SetTrigger("isDie");
         Destroy(this, 1.0f);
     }

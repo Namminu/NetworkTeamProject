@@ -17,9 +17,11 @@ public class CreateRandomItem : MonoBehaviour
         }
     }
 
-    void SpawnRandomObject()
+    public void SpawnRandomObject()
     {
+        createItem = true;
+        Destroy(gameObject);
         int randomIndex = Random.Range(0, objectsToSpawn.Length); // 랜덤 인덱스 생성
-        Instantiate(objectsToSpawn[randomIndex], transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+        //Instantiate(objectsToSpawn[randomIndex], transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
     }
 }

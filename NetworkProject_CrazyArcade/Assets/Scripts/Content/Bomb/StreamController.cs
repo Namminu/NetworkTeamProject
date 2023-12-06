@@ -24,7 +24,6 @@ public class StreamController : MonoBehaviour
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("HitBox"))
         {
-            print("1");
             other.gameObject.GetComponentInParent<PlayerController>().IsDie();
         }
     }
