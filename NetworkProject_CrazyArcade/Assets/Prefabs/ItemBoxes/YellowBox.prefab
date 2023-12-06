@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1969011324178302709}
   - component: {fileID: 1969011324178302708}
-  - component: {fileID: 9034677481736467196}
-  - component: {fileID: 1213481952770483846}
+  - component: {fileID: 1606200492422171221}
+  - component: {fileID: 9205516442601579364}
   m_Layer: 0
-  m_Name: Block_01
-  m_TagString: Untagged
+  m_Name: YellowBox
+  m_TagString: VEHICLE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 19b6eed4b17a4b65886b7d5550712d38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9070c0371fd540238bfc29f9559e1b92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &9034677481736467196
+--- !u!61 &1606200492422171221
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 1.9}
   m_EdgeRadius: 0
---- !u!114 &1213481952770483846
+--- !u!114 &9205516442601579364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1969011324178302711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3797354cc82a4d943bd73794ed02f454, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d75dfe61d30a446b55b0abb3d02e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectsToSpawn:
+  - {fileID: 7600012579988621560, guid: 8a8e45727a705c343baf7319991530b1, type: 3}
+  - {fileID: 5519369541515782920, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
+  - {fileID: 4029292474237689570, guid: 46730e63151c04e499aa7257b46abdbb, type: 3}
+  isAlwaysSpawnObject: 0

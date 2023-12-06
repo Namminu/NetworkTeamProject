@@ -37,14 +37,16 @@ public class PlayerController : MonoBehaviour
     private int bombCount = 0;
 
     private bool isPlayerDie;
-
     public PlayerStat playerstat;
+
     void Start()
     {
         playerstat.playerName = "";
         playerstat.bombLength = 1;
         playerstat.playerSpeed= 5.0f;
         playerstat.numberOfBombs= 1;
+
+        //playerstat = GetComponent<PlayerStat>();          // 혹시 모르니 주석 처리
 
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
@@ -220,20 +222,25 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BOMB")
         {
-            if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
+            BombController bombColl = collision.GetComponent<BombController>();
+            if (bombColl.overlappingPlayer == gameObject.name)
             {
-                collision.GetComponent<BombController>().overlappingPlayer = "";
+                bombColl.overlappingPlayer = "";
                 return;
             }
 
-            if (hitObjectDirs.Count > 0)
-                hitObjectDirs.Remove(collision.gameObject.GetComponent<BombController>().getBombName());
+            if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(bombColl.getBombName()))
+            {
+                hitObjectDirs.Remove(bombColl.getBombName());
+            }
         }
 
         if (collision.gameObject.tag == "VEHICLE")
         {
-            if (hitObjectDirs.Count > 0)
+            if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(collision.gameObject.name))
+            {
                 hitObjectDirs.Remove(collision.gameObject.name);
+            }
         }
     }
 
@@ -313,7 +320,6 @@ public class PlayerController : MonoBehaviour
             currentRot = (Quaternion)stream.ReceiveNext();
         }
     }
-
 
     public void IsDie()
     {
