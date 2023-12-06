@@ -105,7 +105,7 @@ public class BombController : MonoBehaviour
     {
         // 아이템박스와의 거리
         {
-            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("Box"));
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
             if (hitUp.collider != null)
             {
                 if(distanceUp > hitUp.distance)
@@ -123,7 +123,7 @@ public class BombController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
 
             // 하
-            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("Box"));
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("ItemBox"));
             if (hitDown.collider != null)
             {
                 if (distanceDown > hitDown.distance)
@@ -141,7 +141,7 @@ public class BombController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
 
             // 좌
-            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("Box"));
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("ItemBox"));
             if (hitLeft.collider != null)
             {
                 if (distanceLeft > hitLeft.distance)
@@ -159,7 +159,7 @@ public class BombController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
 
             // 우
-            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("Box"));
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("ItemBox"));
             if (hitRight.collider != null)
             {
                 if (distanceRight > hitRight.distance)

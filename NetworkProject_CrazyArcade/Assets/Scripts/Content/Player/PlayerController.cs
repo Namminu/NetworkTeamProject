@@ -42,9 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerstat.playerName = "";
-        playerstat.bombLength = 1;
-        playerstat.playerSpeed= 5.0f;
-        playerstat.numberOfBombs= 1;
+
 
         //playerstat = GetComponent<PlayerStat>();          // 혹시 모르니 주석 처리
 
