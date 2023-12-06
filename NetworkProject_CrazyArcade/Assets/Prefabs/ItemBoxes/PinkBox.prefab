@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1969011324178302708}
   - component: {fileID: 7366404431297551983}
   - component: {fileID: 8704524457680681952}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PinkBox
   m_TagString: VEHICLE
   m_Icon: {fileID: 0}
