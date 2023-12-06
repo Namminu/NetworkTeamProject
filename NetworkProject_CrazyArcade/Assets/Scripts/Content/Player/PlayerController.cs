@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum Direction
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer rend;
 
+    //private Text playerName;
     private Transform tr;
     private PhotonView pv;
     private Vector2 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
@@ -37,11 +39,9 @@ public class PlayerController : MonoBehaviour
     private bool isPlayerDie;
 
     public PlayerStat playerstat;
-
-    // Start is called before the first frame update
     void Start()
     {
-        playerstat = GetComponent<PlayerStat>();
+        playerstat.playerName = "";
         playerstat.bombLength = 1;
         playerstat.playerSpeed= 5.0f;
         playerstat.numberOfBombs= 1;
@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
             playerMove();
             PutBomb();
         }
-        
     }
 
     //폭탄 놓기
