@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BombController : MonoBehaviour
@@ -35,7 +32,7 @@ public class BombController : MonoBehaviour
     // Start is called before the first frame upd ate
     void Start()
     {
-        
+
         animator = GetComponent<Animator>();
         Invoke("BombAction", bombTime);
         raycastDistance = streamLength;
@@ -45,76 +42,67 @@ public class BombController : MonoBehaviour
         distanceDown = streamLength;
         distanceLeft = streamLength;
         distanceRight = streamLength;
-        // 상
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("Wall"));
-        if (hitUp.collider != null)
-        {
-            distanceUp = hitUp.distance;
 
-            Debug.Log("상 방향과의 거리: " + distanceUp);
+        // 벽 거리
+        {
+            // 상
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitUp.collider != null)
+            {
+                distanceUp = hitUp.distance;
+
+                Debug.Log("상 방향과의 거리: " + distanceUp);
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
+
+            // 하
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitDown.collider != null)
+            {
+                distanceDown = hitDown.distance;
+                Debug.Log("하 방향과의 거리: " + distanceDown);
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
+
+            // 좌
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitLeft.collider != null)
+            {
+                distanceLeft = hitLeft.distance;
+                Debug.Log("좌 방향과의 거리: " + distanceLeft);
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
+
+            // 우
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitRight.collider != null)
+            {
+                distanceRight = hitRight.distance;
+                Debug.Log("우 방향과의 거리: " + distanceRight);
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
         }
 
-        // 디버그 Ray 그리기
-        Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
 
-        // 하
-        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("Wall"));
-        if (hitDown.collider != null)
-        {
-            distanceDown = hitDown.distance;
-            Debug.Log("하 방향과의 거리: " + distanceDown);
-        }
-
-        // 디버그 Ray 그리기
-        Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
-
-        // 좌
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("Wall"));
-        if (hitLeft.collider != null)
-        {
-            distanceLeft = hitLeft.distance;
-            Debug.Log("좌 방향과의 거리: " + distanceLeft);
-        }
-
-        // 디버그 Ray 그리기
-        Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
-
-        // 우
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("Wall"));
-        if (hitRight.collider != null)
-        {
-            distanceRight = hitRight.distance;
-            Debug.Log("우 방향과의 거리: " + distanceRight);
-        }
-
-        // 디버그 Ray 그리기
-        Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    { 
-
-
-            
-    }
-
-
-    void BombAction()
-    {
-        // 아이템박스와의 거리
+        //아이템 박스 거리
         {
             RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
             if (hitUp.collider != null)
             {
-                if(distanceUp > hitUp.distance)
+                if (distanceUp > hitUp.distance)
                 {
                     distanceUp = hitUp.distance;
-                    hitUp.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
-                
+
 
                 Debug.Log("상 방향과의 거리: " + distanceUp);
             }
@@ -129,10 +117,9 @@ public class BombController : MonoBehaviour
                 if (distanceDown > hitDown.distance)
                 {
                     distanceDown = hitDown.distance;
-                    hitDown.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
-                
+
 
                 Debug.Log("하 방향과의 거리: " + distanceDown);
             }
@@ -147,10 +134,9 @@ public class BombController : MonoBehaviour
                 if (distanceLeft > hitLeft.distance)
                 {
                     distanceLeft = hitLeft.distance;
-                    hitLeft.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
-               
+
 
                 Debug.Log("좌 방향과의 거리: " + distanceLeft);
             }
@@ -165,11 +151,78 @@ public class BombController : MonoBehaviour
                 if (distanceRight > hitRight.distance)
                 {
                     distanceRight = hitRight.distance;
-                    hitRight.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
                 Debug.Log("우 방향과의 거리: " + distanceRight);
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+
+    }
+
+
+    void BombAction()
+    {
+        // 아이템박스와의 거리
+        {
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitUp.collider != null)
+            {
+                if (distanceUp == hitUp.distance)
+                {
+                    hitUp.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
+                }
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
+
+            // 하
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitDown.collider != null)
+            {
+                if (distanceDown == hitDown.distance)
+                {
+                    hitDown.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
+                }
+
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
+
+            // 좌
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitLeft.collider != null)
+            {
+                if (distanceLeft == hitLeft.distance)
+                {
+                    hitLeft.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
+                }
+            }
+
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
+
+            // 우
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitRight.collider != null)
+            {
+                if (distanceRight == hitRight.distance)
+                {
+                    hitRight.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
+                }
             }
 
             // 디버그 Ray 그리기
@@ -190,23 +243,23 @@ public class BombController : MonoBehaviour
             if (distanceUp >= i)
             {
 
-                
+
                 Instantiate(BombStream, transform.position + new Vector3(0, i, 0), Quaternion.Euler(new Vector3(0, 0, 90)));
             }
-            
+
             // 아래
-            if(distanceDown >= i)
+            if (distanceDown >= i)
             {
 
-                
-                Instantiate(BombStream, transform.position + new Vector3(0, -i, 0), Quaternion.Euler(new Vector3(0, 0 ,-90)));
+
+                Instantiate(BombStream, transform.position + new Vector3(0, -i, 0), Quaternion.Euler(new Vector3(0, 0, -90)));
             }
 
             // 왼쪽
             if (distanceLeft >= i)
             {
 
-                
+
                 Instantiate(BombStream, transform.position + new Vector3(-i, 0, 0), Quaternion.Euler(new Vector3(0, 0, 180)));
             }
 
@@ -214,7 +267,7 @@ public class BombController : MonoBehaviour
             if (distanceRight >= i)
             {
 
-                
+
                 Instantiate(BombStream, transform.position + new Vector3(i, 0, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
             }
 

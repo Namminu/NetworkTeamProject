@@ -323,7 +323,7 @@ public class PlayerController : MonoBehaviour
     {
         isPlayerDie = true;
         animator.SetTrigger("isDie");
-        Destroy(this, 1.0f);
+        Destroy(gameObject, 2.0f);
     }
 }
 
