@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,16 +35,22 @@ public class PlayerController : MonoBehaviour
 
     private Direction dir = Direction.Down;
     private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
+
     private int bombCount = 0;
 
     private bool isPlayerDie;
     public PlayerStat playerstat;
 
+    [SerializeField]
+    private GameObject[] bombNumbers;
+
+
     void Start()
     {
         playerstat.playerName = "";
 
-
+        bombNumbers = new GameObject[playerstat.numberOfBombs]; 
+        System.Array.Clear(bombNumbers, 0, playerstat.numberOfBombs);
         //playerstat = GetComponent<PlayerStat>();          // 혹시 모르니 주석 처리
 
         animator = GetComponent<Animator>();
@@ -67,13 +74,14 @@ public class PlayerController : MonoBehaviour
         {
             playerMove();
             PutBomb();
+            CheckNumberBombs();
         }
     }
 
     //폭탄 놓기
     void PutBomb()
     {
-        if(bombNum > 0)
+        if(playerstat.numberOfBombs > bombCount)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
@@ -99,11 +107,42 @@ public class PlayerController : MonoBehaviour
                 }
 
                 GameObject bomb = Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
+
+                for(int i = 0; i < playerstat.numberOfBombs; i++)
+                {
+                    if (bombNumbers[i] == null)
+                    {
+                        bombCount++;
+                        bombNumbers[i] = bomb;
+                        break;
+                    }
+                }
+
+
+                bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
+
                 bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
                 bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
             }
         }
     }
+
+    void CheckNumberBombs()
+    {
+        System.Array.Resize(ref bombNumbers, playerstat.numberOfBombs);
+        int bombnotNull = 0;
+        for (int i = 0; i < playerstat.numberOfBombs; i++)
+        {
+            if (bombNumbers[i] != null)
+            {
+                bombnotNull++;
+            }
+        }
+
+        if(bombnotNull != bombCount)
+            bombCount = bombnotNull;
+    }
+
 
 
     // 키의 처음 시간
@@ -206,14 +245,7 @@ public class PlayerController : MonoBehaviour
 
             SetHitDir(collision);
         }
-        
-
-
-        if (collision.gameObject.tag == "BombStream")
-        {
-            //Debug.Log("난 꿈이 있어요~");
-            
-        }
+       
     }
 
     private void OnTriggerExit2D(Collider2D collision)

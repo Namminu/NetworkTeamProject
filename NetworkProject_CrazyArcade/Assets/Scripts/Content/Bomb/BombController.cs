@@ -3,7 +3,7 @@ using UnityEngine;
 public class BombController : MonoBehaviour
 {
     public float bombTime = 3.0f;
-    public int streamLength = 1;
+    public int streamLength;
     public GameObject BombStream;
     private Animator animator;
     private bool isBomb = false;
@@ -15,6 +15,7 @@ public class BombController : MonoBehaviour
     public void setBombName(string name) { bombName = name; }
 
     private int raycastDistance;
+
     private float distanceUp;
     private float distanceDown;
     private float distanceLeft;
@@ -36,7 +37,6 @@ public class BombController : MonoBehaviour
         animator = GetComponent<Animator>();
         Invoke("BombAction", bombTime);
         raycastDistance = streamLength;
-
 
         distanceUp = streamLength;
         distanceDown = streamLength;
@@ -174,6 +174,8 @@ public class BombController : MonoBehaviour
 
     void BombAction()
     {
+        if (isBomb)
+            return;
         // 아이템박스와의 거리
         {
             RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
@@ -232,8 +234,7 @@ public class BombController : MonoBehaviour
 
 
 
-        if (isBomb)
-            return;
+        
 
         Instantiate(BombStream, transform.position, Quaternion.identity);
         for (int i = 1; i <= streamLength; i++)
@@ -273,7 +274,10 @@ public class BombController : MonoBehaviour
 
         }
         isBomb = true;
+
+        GetComponent<BoxCollider2D>().enabled = false;
         Destroy(gameObject, 0.8f);
+
     }
 
     // 물줄기에 폭탄이 닿았을때 터지기
@@ -281,6 +285,12 @@ public class BombController : MonoBehaviour
     {
         animator.SetTrigger("isBomb");
         BombAction();
+    }
+
+    public void BombstreamLength(int length)
+    {
+        Debug.Log(length);
+        streamLength = length;
     }
 }
 

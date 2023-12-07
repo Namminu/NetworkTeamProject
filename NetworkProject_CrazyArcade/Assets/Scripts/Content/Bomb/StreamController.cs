@@ -8,6 +8,7 @@ public class StreamController : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 0.8f);
+        Invoke("ColliderOff", 0.4f);
     }
 
     // Update is called once per frame
@@ -27,6 +28,11 @@ public class StreamController : MonoBehaviour
             other.gameObject.GetComponentInParent<PlayerController>().IsDie();
         }
     }
+
+    private void ColliderOff()
+    {
+        GetComponent<BoxCollider2D>().enabled = false; 
+    } 
 
 
 }
