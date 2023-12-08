@@ -7,7 +7,7 @@ public class StreamController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 0.8f);
+        Destroy(gameObject, 0.4f);
         Invoke("ColliderOff", 0.4f);
     }
 

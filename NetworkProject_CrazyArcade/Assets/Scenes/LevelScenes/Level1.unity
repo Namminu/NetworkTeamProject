@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -196,6 +200,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -276,6 +284,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -393,6 +405,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -463,6 +479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -520,7 +540,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -679,6 +699,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -821,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (56)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -854,6 +882,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -919,6 +951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -1035,6 +1071,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1163,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (61)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1272,6 +1316,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1400,6 +1448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (62)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1464,6 +1516,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1550,6 +1606,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1625,6 +1685,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1663,6 +1727,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -1743,6 +1811,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -1875,6 +1947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1944,6 +2020,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (47)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2020,6 +2100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2085,6 +2169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2103,6 +2191,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -2225,6 +2317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (96)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2289,6 +2385,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2421,6 +2521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2434,6 +2538,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -2509,6 +2617,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -2626,6 +2738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (92)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2700,6 +2816,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (57)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2798,7 +2918,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2941,6 +3061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (63)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2959,6 +3083,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -3076,6 +3204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3089,6 +3221,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -3211,6 +3347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (67)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3275,6 +3415,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3341,6 +3485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3406,6 +3554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (68)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3419,6 +3571,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -3536,6 +3692,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3606,6 +3766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3670,6 +3834,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (60)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3746,6 +3914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3759,6 +3931,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -3901,6 +4077,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3965,6 +4145,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4031,6 +4215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4095,6 +4283,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4309,6 +4501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4373,6 +4569,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4454,6 +4654,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4506,7 +4710,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4649,6 +4853,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (71)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4714,6 +4922,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4778,6 +4990,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4933,6 +5149,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (69)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4998,6 +5218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (66)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5062,6 +5286,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5133,6 +5361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (59)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5202,6 +5434,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5273,6 +5509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (70)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5337,6 +5577,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5403,6 +5647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5459,22 +5707,6 @@ PrefabInstance:
     - target: {fileID: 975288008589873239, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2545270475564414996, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
-      propertyPath: MaxBombs
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2545270475564414996, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
-      propertyPath: MaxSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2545270475564414996, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
-      propertyPath: MaxBombStream
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2545270475564414996, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
-      propertyPath: startBombLength
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5546,6 +5778,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (49)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5564,6 +5800,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -5629,6 +5869,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -5699,6 +5943,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -5826,6 +6074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (64)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5891,6 +6143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5914,6 +6170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -6120,6 +6380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6184,6 +6448,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6250,6 +6518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (86)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6314,6 +6586,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6430,6 +6706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (58)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6500,6 +6780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6564,6 +6848,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8764,6 +9052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8864,6 +9156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8887,6 +9183,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -9003,6 +9303,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (73)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9166,6 +9470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9242,6 +9550,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
       propertyPath: m_Name
       value: Block_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9328,6 +9640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (95)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9393,6 +9709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (91)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9406,6 +9726,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -9523,6 +9847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (87)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9587,6 +9915,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9653,6 +9985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9705,7 +10041,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -9853,6 +10189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9871,6 +10211,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10092,6 +10436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (88)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10105,6 +10453,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10222,6 +10574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10286,6 +10642,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
       propertyPath: m_Name
       value: Block_01 (65)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10352,6 +10712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 3633452489176323432, guid: ba9e7b85b1bc400899578d3d4af1bf09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10365,6 +10729,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10492,6 +10860,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (90)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10515,6 +10887,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10632,6 +11008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10645,6 +11025,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -10735,6 +11119,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 608819503982150525, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5519369541515782920, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
       propertyPath: m_Name
       value: backpack-2 (1)
@@ -10853,6 +11241,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (97)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11008,6 +11400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11077,6 +11473,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11217,6 +11617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11292,6 +11696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (93)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11356,6 +11764,10 @@ PrefabInstance:
     - target: {fileID: 1969011324178302711, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
       propertyPath: m_Name
       value: Block_01 (94)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11455,6 +11867,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11468,6 +11884,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -11533,6 +11953,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -11749,6 +12173,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (72)
       objectReference: {fileID: 0}
+    - target: {fileID: 9034677481736467196, guid: 06a3ab468dd74732871577493d4ca32f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11767,6 +12195,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -11884,6 +12316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (89)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11954,6 +12390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block_01 (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 7366404431297551983, guid: a4c8e86d8b534441afba438b645cf91f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11967,6 +12407,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -12032,6 +12476,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 975894358}
     m_Modifications:
+    - target: {fileID: 1606200492422171221, guid: e11291ee19744b96b825451f3eb36151, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1969011324178302709, guid: e11291ee19744b96b825451f3eb36151, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5

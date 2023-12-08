@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 enum Direction
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer rend;
+    private Rigidbody2D rb;
 
     //private Text playerName;
     private Transform tr;
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject[] bombNumbers;
 
+    private Vector3 movespeed;
 
     void Start()
     {
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
         tr = GetComponent<Transform>();
         pv = GetComponent<PhotonView>();
@@ -65,14 +69,20 @@ public class PlayerController : MonoBehaviour
 
         //동기화 연결 위함
         // pv.ObservedComponents[0] = this;
+        movespeed = Vector3.zero;
     }
 
+    private void FixedUpdate()
+    {
+        if (!isPlayerDie)
+            rb.velocity = movespeed;
+    }
     // Update is called once per frame
     void Update()
     {
         if(!isPlayerDie)
         {
-            playerMove();
+            movespeed = playerMove();
             PutBomb();
             CheckNumberBombs();
         }
@@ -154,7 +164,7 @@ public class PlayerController : MonoBehaviour
         { KeyCode.RightArrow, float.MinValue },
     };
 
-    void playerMove()
+    Vector3 playerMove()
     {       
         float moveY = 0f;
         float moveX = 0f;
@@ -176,7 +186,7 @@ public class PlayerController : MonoBehaviour
         KeyCode latestKey = keyTimes.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
 
         if (CheckDir(hitObjectDirs, latestKey))
-            return;
+            return Vector3.zero;
 
         // 그 키에 따라 캐릭터 움직이기
         if (keyTimes[latestKey] != float.MinValue)
@@ -185,7 +195,7 @@ public class PlayerController : MonoBehaviour
             {
                 case KeyCode.UpArrow:
                     dir = Direction.Up;
-                    moveY = playerstat.playerSpeed * Time.deltaTime;
+                        moveY = playerstat.playerSpeed ;
                     animator.SetBool("goUp", true);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", false);
@@ -194,7 +204,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.DownArrow:
                     dir = Direction.Down;
-                    moveY = -playerstat.playerSpeed * Time.deltaTime;
+                        moveY = -playerstat.playerSpeed ;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", true);
                     animator.SetBool("goSide", false);
@@ -203,7 +213,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.LeftArrow:
                     dir = Direction.Left;
-                    moveX = -playerstat.playerSpeed * Time.deltaTime;
+                        moveX = -playerstat.playerSpeed ;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
@@ -212,10 +222,11 @@ public class PlayerController : MonoBehaviour
                     break;
                 case KeyCode.RightArrow:
                     dir = Direction.Right;
-                    moveX = playerstat.playerSpeed * Time.deltaTime;
+                        moveX = playerstat.playerSpeed ;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
+
                     rend.flipX = true;
                     break;
             }
@@ -231,13 +242,13 @@ public class PlayerController : MonoBehaviour
 
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
-        transform.position += moveDirection;
-            
+        //transform.position += moveDirection;
+        return moveDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BOMB" || collision.gameObject.tag == "VEHICLE")
+        if (collision.gameObject.tag == "BOMB" /*|| collision.gameObject.tag == "VEHICLE"*/)
         {
             if (collision.gameObject.tag == "BOMB")
                 if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
@@ -265,13 +276,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "VEHICLE")
-        {
-            if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(collision.gameObject.name))
-            {
-                hitObjectDirs.Remove(collision.gameObject.name);
-            }
-        }
+        //if (collision.gameObject.tag == "VEHICLE")
+        //{
+        //    if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(collision.gameObject.name))
+        //    {
+        //        hitObjectDirs.Remove(collision.gameObject.name);
+        //    }
+        //}
     }
 
     bool CheckDir(Dictionary<string, Direction> object_directions, KeyCode latestKey)
@@ -315,26 +326,26 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        else if (coll.gameObject.tag == "VEHICLE")
-        {
-            switch (dir)
-            {
-                case Direction.Up:
-                    hitObjectDirs[coll.gameObject.name] = Direction.Up;
-                    break;
-                case Direction.Down:
-                    hitObjectDirs[coll.gameObject.name] = Direction.Down;
-                    break;
-                case Direction.Left:
-                    hitObjectDirs[coll.gameObject.name] = Direction.Left;
-                    break;
-                case Direction.Right:
-                    hitObjectDirs[coll.gameObject.name] = Direction.Right;
-                    break;
-                case Direction.None:
-                    break;
-            }
-        }
+        //else if (coll.gameObject.tag == "VEHICLE")
+        //{
+        //    switch (dir)
+        //    {
+        //        case Direction.Up:
+        //            hitObjectDirs[coll.gameObject.name] = Direction.Up;
+        //            break;
+        //        case Direction.Down:
+        //            hitObjectDirs[coll.gameObject.name] = Direction.Down;
+        //            break;
+        //        case Direction.Left:
+        //            hitObjectDirs[coll.gameObject.name] = Direction.Left;
+        //            break;
+        //        case Direction.Right:
+        //            hitObjectDirs[coll.gameObject.name] = Direction.Right;
+        //            break;
+        //        case Direction.None:
+        //            break;
+        //    }
+        //}
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -353,9 +364,12 @@ public class PlayerController : MonoBehaviour
 
     public void IsDie()
     {
+        rb.velocity = Vector3.zero;
         isPlayerDie = true;
         animator.SetTrigger("isDie");
         Destroy(gameObject, 2.0f);
     }
+
+
 }
 
