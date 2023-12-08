@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MyLevel/MainLevel.unity
     guid: da4b3b9ffd7c702469b2297874a0320a
   - enabled: 1
-    path: Assets/Scenes/MyLevel/WatingLevel.unity
+    path: Assets/Scenes/MyLevel/WaitingLevel.unity
     guid: 26f7f1af2932f7e4fb63f18889d1b6a2
   - enabled: 1
     path: Assets/Scenes/MyLevel/LobbyLevel.unity
