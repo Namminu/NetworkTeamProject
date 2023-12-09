@@ -355,9 +355,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room4
-
-'
+  m_Text: 
 --- !u!222 &100287347
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1004,9 +1002,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1109554572}
-        m_TargetAssemblyTypeName: PlayerName, Assembly-CSharp
-        m_MethodName: OnCilickCreateUIONButton
+      - m_Target: {fileID: 1772959159}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: MakeRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1137,9 +1135,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1109554572}
-        m_TargetAssemblyTypeName: PlayerName, Assembly-CSharp
-        m_MethodName: OnCilickCreateUIOFFButton
+      - m_Target: {fileID: 1772959159}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: stopMakingRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2127,7 +2125,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room6
+  m_Text: '
 
 '
 --- !u!222 &713970385
@@ -2420,7 +2418,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 899675526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1772959159}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: MoveToMainUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &899675526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,9 +2684,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room3
-
-'
+  m_Text: 
 --- !u!222 &1007264669
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2755,7 +2763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Room1
+  m_Text: 
 --- !u!222 &1032919621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3260,7 +3268,7 @@ GameObject:
   - component: {fileID: 1389909834}
   - component: {fileID: 1389909833}
   m_Layer: 5
-  m_Name: RoomNameHoler
+  m_Name: RoomNameHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4137,7 +4145,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room5
+  m_Text: '
 
 '
 --- !u!222 &1672139855
@@ -4376,7 +4384,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room2
+  m_Text: '
 
 '
 --- !u!222 &1696207343
@@ -4471,8 +4479,20 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 1
+      m_Calls:
+      - m_Target: {fileID: 1772959159}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: ToggleValueChanged
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1731384431}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_IsOn: 0
 --- !u!1 &1750695747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4491,7 +4511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1750695748
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4619,6 +4639,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750695747}
   m_CullTransparentMesh: 1
+--- !u!1 &1772959158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1772959160}
+  - component: {fileID: 1772959159}
+  m_Layer: 0
+  m_Name: LobbySceneUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1772959159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772959158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26613c0d29ebb8149b7807042d4ff436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: {fileID: 1901627706}
+  passwordNumber: {fileID: 1750695749}
+  makeRoomPopupUI: {fileID: 39706500}
+  passwordInputUI: {fileID: 1750695747}
+  myToggle: {fileID: 1731384431}
+  roomNumberButton:
+  - {fileID: 1858530449}
+  - {fileID: 1282762023}
+  - {fileID: 850142476}
+  - {fileID: 154406470}
+  - {fileID: 1572495917}
+  - {fileID: 1564098326}
+--- !u!4 &1772959160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772959158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 634.95, y: 42, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1802012182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4701,7 +4777,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1802012185}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1772959159}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: pressedOkMakingRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1802012185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5161,3 +5249,4 @@ SceneRoots:
   - {fileID: 579366929}
   - {fileID: 165451682}
   - {fileID: 1109554573}
+  - {fileID: 1772959160}
