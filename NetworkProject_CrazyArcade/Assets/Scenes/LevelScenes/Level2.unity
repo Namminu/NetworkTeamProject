@@ -467,7 +467,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: WINEER
+  m_Text: WINNER
 --- !u!222 &83546077
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5344,7 +5344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaitTime: 10
   BackToWatingSecond: {fileID: 534523681}
-  winnerPanel: {fileID: 1872121662}
+  winnerCanvas: {fileID: 0}
 --- !u!4 &825163731
 Transform:
   m_ObjectHideFlags: 0
