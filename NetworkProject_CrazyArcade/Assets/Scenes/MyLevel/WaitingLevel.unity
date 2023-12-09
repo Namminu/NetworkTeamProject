@@ -954,8 +954,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &313925824
@@ -1924,7 +1924,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 301974113}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4608337
+  m_Size: 0.46068442
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
