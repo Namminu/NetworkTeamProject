@@ -7,14 +7,37 @@ using UnityEngine.SceneManagement;
 
 public class PhotonInit : Photon.PunBehaviour
 {
+	public static PhotonInit instance = null;
+	PhotonView pv;
+
 	public InputField playerInput;
 	private bool isGameStart = false;
+
+	WaitingRoomInit waitingRoom;
+
+	public static PhotonInit Instance
+	{
+		get
+		{
+			if (!instance)
+			{
+				instance = FindObjectOfType(typeof(PhotonInit)) as PhotonInit;
+
+				if (instance == null)
+					Debug.Log("no singleton obj");
+			}
+
+			return instance;
+		}
+	}
 
 	void Awake()
     {
         //서버 버전별 분리
         PhotonNetwork.ConnectUsingSettings("NetworkProject Server 1.0");
-    }
+
+		DontDestroyOnLoad(gameObject);
+	}
 
     //로비에 입장하였을 때 호출되는 콜백함수
 	public override void OnJoinedLobby()
@@ -41,23 +64,7 @@ public class PhotonInit : Photon.PunBehaviour
 	{
 		Debug.Log("Joined Room");
 
-		//플레이어 생성
-		StartCoroutine(this.CreatePlayer());
-	}
-
-	//플레이어 생성 코루틴
-	/* 추후 랜덤 플레이어 캐릭터를 지정된 위치에서 생성하도록 수정 예정 */
-	IEnumerator CreatePlayer()
-	{
-		while(!isGameStart)
-		{
-			yield return new WaitForSeconds(0.5f);
-		}
-			//로비 씐에서 캐릭터가 필요 없으니까
-			GameObject tempPlayer = PhotonNetwork.Instantiate("player", new Vector2(0, 0), Quaternion.identity, 0);
-			//tempPlayer.GetComponent<PlayerController>().playerstat.playerName.text = playerName;
-			
-			yield return null;
+		PhotonNetwork.LoadLevel("WaitingLevel");
 	}
 
 	void OnGUI()
@@ -73,6 +80,4 @@ public class PhotonInit : Photon.PunBehaviour
         PlayerName.instance.playerName = playerInput.text;
         isGameStart = true;
     }
-
 }
- 
