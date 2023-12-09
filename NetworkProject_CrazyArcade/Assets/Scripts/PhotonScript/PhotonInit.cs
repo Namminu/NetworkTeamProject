@@ -42,8 +42,10 @@ public class PhotonInit : Photon.PunBehaviour
     //로비에 입장하였을 때 호출되는 콜백함수
 	public override void OnJoinedLobby()
 	{
-        Debug.Log("Joined Lobby");
-        PhotonNetwork.JoinRandomRoom();
+		Debug.Log("Joined Lobby");
+
+		// 랜덤 룸 입장 불가능하게
+        //PhotonNetwork.JoinRandomRoom();
 	}
 
 	//랜덤 룸 입장에 실패했을 때의 콜백 함수
