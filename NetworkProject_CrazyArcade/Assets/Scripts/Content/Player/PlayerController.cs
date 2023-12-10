@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         playerstat.playerName = "";
 
-        bombNumbers = new GameObject[playerstat.numberOfBombs]; 
+        bombNumbers = new GameObject[playerstat.numberOfBombs];
         System.Array.Clear(bombNumbers, 0, playerstat.numberOfBombs);
         //playerstat = GetComponent<PlayerStat>();          // 혹시 모르니 주석 처리
 
@@ -83,64 +83,79 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isPlayerDie)
+        if (!isPlayerDie)
         {
             movespeed = playerMove();
-            PutBomb();
-            CheckNumberBombs();
-        }
+            
+            //폭탄 놓기
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+                PutBomb();
+			}
+            //폭탄 갯수 체크
+			CheckNumberBombs();
+		}
     }
-
-    //폭탄 놓기
-    void PutBomb()
+    
+    //폭탄 놓기 코루틴
+    IEnumerator CreateBomb()
     {
-        if(playerstat.numberOfBombs > bombCount && !isBomb)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                float bombX = 0.0f;
-                float bombY = 0.0f;
+		if (playerstat.numberOfBombs > bombCount && !isBomb)
+		{
+			float bombX = 0.0f;
+			float bombY = 0.0f;
 
-                if(transform.position.x >= 0)
-                {
-                    bombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
-                }
-                else
-                {
-                    bombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
-                }
+			if (transform.position.x >= 0)
+			{
+				bombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
+			}
+			else
+			{
+				bombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
+			}
 
-                if (transform.position.y >= 0)
-                {
-                    bombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
-                }
-                else
-                {
-                    bombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
-                }
+			if (transform.position.y >= 0)
+			{
+				bombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
+			}
+			else
+			{
+				bombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
+			}
 
-                GameObject bomb = Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
+			GameObject bomb = Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
 
-                for(int i = 0; i < playerstat.numberOfBombs; i++)
-                {
-                    if (bombNumbers[i] == null)
-                    {
-                        bombCount++;
-                        bombNumbers[i] = bomb;
-                        break;
-                    }
-                }
+			for (int i = 0; i < playerstat.numberOfBombs; i++)
+			{
+				if (bombNumbers[i] == null)
+				{
+					bombCount++;
+					bombNumbers[i] = bomb;
+					break;
+				}
+			} 
 
-
-                bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
-
-                bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
-                bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
-            }
-        }
+			bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
+			bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
+			bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
+		}
+		yield return null;
     }
 
-    void CheckNumberBombs()
+	//폭탄 놓기 호출
+	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
+	{ 
+		StartCoroutine(CreateBomb());
+		pv.RPC("PutBombRPC", PhotonTargets.Others);
+	} 
+
+    [PunRPC]
+    void PutBombRPC()   //다른 플레이어들과 동기화를 위한 폭탄 생성 함수
+    {
+		StartCoroutine(CreateBomb());
+	}
+
+	void CheckNumberBombs()
     {
         System.Array.Resize(ref bombNumbers, playerstat.numberOfBombs);
         int bombnotNull = 0;

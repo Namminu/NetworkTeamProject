@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using Photon;
 
-public class InGameManger : MonoBehaviour
+public class InGameManger : Photon.MonoBehaviour
 {
     //대기방 전환을 위한 시간 변수
     public float WaitTime;
@@ -31,7 +31,7 @@ public class InGameManger : MonoBehaviour
 	}
 
     //게임 클리어 시 호출 함수
-    public void GameClear()
+    public void GameClear() 
     {
 		winnerCanvas.SetActive(true);
 		inner_WatingTime = WaitTime;
@@ -51,4 +51,9 @@ public class InGameManger : MonoBehaviour
     {
 		BackToWatingSecond.text = (int)inner_WatingTime + " 초 뒤에 대기방으로 이동합니다...";
 	}
+
+    public void temp_CreatePlayer()
+    {
+        PhotonNetwork.Instantiate();
+    }
 } 

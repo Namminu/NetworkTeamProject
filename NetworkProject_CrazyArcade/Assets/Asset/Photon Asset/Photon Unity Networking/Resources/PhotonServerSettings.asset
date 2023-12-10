@@ -49,4 +49,6 @@ MonoBehaviour:
   - PlayerLeaveRoom
   - PlayerEnter
   - PlayerLeave
+  - PutBombRPC
+  - PutBomb
   DisableAutoOpenWizard: 1
