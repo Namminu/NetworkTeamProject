@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
     private int bombCount = 0;
 
     private bool isPlayerDie;
+    private bool isBomb = false;
+
+
     public PlayerStat playerstat;
 
     [SerializeField]
@@ -91,7 +94,7 @@ public class PlayerController : MonoBehaviour
     //ÆøÅº ³õ±â
     void PutBomb()
     {
-        if(playerstat.numberOfBombs > bombCount)
+        if(playerstat.numberOfBombs > bombCount && !isBomb)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
@@ -256,8 +259,11 @@ public class PlayerController : MonoBehaviour
 
             SetHitDir(collision);
         }
-       
+        
+        
+
     }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -272,6 +278,7 @@ public class PlayerController : MonoBehaviour
 
             if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(bombColl.getBombName()))
             {
+
                 hitObjectDirs.Remove(bombColl.getBombName());
             }
         }
@@ -370,6 +377,13 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject, 2.0f);
     }
 
-
+    public void IsBomb()
+    {
+        isBomb = true;
+    }
+    public void IsNotBomb()
+    {
+        isBomb = false; 
+    }
 }
 

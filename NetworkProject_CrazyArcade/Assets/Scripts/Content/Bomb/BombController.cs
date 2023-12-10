@@ -46,19 +46,11 @@ public class BombController : MonoBehaviour
         Invoke("BombAction", bombTime);
         raycastDistance = streamLength;
 
-        
-
         DistanceCheck(1);
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-
-
-    }
 
 
     void BombAction()
@@ -202,8 +194,6 @@ public class BombController : MonoBehaviour
         distanceLeft = streamLength;
         distanceRight = streamLength;
 
-
-        if (n == 1)
         // 벽 거리
         {
             // 상
@@ -337,6 +327,22 @@ public class BombController : MonoBehaviour
         }
         if (n == 2)
             Debug.Log("2222222222");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerTarget")
+        {
+            collision.GetComponentInParent<PlayerController>().IsBomb();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerTarget")
+        {
+            collision.GetComponentInParent<PlayerController>().IsNotBomb();
+        }
     }
 }
 
