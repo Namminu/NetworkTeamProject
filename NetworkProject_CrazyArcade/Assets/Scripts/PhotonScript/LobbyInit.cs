@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon;
+using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LobbyInit : Photon.PunBehaviour
 {
@@ -17,13 +19,15 @@ public class LobbyInit : Photon.PunBehaviour
     [SerializeField] private InputField roomName; //방 이름 입력
     [SerializeField] private InputField passwordNumber; // 비밀번호 입력
     [SerializeField] private GameObject makeRoomPopupUI; //방 만들기 팝업
-    [SerializeField] private GameObject passwordInputUI; // 방 만들기 비밀번호 UI
+    [SerializeField] private GameObject password;
     [SerializeField] private Toggle myToggle; // 비밀번호 설정 토글
     [SerializeField] private Button[] roomNumberButton;
 
     private int makingRoomState= 1; // 비밀번호 유무에 따른 상태
     private int roomNumberIndex = 0; // 방 번호용 인덱스
     private bool eraseRoom =false;
+
+    private int roomCount = 0;
 
     void Start()
     {
@@ -39,7 +43,7 @@ public class LobbyInit : Photon.PunBehaviour
             cancelRoom();
             Debug.Log("방이 사라짐");
         }
-        UpdateTexts();
+        //UpdateTexts();
     }
 
     public void InitMainLobby(string name)
@@ -61,29 +65,29 @@ public class LobbyInit : Photon.PunBehaviour
     /// <summary>
     /// 방 없어지면 나머지 방 앞으로 땡겨주는 함수
     /// </summary>
-    void UpdateTexts() 
-    {
-        for (int i = 0; i < roomNumberButton.Length; i++)
-        {
-            Text buttonText = roomNumberButton[i].GetComponentInChildren<Text>();
-            if(eraseRoom==true)
-            {
-                if (buttonText.text == null || buttonText.text == "")
-                {
-                    for (int j = i; j < roomNumberButton.Length - 1; j++)
-                    {
-                        Text nextButtonText = roomNumberButton[j + 1].GetComponentInChildren<Text>();
-                        buttonText.text = nextButtonText.text;
-                        buttonText = nextButtonText;
-                    }
-                    buttonText.text = null; // 마지막 버튼의 텍스트를 null로 설정
-                    roomNumberIndex--;
-                    eraseRoom = false;
-                }
+    //void UpdateTexts() 
+    //{
+    //    for (int i = 0; i < roomNumberButton.Length; i++)
+    //    {
+    //        Text buttonText = roomNumberButton[i].GetComponentInChildren<Text>();
+    //        if(eraseRoom==true)
+    //        {
+    //            if (buttonText.text == null || buttonText.text == "")
+    //            {
+    //                for (int j = i; j < roomNumberButton.Length - 1; j++)
+    //                {
+    //                    Text nextButtonText = roomNumberButton[j + 1].GetComponentInChildren<Text>();
+    //                    buttonText.text = nextButtonText.text;
+    //                    buttonText = nextButtonText;
+    //                }
+    //                buttonText.text = null; // 마지막 버튼의 텍스트를 null로 설정
+    //                roomNumberIndex--;
+    //                eraseRoom = false;
+    //            }
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// 방 삭제를 위한 임시 코드
@@ -184,13 +188,35 @@ public class LobbyInit : Photon.PunBehaviour
     {
         if (myToggle.isOn)
         {
-            passwordInputUI.SetActive(true);
+            password.SetActive(true);
             makingRoomState = 0;
         }
         else
         {
-            passwordInputUI.SetActive(false);
+            password.SetActive(false);
+            passwordNumber.text = "";
             makingRoomState = 1;
+        }
+    }
+
+    public void CreateNewRoom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 4;
+        roomOptions.CustomRoomProperties = new Hashtable()
+        {
+            { "password", passwordNumber.text }
+        };
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "password" };
+
+        if(myToggle.isOn)
+        {
+            
+            PhotonNetwork.CreateRoom(roomName.text == "" ? "Game" + (++roomCount) : roomName.text);
+        }
+        else
+        {
+
         }
     }
 }

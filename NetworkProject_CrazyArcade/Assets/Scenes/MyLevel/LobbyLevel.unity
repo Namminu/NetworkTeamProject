@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &39706501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -157,8 +157,7 @@ RectTransform:
   - {fileID: 583980302}
   - {fileID: 1901627705}
   - {fileID: 1731384430}
-  - {fileID: 431574938}
-  - {fileID: 1750695748}
+  - {fileID: 1830531354}
   - {fileID: 356014434}
   - {fileID: 1802012183}
   m_Father: {fileID: 579366929}
@@ -1574,7 +1573,7 @@ GameObject:
   - component: {fileID: 431574940}
   - component: {fileID: 431574939}
   m_Layer: 5
-  m_Name: RoomPassword
+  m_Name: RoomPasswordImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1593,12 +1592,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 432360270}
-  m_Father: {fileID: 39706501}
+  m_Father: {fileID: 1830531354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.25}
   m_AnchorMax: {x: 0.22, y: 0.35}
-  m_AnchoredPosition: {x: -0.43798828, y: 0.17999268}
-  m_SizeDelta: {x: 0.20396423, y: -0.08999634}
+  m_AnchoredPosition: {x: -138.69997, y: -60.97663}
+  m_SizeDelta: {x: 64.59996, y: 30.48832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431574939
 MonoBehaviour:
@@ -1877,9 +1876,9 @@ RectTransform:
   - {fileID: 1533416907}
   - {fileID: 306110618}
   - {fileID: 899675524}
+  - {fileID: 91875405}
   - {fileID: 39706501}
   - {fileID: 51091287}
-  - {fileID: 91875405}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4591,7 +4590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1750695748
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4606,12 +4605,12 @@ RectTransform:
   m_Children:
   - {fileID: 717986994}
   - {fileID: 1674303998}
-  m_Father: {fileID: 39706501}
+  m_Father: {fileID: 1830531354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.25}
   m_AnchorMax: {x: 0.85, y: 0.35}
-  m_AnchoredPosition: {x: 0.059936523, y: 0.17999268}
-  m_SizeDelta: {x: 0.7200928, y: -0.08999634}
+  m_AnchoredPosition: {x: 18.999954, y: -60.97663}
+  m_SizeDelta: {x: 228.00012, y: 30.48832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750695749
 MonoBehaviour:
@@ -4656,14 +4655,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1750695750}
   m_TextComponent: {fileID: 1674303999}
   m_Placeholder: {fileID: 717986995}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterValidation: 1
+  m_CharacterLimit: 4
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -4768,7 +4767,7 @@ MonoBehaviour:
   roomName: {fileID: 1901627706}
   passwordNumber: {fileID: 1750695749}
   makeRoomPopupUI: {fileID: 39706500}
-  passwordInputUI: {fileID: 1750695747}
+  password: {fileID: 1830531353}
   myToggle: {fileID: 1731384431}
   roomNumberButton:
   - {fileID: 1858530449}
@@ -5083,6 +5082,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805517344}
   m_CullTransparentMesh: 1
+--- !u!1 &1830531353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830531354}
+  m_Layer: 5
+  m_Name: RoomPassword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1830531354
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830531353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 431574938}
+  - {fileID: 1750695748}
+  m_Father: {fileID: 39706501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1858530447
 GameObject:
   m_ObjectHideFlags: 0
