@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     // Update is called once per framex
     void Update()
     {
-		if (!isPlayerDie)
+		if (!isPlayerDie && pv.IsMine)
 		{
 			movespeed = playerMove();
 
@@ -103,6 +103,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 			//ÆøÅº °¹¼ö Ã¼Å©
 			CheckNumberBombs();
 		}
+        else
+        {
+
+        }
 
     }
 

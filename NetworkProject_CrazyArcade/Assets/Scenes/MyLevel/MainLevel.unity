@@ -506,8 +506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2.7392578, y: 0}
+  m_SizeDelta: {x: 5.4786, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &632446466
 MonoBehaviour:
@@ -1114,8 +1114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.65}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.25, y: -1.5}
-  m_SizeDelta: {x: -0.5, y: 3}
+  m_AnchoredPosition: {x: 1.3370361, y: -1.5}
+  m_SizeDelta: {x: 2.6742, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698595466
 MonoBehaviour:
@@ -1189,6 +1189,7 @@ MonoBehaviour:
   mainRoom: {fileID: 0}
   lobbyRoom: {fileID: 0}
   waitingRoom: {fileID: 0}
+  InGameRoom: {fileID: 0}
 --- !u!4 &1814889619
 Transform:
   m_ObjectHideFlags: 0
