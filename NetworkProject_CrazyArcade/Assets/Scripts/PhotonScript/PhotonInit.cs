@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Data;
 
-public class PhotonInit : Photon.PunBehaviour
+public class PhotonInit : MonoBehaviourPunCallbacks
 {
 	public static PhotonInit Instance = null;
 
@@ -89,11 +90,12 @@ public class PhotonInit : Photon.PunBehaviour
 
     IEnumerator TryConnect()
     {
+		PhotonNetwork.GameVersion = "NetworkProject Server 1.0";
+		PhotonNetwork.ConnectUsingSettings();
+
 		toolTipText.StartTextEffect("서버에 연결 중", Effect.WAIT);
 
-		PhotonNetwork.ConnectUsingSettings("NetworkProject Server 1.0");
-
-		while (PhotonNetwork.connectionState == ConnectionState.Connecting)
+		while(true) //while (PhotonNetwork.connectionState == ConnectionState.Connecting)
 		{
 			yield return new WaitForSeconds(0.5f);
 		}
@@ -106,7 +108,7 @@ public class PhotonInit : Photon.PunBehaviour
 
     public void ConnectToLobby()
     {
-        if(PhotonNetwork.connected == true)
+        if(PhotonNetwork.IsConnected == true)
         {
 			PhotonNetwork.JoinLobby();
         }
@@ -138,10 +140,10 @@ public class PhotonInit : Photon.PunBehaviour
 		Debug.Log("FInish make a Room");
 	}
 
-	void OnGUI()
-	{
-		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
-	}
+	//void OnGUI()
+	//{
+	//	GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
+	//}
 
     public void SetPlayerName(string name)
     {

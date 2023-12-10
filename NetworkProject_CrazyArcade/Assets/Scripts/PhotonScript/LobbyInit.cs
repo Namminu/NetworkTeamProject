@@ -7,11 +7,11 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Photon;
+using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class LobbyInit : Photon.PunBehaviour
+public class LobbyInit : MonoBehaviourPun
 {
     PhotonView pv;
 

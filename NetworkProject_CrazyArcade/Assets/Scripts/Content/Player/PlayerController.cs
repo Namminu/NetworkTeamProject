@@ -6,8 +6,8 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
 enum Direction
 {
@@ -18,7 +18,7 @@ enum Direction
     Right
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun, IPunObservable
 {
     public Transform playerBomb;
     public GameObject Bomb;
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
 	{ 
 		StartCoroutine(CreateBomb());
-		pv.RPC("PutBombRPC", PhotonTargets.Others);
+		pv.RPC("PutBombRPC", RpcTarget.Others);
 	} 
 
     [PunRPC]
@@ -370,9 +370,9 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.isWriting)    //내 위치 서버로 원격 전송
+        if(stream.IsWriting)    //내 위치 서버로 원격 전송
         {
             stream.SendNext(tr.position);
             stream.SendNext(tr.rotation);

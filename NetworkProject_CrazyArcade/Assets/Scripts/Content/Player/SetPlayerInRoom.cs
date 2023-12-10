@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon;
+using Photon.Pun;
 
-public class SetPlayerInRoom : Photon.MonoBehaviour
+public class SetPlayerInRoom : MonoBehaviourPun
 {
     [Header("Waiting Room")]
     public RawImage[] playerImages = new RawImage[4];

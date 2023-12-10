@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using Photon.Pun;
 
-public class WaitingRoomInit : Photon.PunBehaviour
+public class WaitingRoomInit : MonoBehaviourPun
 {
 	PhotonInit photonManger;
 	PhotonView pv;
@@ -70,14 +70,14 @@ public class WaitingRoomInit : Photon.PunBehaviour
 			myCharacterIndex = Random.Range(0, playerImages.Length);
 
 		// 모든 플레이어들의 Player패널에다가 입장한 플레이어 이미지 생성 
-		pv.RPC("PlayerEnter", PhotonTargets.All, playerObjects.Count, myCharacterIndex);
+		pv.RPC("PlayerEnter", RpcTarget.All, playerObjects.Count, myCharacterIndex);
 	}
 
 	// 플레이어가 방에 나갈때 실행되는 함수
 	void LeaveWaitingRoom()
 	{
 		// 모든 플레이어들의 Player패널에 나간 플레이어 이미지 없앰
-		pv.RPC("PlayerLeave", PhotonTargets.All, myWaitingIndex);
+		pv.RPC("PlayerLeave", RpcTarget.All, myWaitingIndex);
 	}
 
 	[PunRPC]

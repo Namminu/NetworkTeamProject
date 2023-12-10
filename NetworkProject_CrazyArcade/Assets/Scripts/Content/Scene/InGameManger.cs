@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon;
+using Photon.Pun;
 
-public class InGameManger : Photon.MonoBehaviour
+public class InGameManger : MonoBehaviourPun
 {
     //대기방 전환을 위한 시간 변수
     public float WaitTime;
@@ -52,8 +52,8 @@ public class InGameManger : Photon.MonoBehaviour
 		BackToWatingSecond.text = (int)inner_WatingTime + " 초 뒤에 대기방으로 이동합니다...";
 	}
 
-    public void temp_CreatePlayer()
-    {
-        PhotonNetwork.Instantiate();
-    }
+    //public void temp_CreatePlayer()
+    //{
+    //    PhotonNetwork.Instantiate();
+    //}
 } 
