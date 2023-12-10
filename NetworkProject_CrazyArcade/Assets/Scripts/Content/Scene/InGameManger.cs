@@ -11,14 +11,14 @@ public class InGameManger : MonoBehaviour
     //대기방 전환을 위한 시간 변수
     public float WaitTime;
 	private float inner_WatingTime;   //내부 코드에서 초기화를 위한 변수, 이 변수로 시간 설정할 예정
-    public Text BackToWatingSecond; // 시간 문구
+    public Text BackToWatingSecond; //시간 문구
 
     public GameObject winnerCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameClear();
+        //GameClear();
 	}
 
     // Update is called once per frame 
@@ -26,8 +26,8 @@ public class InGameManger : MonoBehaviour
     {
 		inner_WatingTime -= Time.deltaTime;	
 
-        BackToWaitingRoom();
-        SetWatingSecondText();
+        //BackToWaitingRoom();
+        //SetWatingSecondText();
 	}
 
     //게임 클리어 시 호출 함수
