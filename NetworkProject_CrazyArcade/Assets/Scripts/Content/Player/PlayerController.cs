@@ -50,8 +50,15 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private GameObject[] bombNumbers;
 
     private Vector3 movespeed;
+    private Vector3 otherVector;
+    private Vector3 otherMoveSpeed;
 
-    void Start()
+	private float myBombX = 0.0f;
+	private float myBombY = 0.0f;
+    private float otherBombX = 0.0f;
+    private float otherBombY = 0.0f;
+
+	void Start()
     {
         playerstat.playerName = "";
 
@@ -78,43 +85,52 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void FixedUpdate() 
     {
-        if(pv.IsMine)
+        if (pv.IsMine)
         {
-			if (!isPlayerDie)
-				rb.velocity = movespeed;
+			if (!isPlayerDie)				
+            {
+				rb.velocity = movespeed;			
+			}
 		}
         else
         {
-            rb.velocity = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10.0f);
-        }
-    }
-    // Update is called once per framex
+			rb.velocity = otherVector;
+			tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
+		}
+	}
+    // Update is called once per frame
     void Update()
     {
-		if (!isPlayerDie && pv.IsMine)
-		{
-			movespeed = playerMove();
-
-			//폭탄 놓기
-			if (Input.GetKeyDown(KeyCode.Space))
+		if (pv.IsMine)
+        {
+			if (!isPlayerDie)
 			{
-				PutBomb();
+				movespeed = playerMove();
+
+				//폭탄 놓기
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					PutBomb();
+				}
+				//폭탄 갯수 체크
+				CheckNumberBombs();
+
+				// 위치 보정
+				otherVector = otherMoveSpeed;
 			}
-			//폭탄 갯수 체크
-			CheckNumberBombs();
 		}
         else
         {
-
-        }
-
+			otherVector = otherMoveSpeed;
+		}
+		
     }
 
 	//폭탄 놓기 호출
 	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
 	{
 		StartCoroutine(CreateBomb());
-		pv.RPC("PutBombRPC", RpcTarget.Others);
+		//pv.RPC("PutBombRPC", RpcTarget.Others);
 	}
 
 	[PunRPC]
@@ -127,33 +143,38 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
 		if (playerstat.numberOfBombs > bombCount && !isBomb)
 		{
-			float bombX = 0.0f;
-			float bombY = 0.0f;
+				if (transform.position.x >= 0)
+				{
+					myBombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
+				}
+				else
+				{
+					myBombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
+				}
 
-			if (transform.position.x >= 0)
-			{
-				bombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
-			}
-			else
-			{
-				bombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
-			}
+				if (transform.position.y >= 0)
+				{
+					myBombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
+				}
+				else
+				{
+					myBombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
+				}
+   //         if(pv.IsMine)   //로컬 플레이어 폭탄
+   //         {
+			//}
+   //         else
+   //         {
+   //             myBombX = otherBombX;
+   //             myBombY = otherBombY;
+			//}
 
-			if (transform.position.y >= 0)
-			{
-				bombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
-			}
-			else
-			{
-				bombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
-			}
-
-			GameObject bomb = Instantiate(Bomb, new Vector3(bombX, bombY), Quaternion.identity);
+			GameObject bomb = PhotonNetwork.Instantiate("Bomb", new Vector3(myBombX, myBombY), Quaternion.identity);
 
 			for (int i = 0; i < playerstat.numberOfBombs; i++)
 			{
 				if (bombNumbers[i] == null)
-				{
+				{ 
 					bombCount++;
 					bombNumbers[i] = bomb;
 					break;
@@ -272,13 +293,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
-        //transform.position += moveDirection;
         return moveDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BOMB" /*|| collision.gameObject.tag == "VEHICLE"*/)
+        if (collision.gameObject.tag == "BOMB")
         {
             if (collision.gameObject.tag == "BOMB")
                 if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
@@ -306,14 +326,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 hitObjectDirs.Remove(bombColl.getBombName());
             }
         }
-
-        //if (collision.gameObject.tag == "VEHICLE")
-        //{
-        //    if (hitObjectDirs.Count > 0 && hitObjectDirs.ContainsKey(collision.gameObject.name))
-        //    {
-        //        hitObjectDirs.Remove(collision.gameObject.name);
-        //    }
-        //}
     }
 
     bool CheckDir(Dictionary<string, Direction> object_directions, KeyCode latestKey)
@@ -357,40 +369,28 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                     break;
             }
         }
-        //else if (coll.gameObject.tag == "VEHICLE")
-        //{
-        //    switch (dir)
-        //    {
-        //        case Direction.Up:
-        //            hitObjectDirs[coll.gameObject.name] = Direction.Up;
-        //            break;
-        //        case Direction.Down:
-        //            hitObjectDirs[coll.gameObject.name] = Direction.Down;
-        //            break;
-        //        case Direction.Left:
-        //            hitObjectDirs[coll.gameObject.name] = Direction.Left;
-        //            break;
-        //        case Direction.Right:
-        //            hitObjectDirs[coll.gameObject.name] = Direction.Right;
-        //            break;
-        //        case Direction.None:
-        //            break;
-        //    }
-        //}
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(stream.IsWriting)    //내 위치 서버로 원격 전송
         {
+            //캐릭터 위치 전송
             stream.SendNext(tr.position);
-            stream.SendNext(tr.rotation);
-        }
+            stream.SendNext(movespeed);
+            //폭탄 위치 전송
+            stream.SendNext(myBombX);
+			stream.SendNext(myBombY);
+		}
         else //다른 사용자의 위치 동기화
         {
+            //다른 사용자의 위치 동기화
             currentPos = (Vector3)stream.ReceiveNext();
-            currentRot = (Quaternion)stream.ReceiveNext();
-        }
+			otherMoveSpeed = (Vector3)stream.ReceiveNext();
+            //다른 사용자의 폭탄 위치 동기화
+            otherBombX = (float)stream.ReceiveNext();
+            otherBombY = (float)stream.ReceiveNext();
+		}
     }
 
     public void IsDie()
