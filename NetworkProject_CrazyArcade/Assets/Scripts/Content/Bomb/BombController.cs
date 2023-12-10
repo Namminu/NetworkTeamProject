@@ -46,10 +46,7 @@ public class BombController : MonoBehaviour
         Invoke("BombAction", bombTime);
         raycastDistance = streamLength;
 
-        distanceUp = streamLength;
-        distanceDown = streamLength;
-        distanceLeft = streamLength;
-        distanceRight = streamLength;
+        
 
         DistanceCheck(1);
 
@@ -69,10 +66,10 @@ public class BombController : MonoBehaviour
         if (isBomb)
             return;
 
-        //if(!isburstsfast)
+        if (isburstsfast)
         {
             // 아이템박스와의 거리
-           {
+            {
                 RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
                 if (hitUp.collider != null)
                 {
@@ -126,12 +123,10 @@ public class BombController : MonoBehaviour
                 Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
             }
         }
-        //else
+        else
         {
-            //DistanceCheck(2);
+            DistanceCheck(2);
         }
-
-        
 
 
 
@@ -197,109 +192,116 @@ public class BombController : MonoBehaviour
         streamLength = length;
     }
 
+
     // 거리 체크    n = 1 : 아이템박스 체크만
     //             n = 2 : 아이템 박스 지우기까지   
     void DistanceCheck(int n)
     {
-        if(n == 1)
+        distanceUp = streamLength;
+        distanceDown = streamLength;
+        distanceLeft = streamLength;
+        distanceRight = streamLength;
+
+
+        if (n == 1)
         // 벽 거리
         {
-             // 상
-             RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("Wall"));
-             if (hitUp.collider != null)
-             {
-                 distanceUp = hitUp.distance;
+            // 상
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitUp.collider != null)
+            {
+                distanceUp = hitUp.distance;
 
-                 Debug.Log("상 방향과의 거리: " + distanceUp);
-             }
+                Debug.Log("상 방향과의 거리: " + distanceUp);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
 
-             // 하
-             RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("Wall"));
-             if (hitDown.collider != null)
-             {
-                 distanceDown = hitDown.distance;
-                 Debug.Log("하 방향과의 거리: " + distanceDown);
-             }
+            // 하
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitDown.collider != null)
+            {
+                distanceDown = hitDown.distance;
+                Debug.Log("하 방향과의 거리: " + distanceDown);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
 
-             // 좌
-             RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("Wall"));
-             if (hitLeft.collider != null)
-             {
-                 distanceLeft = hitLeft.distance;
-                 Debug.Log("좌 방향과의 거리: " + distanceLeft);
-             }
+            // 좌
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitLeft.collider != null)
+            {
+                distanceLeft = hitLeft.distance;
+                Debug.Log("좌 방향과의 거리: " + distanceLeft);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
 
-             // 우
-             RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("Wall"));
-             if (hitRight.collider != null)
-             {
-                 distanceRight = hitRight.distance;
-                 Debug.Log("우 방향과의 거리: " + distanceRight);
-             }
+            // 우
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("Wall"));
+            if (hitRight.collider != null)
+            {
+                distanceRight = hitRight.distance;
+                Debug.Log("우 방향과의 거리: " + distanceRight);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
-         }
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
+        }
 
 
-         //아이템 박스 거리
-         {
-             RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
-             if (hitUp.collider != null)
-             {
-                 if (distanceUp > hitUp.distance)
-                 {
-                     distanceUp = hitUp.distance;
-                    
+        //아이템 박스 거리
+        {
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitUp.collider != null)
+            {
+                if (distanceUp > hitUp.distance)
+                {
+                    distanceUp = hitUp.distance;
+
                     if (n == 2)
                         hitUp.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
 
-                 Debug.Log("상 방향과의 거리: " + distanceUp);
-             }
+                Debug.Log("상 방향과의 거리: " + distanceUp);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.up * raycastDistance, Color.red);
 
-             // 하
-             RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("ItemBox"));
-             if (hitDown.collider != null)
-             {
-                 if (distanceDown > hitDown.distance)
-                 {
-                     distanceDown = hitDown.distance;
+            // 하
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitDown.collider != null)
+            {
+                if (distanceDown > hitDown.distance)
+                {
+                    distanceDown = hitDown.distance;
 
                     if (n == 2)
                         hitDown.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
-                    
+
                 }
 
 
 
-                 Debug.Log("하 방향과의 거리: " + distanceDown);
-             }
+                Debug.Log("하 방향과의 거리: " + distanceDown);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.green);
 
-             // 좌
-             RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("ItemBox"));
-             if (hitLeft.collider != null)
-             {
-                 if (distanceLeft > hitLeft.distance)
-                 {
-                     distanceLeft = hitLeft.distance;
+            // 좌
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitLeft.collider != null)
+            {
+                if (distanceLeft > hitLeft.distance)
+                {
+                    distanceLeft = hitLeft.distance;
 
                     if (n == 2)
                         hitLeft.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
@@ -307,31 +309,31 @@ public class BombController : MonoBehaviour
 
 
 
-                 Debug.Log("좌 방향과의 거리: " + distanceLeft);
-             }
+                Debug.Log("좌 방향과의 거리: " + distanceLeft);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.left * raycastDistance, Color.blue);
 
-             // 우
-             RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("ItemBox"));
-             if (hitRight.collider != null)
-             {
-                 if (distanceRight > hitRight.distance)
-                 {
-                     distanceRight = hitRight.distance;
+            // 우
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, LayerMask.GetMask("ItemBox"));
+            if (hitRight.collider != null)
+            {
+                if (distanceRight > hitRight.distance)
+                {
+                    distanceRight = hitRight.distance;
 
                     if (n == 2)
                         hitRight.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
-                 Debug.Log("우 방향과의 거리: " + distanceRight);
-             }
+                Debug.Log("우 방향과의 거리: " + distanceRight);
+            }
 
-             // 디버그 Ray 그리기
-             Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
-            
+            // 디버그 Ray 그리기
+            Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
+
         }
         if (n == 2)
             Debug.Log("2222222222");
