@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - BombStream
   - VEHICLE
+  - PlayerTarget
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - Wall
   - HitBox
   - BombStream
-  - 
+  - PlayerTarget
   - ItemBox
-  - 
+  - BOMB
   - 
   - 
   - 

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8697466318664845914}
   - component: {fileID: 2545270475564414996}
   - component: {fileID: 6363683597638102900}
-  m_Layer: 0
-  m_Name: player
+  m_Layer: 3
+  m_Name: playerBlue
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   startPlayerSpeed: 5
   startNumberOfBombs: 1
   startBombLength: 1
-  MaxSpeed: 10
+  MaxSpeed: 8
   MaxBombs: 7
   MaxBombStream: 7
 --- !u!70 &6363683597638102900
