@@ -7,52 +7,129 @@ using UnityEngine.SceneManagement;
 
 public class PhotonInit : Photon.PunBehaviour
 {
-	public static PhotonInit instance = null;
-	PhotonView pv;
+	public static PhotonInit Instance = null;
 
-	public InputField playerInput;
-	private bool isGameStart = false;
+	private bool isReady = false;
+	private string playerName = "";
 
-	WaitingRoomInit waitingRoom;
+	private bool isMain = false;
+	private bool isLobby = false;
+	private bool isWaitingRoom = false;
 
-	public static PhotonInit Instance
-	{
-		get
-		{
-			if (!instance)
-			{
-				instance = FindObjectOfType(typeof(PhotonInit)) as PhotonInit;
+	[Header("툴팁 관련 프로퍼티")]
+	public Canvas ToolTipCanvas;
+	public TextEffect toolTipText;
 
-				if (instance == null)
-					Debug.Log("no singleton obj");
-			}
+	[Header("메인 로비 관련 프로퍼티")]
+	public MainInit mainRoom;
 
-			return instance;
-		}
-	}
+	[Header("로비 관련 프로퍼티")]
+	public LobbyInit lobbyRoom;
+
+	[Header("대기방 관련 프로퍼티")]
+	public WaitingRoomInit waitingRoom;
 
 	void Awake()
     {
-        //서버 버전별 분리
-        PhotonNetwork.ConnectUsingSettings("NetworkProject Server 1.0");
+		if (Instance == null)
+		{
+			Instance = this;
 
-		DontDestroyOnLoad(gameObject);
+			mainRoom = GameObject.Find("MainManager").GetComponent<MainInit>();
+
+			ConnectToServer();
+
+			DontDestroyOnLoad(gameObject);
+			DontDestroyOnLoad(ToolTipCanvas);
+		}
+		else if (Instance != null)
+			Destroy(gameObject);
 	}
 
+    private void Update()
+    {
+		if(!isMain && SceneManager.GetActiveScene().name == "MainLevel")
+        {
+			isMain = true;
+			isLobby = false;
+			isWaitingRoom = false;
+			if (mainRoom == null && GameObject.Find("MainManager") != null)
+			{
+				mainRoom = GameObject.Find("MainManager").GetComponent<MainInit>();
+				mainRoom.SetUIInteractable(true);
+			}
+        }
+		else if (!isLobby && SceneManager.GetActiveScene().name == "LobbyLevel")
+        {
+			isMain = false;
+			isLobby = true;
+			isWaitingRoom = false;
+			if (lobbyRoom == null && GameObject.Find("LobbyManager") != null)
+			{
+				lobbyRoom = GameObject.Find("LobbyManager").GetComponent<LobbyInit>();
+				lobbyRoom.InitMainLobby(playerName);
+			}
+		}
+		else if (!isWaitingRoom && SceneManager.GetActiveScene().name == "WaitingLevel")
+        {
+			isMain = false;
+			isLobby = false;
+			isWaitingRoom = true;
+			if (waitingRoom == null && GameObject.Find("RoomManager") != null)
+			{
+				waitingRoom = GameObject.Find("RoomManager").GetComponent<WaitingRoomInit>();
+			}
+		}
+	}
+
+    public void ConnectToServer()
+    {
+		StartCoroutine(TryConnect());
+	}
+
+    IEnumerator TryConnect()
+    {
+		toolTipText.StartTextEffect("서버에 연결 중", Effect.WAIT);
+
+		PhotonNetwork.ConnectUsingSettings("NetworkProject Server 1.0");
+
+		while (PhotonNetwork.connectionState == ConnectionState.Connecting)
+		{
+			yield return new WaitForSeconds(0.5f);
+		}
+
+		toolTipText.StartTextEffect("서버 연결 완료!", Effect.FADE);
+
+		isReady = true;
+		mainRoom.SetUIInteractable(true);
+	}
+
+    public void ConnectToLobby()
+    {
+        if(PhotonNetwork.connected == true)
+        {
+			PhotonNetwork.JoinLobby();
+        }
+		else
+        {
+			toolTipText.StartTextEffect("로비 진입에 실패하였습니다!\n서버 연결을 확인해주세요", Effect.FADE);
+        }
+    }
+
     //로비에 입장하였을 때 호출되는 콜백함수
-	public override void OnJoinedLobby()
+    public override void OnJoinedLobby()
 	{
 		Debug.Log("Joined Lobby");
 
-		// 랜덤 룸 입장 불가능하게
-        //PhotonNetwork.JoinRandomRoom();
+		PhotonNetwork.LoadLevel("LobbyLevel");
 	}
 
-	//랜덤 룸 입장에 실패했을 때의 콜백 함수
-	public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
+	public override void OnLeftLobby()
 	{
-		Debug.Log("No Room");
-		PhotonNetwork.CreateRoom("NewCreate Room");
+		base.OnLeftLobby();
+		Debug.Log("Left Lobby");
+
+		PhotonNetwork.LoadLevel("MainLevel");
 	}
 
 	//룸을 생성했을 떄의 콜백 함수
@@ -61,25 +138,23 @@ public class PhotonInit : Photon.PunBehaviour
 		Debug.Log("FInish make a Room");
 	}
 
-	//룸에 입장되었을 경우 호출되는 콜백함수
-	public override void OnJoinedRoom()
-	{
-		Debug.Log("Joined Room");
-
-		PhotonNetwork.LoadLevel("WaitingLevel");
-	}
-
 	void OnGUI()
 	{
 		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
 	}
 
-    public void SetPlayerName()
+    public void SetPlayerName(string name)
     {
-        Debug.Log(playerInput.text + "를 입력하셨습니다");
-        //PhotonNewtwork.LoadLevel("LobbyLevel");
-        SceneManager.LoadScene("LobbyLevel");
-        PlayerName.instance.playerName = playerInput.text;
-        isGameStart = true;
+		if (!isReady)
+			return;
+
+		if (name == "")
+		{
+			toolTipText.StartTextEffect("이름을 정해주세요!", Effect.FADE);
+			return;
+		}
+
+		playerName = name;
+		ConnectToLobby();
     }
 }
