@@ -5,6 +5,8 @@ using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Data;
+using JetBrains.Annotations;
+using Photon.Realtime;
 
 public class PhotonInit : MonoBehaviourPunCallbacks
 {
@@ -81,6 +83,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 				waitingRoom = GameObject.Find("RoomManager").GetComponent<WaitingRoomInit>();
 			}
 		}
+
+		NextScene();
 	}
 
     public void ConnectToServer()
@@ -95,7 +99,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 		toolTipText.StartTextEffect("서버에 연결 중", Effect.WAIT);
 
-		while(true) //while (PhotonNetwork.connectionState == ConnectionState.Connecting)
+		while(PhotonNetwork.IsConnectedAndReady == false)
 		{
 			yield return new WaitForSeconds(0.5f);
 		}
@@ -137,7 +141,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	//룸을 생성했을 떄의 콜백 함수
 	public override void OnCreatedRoom()
 	{
-		Debug.Log("FInish make a Room");
+		Debug.Log("Finish make a Room");
 	}
 
 	//void OnGUI()
@@ -159,4 +163,26 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 		playerName = name;
 		ConnectToLobby();
     }
+
+	//디버깅 용 방 넘겨주는 함수
+	public void NextScene()
+	{
+		if(Input.GetKey(KeyCode.Escape))
+		{
+			PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
+			PhotonNetwork.LoadLevel("WaitingLevel");
+		}
+        else if(Input.GetKey(KeyCode.F1))
+        {
+			PhotonNetwork.LoadLevel("Level1");
+		}
+		else if (Input.GetKey(KeyCode.F2))
+		{
+			PhotonNetwork.LoadLevel("Level2");
+		}
+		else if(Input.GetKey(KeyCode.F3))
+		{
+			PhotonNetwork.LoadLevel("Level3");
+		}
+	}
 }

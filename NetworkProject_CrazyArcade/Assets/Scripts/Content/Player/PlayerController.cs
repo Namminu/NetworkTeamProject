@@ -96,9 +96,21 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 			CheckNumberBombs();
 		}
     }
-    
-    //폭탄 놓기 코루틴
-    IEnumerator CreateBomb()
+
+	//폭탄 놓기 호출
+	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
+	{
+		StartCoroutine(CreateBomb());
+		pv.RPC("PutBombRPC", RpcTarget.Others);
+	}
+
+	[PunRPC]
+	void PutBombRPC()   //다른 플레이어들과 동기화를 위한 폭탄 생성 함수
+	{
+		StartCoroutine(CreateBomb());
+	}
+	//폭탄 놓기 코루틴
+	IEnumerator CreateBomb()
     {
 		if (playerstat.numberOfBombs > bombCount && !isBomb)
 		{
@@ -141,19 +153,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		}
 		yield return null;
     }
-
-	//폭탄 놓기 호출
-	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
-	{ 
-		StartCoroutine(CreateBomb());
-		pv.RPC("PutBombRPC", RpcTarget.Others);
-	} 
-
-    [PunRPC]
-    void PutBombRPC()   //다른 플레이어들과 동기화를 위한 폭탄 생성 함수
-    {
-		StartCoroutine(CreateBomb());
-	}
 
 	void CheckNumberBombs()
     {
