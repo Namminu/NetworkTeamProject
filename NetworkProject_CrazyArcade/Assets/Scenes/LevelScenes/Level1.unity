@@ -5655,6 +5655,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4796041954328985900, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11395,7 +11399,7 @@ GameObject:
   - component: {fileID: 2129061745}
   - component: {fileID: 2129061744}
   m_Layer: 0
-  m_Name: Temp_InGameManager
+  m_Name: InGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11416,10 +11420,16 @@ MonoBehaviour:
   WaitTime: 10
   BackToWatingSecond: {fileID: 1836083980}
   winnerCanvas: {fileID: 121813088}
-  player1SpawnLocation: {fileID: 1895851270}
-  player2SpawnLocation: {fileID: 756302305}
-  player3SpawnLocation: {fileID: 575606520}
-  player4SpawnLocation: {fileID: 514459735}
+  playerSpawnLocation:
+  - {fileID: 1895851270}
+  - {fileID: 756302305}
+  - {fileID: 575606520}
+  - {fileID: 514459735}
+  PlayerPrefabs:
+  - {fileID: 975288008589873239, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
+  - {fileID: 8765305107695649508, guid: 30874dfe926ac914882d54fce640ccd1, type: 3}
+  - {fileID: 8488119832265796733, guid: fc3b9bb3f961a2a4885d30303401a2f0, type: 3}
+  - {fileID: 7591677208759408198, guid: b4bc75a4d25bcd44dadec7b553cc2886, type: 3}
 --- !u!4 &2129061745
 Transform:
   m_ObjectHideFlags: 0

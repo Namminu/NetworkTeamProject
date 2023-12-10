@@ -5254,7 +5254,7 @@ GameObject:
   - component: {fileID: 825163731}
   - component: {fileID: 825163730}
   m_Layer: 0
-  m_Name: Temp_InGameManager
+  m_Name: InGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5275,6 +5275,16 @@ MonoBehaviour:
   WaitTime: 10
   BackToWatingSecond: {fileID: 534523681}
   winnerCanvas: {fileID: 0}
+  playerSpawnLocation:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  PlayerPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &825163731
 Transform:
   m_ObjectHideFlags: 0

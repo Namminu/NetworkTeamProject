@@ -82,6 +82,8 @@ GameObject:
   - component: {fileID: 195541662290595100}
   - component: {fileID: 3262803500573615609}
   - component: {fileID: 1204180173811991131}
+  - component: {fileID: 8195083702563895196}
+  - component: {fileID: 1843814939092815606}
   m_Layer: 3
   m_Name: playerYellow
   m_TagString: Player
@@ -279,3 +281,38 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.34}
   m_Size: {x: 1, y: 1.75}
   m_Direction: 0
+--- !u!114 &8195083702563895196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591677208759408198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618a93662f32e874093649c01c7df316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterNumber: 2
+--- !u!114 &1843814939092815606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591677208759408198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

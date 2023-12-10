@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     //private Text playerName;
     private Transform tr;
     private PhotonView pv;
-    private Vector2 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
+    private Vector3 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
     private Quaternion currentRot;  //회전이 필요한가?
 
     private Direction dir = Direction.Down;
@@ -71,30 +71,39 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         //if (pv.isMine) Camera.main.GetComponent<FollowCam>().targetTr = tr;
 
         //동기화 연결 위함
-        // pv.ObservedComponents[0] = this;
+        pv.ObservedComponents[0] = this;
+
         movespeed = Vector3.zero;
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() 
     {
-        if (!isPlayerDie)
-            rb.velocity = movespeed;
+        if(pv.IsMine)
+        {
+			if (!isPlayerDie)
+				rb.velocity = movespeed;
+		}
+        else
+        {
+            rb.velocity = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10.0f);
+        }
     }
-    // Update is called once per frame
+    // Update is called once per framex
     void Update()
     {
-        if (!isPlayerDie)
-        {
-            movespeed = playerMove();
-            
-            //폭탄 놓기
+		if (!isPlayerDie)
+		{
+			movespeed = playerMove();
+
+			//폭탄 놓기
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
-                PutBomb();
+				PutBomb();
 			}
-            //폭탄 갯수 체크
+			//폭탄 갯수 체크
 			CheckNumberBombs();
 		}
+
     }
 
 	//폭탄 놓기 호출
@@ -272,10 +281,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                     return;
 
             SetHitDir(collision);
-        }
-        
-        
-
+        }       
     }
 
 
@@ -378,7 +384,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
         else //다른 사용자의 위치 동기화
         {
-            currentPos = (Vector2)stream.ReceiveNext();
+            currentPos = (Vector3)stream.ReceiveNext();
             currentRot = (Quaternion)stream.ReceiveNext();
         }
     }

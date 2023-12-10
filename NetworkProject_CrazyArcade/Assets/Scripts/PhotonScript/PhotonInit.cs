@@ -18,6 +18,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	private bool isMain = false;
 	private bool isLobby = false;
 	private bool isWaitingRoom = false;
+	private bool isInGame = false;
 
 	[Header("툴팁 관련 프로퍼티")]
 	public Canvas ToolTipCanvas;
@@ -31,6 +32,9 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	[Header("대기방 관련 프로퍼티")]
 	public WaitingRoomInit waitingRoom;
+
+	[Header("인게임 관련 프로퍼티")]
+	public InGameManger InGameRoom;
 
 	void Awake()
     {
@@ -51,22 +55,24 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-		if(!isMain && SceneManager.GetActiveScene().name == "MainLevel")
-        {
+		if (!isMain && SceneManager.GetActiveScene().name == "MainLevel")
+		{
 			isMain = true;
 			isLobby = false;
 			isWaitingRoom = false;
+			isInGame = false;
 			if (mainRoom == null && GameObject.Find("MainManager") != null)
 			{
 				mainRoom = GameObject.Find("MainManager").GetComponent<MainInit>();
 				mainRoom.SetUIInteractable(true);
 			}
-        }
+		}
 		else if (!isLobby && SceneManager.GetActiveScene().name == "LobbyLevel")
-        {
+		{
 			isMain = false;
 			isLobby = true;
 			isWaitingRoom = false;
+			isInGame = false;
 			if (lobbyRoom == null && GameObject.Find("LobbyManager") != null)
 			{
 				lobbyRoom = GameObject.Find("LobbyManager").GetComponent<LobbyInit>();
@@ -74,13 +80,25 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 			}
 		}
 		else if (!isWaitingRoom && SceneManager.GetActiveScene().name == "WaitingLevel")
-        {
+		{
 			isMain = false;
 			isLobby = false;
 			isWaitingRoom = true;
+			isInGame = false;
 			if (waitingRoom == null && GameObject.Find("RoomManager") != null)
 			{
 				waitingRoom = GameObject.Find("RoomManager").GetComponent<WaitingRoomInit>();
+			}
+		}
+		else if (!isInGame && (SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2" || SceneManager.GetActiveScene().name == "Level3"))
+		{
+			isMain = false;
+			isLobby = false;
+			isWaitingRoom = false;
+			isInGame = true;
+			if (InGameRoom == null && GameObject.Find("InGameManager") != null)
+			{
+				InGameRoom = GameObject.Find("InGameManager").GetComponent<InGameManger>();
 			}
 		}
 
@@ -167,22 +185,31 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	//디버깅 용 방 넘겨주는 함수
 	public void NextScene()
 	{
-		if(Input.GetKey(KeyCode.Escape))
+		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
 			PhotonNetwork.LoadLevel("WaitingLevel");
 		}
-        else if(Input.GetKey(KeyCode.F1))
+        else if(Input.GetKeyDown(KeyCode.F1))
         {
+			PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
 			PhotonNetwork.LoadLevel("Level1");
 		}
-		else if (Input.GetKey(KeyCode.F2))
+		else if (Input.GetKeyDown(KeyCode.F2))
 		{
 			PhotonNetwork.LoadLevel("Level2");
 		}
-		else if(Input.GetKey(KeyCode.F3))
+		else if(Input.GetKeyDown(KeyCode.F3))
 		{
 			PhotonNetwork.LoadLevel("Level3");
 		}
 	}
+
+	public override void OnJoinedRoom()
+	{
+		Debug.Log("Joined Room");
+
+		InGameManger IGM = GameObject.Find("InGameManager").GetComponent<InGameManger>();
+		StartCoroutine(IGM.temp_CreatePlayer());
+	}
+
 }

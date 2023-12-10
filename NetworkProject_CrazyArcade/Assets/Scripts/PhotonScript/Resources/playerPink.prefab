@@ -82,6 +82,8 @@ GameObject:
   - component: {fileID: 239062914433955862}
   - component: {fileID: 7160031277882944244}
   - component: {fileID: 841357493613333957}
+  - component: {fileID: 8244007732672234973}
+  - component: {fileID: 7631459698394991733}
   m_Layer: 3
   m_Name: playerPink
   m_TagString: Player
@@ -279,3 +281,39 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.34}
   m_Size: {x: 1, y: 1.75}
   m_Direction: 0
+--- !u!114 &8244007732672234973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488119832265796733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618a93662f32e874093649c01c7df316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterNumber: 3
+--- !u!114 &7631459698394991733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488119832265796733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 920118479204373443}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
