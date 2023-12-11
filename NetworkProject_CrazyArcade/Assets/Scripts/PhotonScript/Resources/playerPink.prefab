@@ -336,13 +336,13 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: goDown
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: goUp
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: goSide
   - Type: 9
     SynchronizeType: 0

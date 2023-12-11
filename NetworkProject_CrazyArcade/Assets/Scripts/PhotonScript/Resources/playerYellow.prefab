@@ -175,6 +175,7 @@ MonoBehaviour:
   playerBomb: {fileID: 6840772608949218541}
   Bomb: {fileID: 3753820518954436409, guid: 5d6d8d951a3853841815f74c98d22c74, type: 3}
   bombNum: 1
+  isPlayerDie: 0
   playerstat: {fileID: 3262803500573615609}
   bombNumbers: []
 --- !u!95 &2158617244492149962
@@ -315,6 +316,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8211058846682709125}
+  - {fileID: -2385279774121456934}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -332,5 +334,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: goDown
+  - Type: 4
+    SynchronizeType: 1
+    Name: goUp
+  - Type: 4
+    SynchronizeType: 1
+    Name: goSide
+  - Type: 9
+    SynchronizeType: 0
+    Name: isDie
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
