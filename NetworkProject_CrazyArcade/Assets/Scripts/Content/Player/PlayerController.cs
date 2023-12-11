@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         else
         {
             rb.velocity = otherVector;
-            tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
+            
             //tr.Translate((currentPos - tr.position) * Time.deltaTime * 10f);
         }
     }
@@ -124,9 +124,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 otherVector = otherMoveSpeed;
             }
         }
+        else if((tr.position - currentPos).sqrMagnitude >= 100) tr.position = currentPos;
         else
         {
             otherVector = otherMoveSpeed;
+            tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
             isOtherDie();
         }
     }
