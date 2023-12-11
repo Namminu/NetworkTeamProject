@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using Photon.Realtime;
 enum ItemNumber
 {
     FEATHER = 0,
@@ -10,45 +10,51 @@ enum ItemNumber
     SCROLL
 }
 
-public class CreateRandomItem : MonoBehaviourPun
+public class CreateRandomItem : MonoBehaviourPunCallbacks
 {
     public static int[] itemCount = new int[3];
 
     public GameObject[] objectsToSpawn; // 생성할 오브젝트 배열
     private bool createItem = false;
 
-    private GameObject spawnObject = null;
+    private int spawnObject;
     private SpawnController itemSpawnInfo;
 
     [Header("개발자 전용")]
     [Tooltip ("체크 시 아이템 박스에서 무조건 아이템이 나오도록 보장해줍니다")]
     [SerializeField] bool isAlwaysSpawnObject = false;
 
+
+    private PhotonView pv;
+
     private void Start()
     {
-        RandIteam();
-        
+        //RandIteam();
+        pv = GetComponent<PhotonView>();
     }
 
-    void RandIteam()
+    public void RandIteam()
     {
-        Debug.Log(PhotonNetwork.IsMasterClient.ToString());
+        Debug.Log(PhotonNetwork.IsMasterClient.ToString() + "      1");
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log(spawnObject);
+           
             itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
             Debug.Log((itemSpawnInfo.spawnRate * 10f));
             if (Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
                 SetRandomSpawnObject();
-                
-            photonView.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
+
+
+            Debug.Log(spawnObject);
+            //pv.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
         }
         
     }
 
     [PunRPC]
-    void OthersSpawnObject(GameObject newSpawnObject)
+    public void OthersSpawnObject(int newSpawnObject)
     {
+        Debug.Log(newSpawnObject + " 성공?");
         spawnObject = newSpawnObject;
     }
 
@@ -93,18 +99,25 @@ public class CreateRandomItem : MonoBehaviourPun
             return;
         }
 
-        spawnObject = objectsToSpawn[randomItemIndex];
-        
+        spawnObject = randomItemIndex;
+        //bjectsToSpawn
     }
 
     public void SpawnRandomObject()
     {
-        if (spawnObject)
+        
+        if (objectsToSpawn[spawnObject])
         {
-            
-            PhotonNetwork.Instantiate(spawnObject.name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+            Instantiate(objectsToSpawn[spawnObject], transform.position, Quaternion.identity);
+
+            //PhotonNetwork.Instantiate(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
             createItem = true;
         }
         Destroy(gameObject);
     }
-}
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            pv.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
+    }
+} 

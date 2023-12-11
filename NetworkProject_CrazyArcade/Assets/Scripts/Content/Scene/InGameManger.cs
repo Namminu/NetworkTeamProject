@@ -31,6 +31,8 @@ public class InGameManger : MonoBehaviourPun
 
 	private int randomIndex;
 
+	
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -123,5 +125,14 @@ public class InGameManger : MonoBehaviourPun
 		return randNum;
 	}
 
+    public void GameStart()
+	{
+        CreateRandomItem[] creatRand;
+        creatRand = GameObject.FindObjectsOfType<CreateRandomItem>();
+		for(int i = 0; i < creatRand.Length;i++)
+		{
+			creatRand[i].RandIteam();
 
+        }
+    }
 } 

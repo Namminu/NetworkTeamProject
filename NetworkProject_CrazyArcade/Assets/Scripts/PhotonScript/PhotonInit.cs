@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System.Data;
 using JetBrains.Annotations;
 using Photon.Realtime;
+using UnityEngine.UIElements;
 
 public class PhotonInit : MonoBehaviourPunCallbacks
 {
@@ -188,10 +189,11 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			PhotonNetwork.LoadLevel("WaitingLevel");
-		}
+        }
         else if(Input.GetKeyDown(KeyCode.F1))
         {
-			PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
+            PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
+
 			PhotonNetwork.LoadLevel("Level1");
 		}
 		else if (Input.GetKeyDown(KeyCode.F2))
@@ -207,9 +209,10 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	public override void OnJoinedRoom()
 	{
 		Debug.Log("Joined Room");
-
-		InGameManger IGM = GameObject.Find("InGameManager").GetComponent<InGameManger>();
+        Debug.Log(PhotonNetwork.IsMasterClient.ToString());
+        InGameManger IGM = GameObject.Find("InGameManager").GetComponent<InGameManger>();
 		StartCoroutine(IGM.temp_CreatePlayer());
+		IGM.GameStart();
 	}
 
 }
