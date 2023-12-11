@@ -32,8 +32,6 @@ public class LobbyInit : MonoBehaviour
         {
             Debug.Log("¿¬°á ¾ÈµÊ!");
             StartCoroutine(TryConnect());
-            //PhotonNetwork.Disconnect();
-            //StartCoroutine(OnDisconnected());
             RoomListRenewal(PhotonInit.Instance.rooms);
         }
     }
