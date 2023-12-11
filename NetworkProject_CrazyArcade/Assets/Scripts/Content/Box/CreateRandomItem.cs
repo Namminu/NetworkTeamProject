@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 enum ItemNumber
 {
@@ -79,7 +80,7 @@ public class CreateRandomItem : MonoBehaviour
     {
         if (spawnObject)
         {
-            Instantiate(spawnObject, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+            PhotonNetwork.Instantiate(spawnObject.name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
             createItem = true;
         }
         Destroy(gameObject);

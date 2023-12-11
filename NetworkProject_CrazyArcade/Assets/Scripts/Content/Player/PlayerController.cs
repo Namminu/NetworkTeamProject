@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             return Vector3.zero;
 
         // 그 키에 따라 캐릭터 움직이기
-        if (keyTimes[latestKey] != float.MinValue)
+        if (keyTimes[latestKey] != float.MinValue)       
         {
             switch (latestKey)
             {
