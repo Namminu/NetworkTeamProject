@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     [SerializeField]
     private bool isPlayerDie;
-	private bool isOtherPlayerDie;
+    private bool isOtherPlayerDie;
     private bool checkIsOtherDie;
-	private bool isBomb = false;
+    private bool isBomb = false;
 
     public PlayerStat playerstat;
 
@@ -55,12 +55,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private Vector3 otherVector;
     private Vector3 otherMoveSpeed;
 
-	private float myBombX = 0.0f;
-	private float myBombY = 0.0f;
+    private float myBombX = 0.0f;
+    private float myBombY = 0.0f;
     private float otherBombX = 0.0f;
     private float otherBombY = 0.0f;
 
-	void Start()
+    void Start()
     {
         playerstat.playerName = "";
 
@@ -80,111 +80,111 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         isOtherPlayerDie = false;
         checkIsOtherDie = false;
 
-		//동기화 연결 위함
-		pv.ObservedComponents[0] = this;
+        //동기화 연결 위함
+        pv.ObservedComponents[0] = this;
 
         movespeed = Vector3.zero;
     }
-     
-    private void FixedUpdate() 
+
+    private void FixedUpdate()
     {
         if (pv.IsMine)
         {
-			if (!isPlayerDie)				
+            if (!isPlayerDie)
             {
-				rb.velocity = movespeed;			
-			}
-		}
+                rb.velocity = movespeed;
+            }
+        }
         else
         {
-			rb.velocity = otherVector;
+            rb.velocity = otherVector;
             tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
             //tr.Translate((currentPos - tr.position) * Time.deltaTime * 10f);
         }
-	}
+    }
     // Update is called once per frame
     void Update()
     {
-		if (pv.IsMine)
+        if (pv.IsMine)
         {
-			if (!isPlayerDie)
-			{
-				movespeed = playerMove();
+            if (!isPlayerDie)
+            {
+                movespeed = playerMove();
 
-				//폭탄 놓기
-				if (Input.GetKeyDown(KeyCode.Space))
-				{
-					PutBomb();
-				}
-				//폭탄 갯수 체크
-				CheckNumberBombs();
+                //폭탄 놓기
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    PutBomb();
+                }
+                //폭탄 갯수 체크
+                CheckNumberBombs();
 
-				// 위치 보정
-				otherVector = otherMoveSpeed;
-			}
-		}
+                // 위치 보정
+                otherVector = otherMoveSpeed;
+            }
+        }
         else
         {
-			otherVector = otherMoveSpeed;
-			isOtherDie();
-		}
-	}
-
-	//폭탄 놓기 호출
-	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
-	{
-		StartCoroutine(CreateBomb());
-		//pv.RPC("PutBombRPC", RpcTarget.Others);
-	}
-
-	[PunRPC]
-	void PutBombRPC()   //다른 플레이어들과 동기화를 위한 폭탄 생성 함수
-	{
-		StartCoroutine(CreateBomb());
-	}
-	//폭탄 놓기 코루틴
-	IEnumerator CreateBomb()
-    {
-		if (playerstat.numberOfBombs > bombCount && !isBomb)
-		{
-				if (transform.position.x >= 0)
-				{
-					myBombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
-				}
-				else
-				{
-					myBombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
-				}
-
-				if (transform.position.y >= 0)
-				{
-					myBombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
-				}
-				else
-				{
-					myBombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
-				}
-
-			GameObject bomb = PhotonNetwork.Instantiate("Bomb", new Vector3(myBombX, myBombY), Quaternion.identity);
-
-			for (int i = 0; i < playerstat.numberOfBombs; i++)
-			{
-				if (bombNumbers[i] == null)
-				{ 
-					bombCount++;
-					bombNumbers[i] = bomb;
-					break;
-				}
-			} 
-
-			bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
-			bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
-			bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
-		}
-		yield return null;
+            otherVector = otherMoveSpeed;
+            isOtherDie();
+        }
     }
 
-	void CheckNumberBombs()
+    //폭탄 놓기 호출
+    void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
+    {
+        StartCoroutine(CreateBomb());
+        //pv.RPC("PutBombRPC", RpcTarget.Others);
+    }
+
+    [PunRPC]
+    void PutBombRPC()   //다른 플레이어들과 동기화를 위한 폭탄 생성 함수
+    {
+        StartCoroutine(CreateBomb());
+    }
+    //폭탄 놓기 코루틴
+    IEnumerator CreateBomb()
+    {
+        if (playerstat.numberOfBombs > bombCount && !isBomb)
+        {
+            if (transform.position.x >= 0)
+            {
+                myBombX = Mathf.FloorToInt(playerBomb.transform.position.x) + 0.5f;
+            }
+            else
+            {
+                myBombX = Mathf.CeilToInt(playerBomb.transform.position.x) - 0.5f;
+            }
+
+            if (transform.position.y >= 0)
+            {
+                myBombY = Mathf.FloorToInt(playerBomb.transform.position.y) + 0.5f;
+            }
+            else
+            {
+                myBombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
+            }
+
+            GameObject bomb = PhotonNetwork.Instantiate("Bomb", new Vector3(myBombX, myBombY), Quaternion.identity);
+
+            for (int i = 0; i < playerstat.numberOfBombs; i++)
+            {
+                if (bombNumbers[i] == null)
+                {
+                    bombCount++;
+                    bombNumbers[i] = bomb;
+                    break;
+                }
+            }
+
+            bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
+            bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
+            bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
+        }
+        yield return null;
+    }
+
+    void CheckNumberBombs()
     {
         System.Array.Resize(ref bombNumbers, playerstat.numberOfBombs);
         int bombnotNull = 0;
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             }
         }
 
-        if(bombnotNull != bombCount)
+        if (bombnotNull != bombCount)
             bombCount = bombnotNull;
     }
 
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     };
 
     Vector3 playerMove()
-    {       
+    {
         float moveY = 0f;
         float moveX = 0f;
 
@@ -242,38 +242,41 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             {
                 case KeyCode.UpArrow:
                     dir = Direction.Up;
-                        moveY = playerstat.playerSpeed ;
+                    moveY = playerstat.playerSpeed;
                     animator.SetBool("goUp", true);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", false);
-
-                    rend.flipX = false;
+					pv.RPC("FilpXRPC", RpcTarget.Others, false);
+					rend.flipX = false;
                     break;
+
                 case KeyCode.DownArrow:
                     dir = Direction.Down;
-                        moveY = -playerstat.playerSpeed ;
+                    moveY = -playerstat.playerSpeed;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", true);
                     animator.SetBool("goSide", false);
-
-                    rend.flipX = false;
+					pv.RPC("FilpXRPC", RpcTarget.Others, false);
+					rend.flipX = false;
                     break;
+
                 case KeyCode.LeftArrow:
                     dir = Direction.Left;
-                        moveX = -playerstat.playerSpeed ;
+                    moveX = -playerstat.playerSpeed;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
-                    rend.flipX = false;
-
+					pv.RPC("FilpXRPC", RpcTarget.Others, false);
+					rend.flipX = false;
                     break;
+
                 case KeyCode.RightArrow:
                     dir = Direction.Right;
-                        moveX = playerstat.playerSpeed ;
+                    moveX = playerstat.playerSpeed;
                     animator.SetBool("goUp", false);
                     animator.SetBool("goDown", false);
                     animator.SetBool("goSide", true);
-
+                    pv.RPC("FilpXRPC", RpcTarget.Others, true);
                     rend.flipX = true;
                     break;
             }
@@ -290,6 +293,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
         Vector3 moveDirection = new Vector3(moveX, moveY, 0);
         return moveDirection;
+    }
+
+    [PunRPC]
+    void FilpXRPC(bool isFilp)
+    {
+        rend.flipX = isFilp;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
