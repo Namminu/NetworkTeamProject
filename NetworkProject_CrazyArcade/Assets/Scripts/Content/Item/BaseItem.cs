@@ -21,7 +21,7 @@ public abstract class BaseItem : MonoBehaviourPun
             if (player != null)
             {
                 Debug.Log("∏‘¿Ω");
-                if(player.photonView.IsMine)
+                if(player.photonView.IsMine && pv != null)
                 {
                     OperateItemLogic(player);
                     Destroy(gameObject);
