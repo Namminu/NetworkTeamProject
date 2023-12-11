@@ -16,6 +16,8 @@ public class InGameManger : MonoBehaviourPun
 
 	//대기방 전환을 위한 시간 변수
 	[Header("승리자 패널 표시 시간")]
+	[Tooltip("승리자 이름 텍스트")]
+	public Text winnerName;
     [Tooltip("대기방으로 화면 넘어가는 대기 시간")]
 	public float WaitTime;
     [Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")]
@@ -43,18 +45,27 @@ public class InGameManger : MonoBehaviourPun
     // Update is called once per frame 
     void Update()
     {
-        
+
 	}
 
-    //게임 클리어 시 호출 함수
-    public void GameClear() 
-    {
-		winnerCanvas.SetActive(true);
-		inner_WatingTime = WaitTime;
+    //플레이어 사망 시 호출 함수
+  //  public void IsGameClear(List<Player> playerCount) 
+  //  {
+		//if (playerCount.Count == 1)	//최종 우승자
+		//{
+		//	winnerCanvas.SetActive(true);
+		//	inner_WatingTime = WaitTime;
 
-        BackToWaitingRoom();
-        SetWatingSecondText();
-    }
+		//	SetWinnerName(playerCount[????].Nickname);
+		//	BackToWaitingRoom();
+		//    SetWatingSecondText();
+		//}
+  //  }
+
+	public void SetWinnerName(Text IamWinner)
+	{
+		winnerName.text = IamWinner.text;
+	}
 
 	public void BackToWaitingRoom()
     {
@@ -75,7 +86,6 @@ public class InGameManger : MonoBehaviourPun
 		PhotonNetwork.Instantiate(PlayerPrefabs[randomIndex].name, spawnPosition, Quaternion.identity, 0);
 
 		yield return null;
-
 	}
 
     public void GameStart()

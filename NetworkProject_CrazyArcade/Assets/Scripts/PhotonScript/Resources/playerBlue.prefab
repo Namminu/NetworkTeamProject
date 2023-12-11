@@ -180,7 +180,7 @@ MonoBehaviour:
   startPlayerSpeed: 5
   startNumberOfBombs: 1
   startBombLength: 1
-  MaxSpeed: 8
+  MaxSpeed: 7
   MaxBombs: 7
   MaxBombStream: 7
 --- !u!70 &6363683597638102900
