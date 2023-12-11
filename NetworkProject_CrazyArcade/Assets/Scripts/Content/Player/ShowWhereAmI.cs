@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class ShowWhereAmI : MonoBehaviourPun
 {
-    public Canvas Arrow;
+    public GameObject Arrow;
     // Start is called before the first frame update
     void Start()
     {
