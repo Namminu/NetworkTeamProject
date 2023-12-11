@@ -42,6 +42,7 @@ MonoBehaviour:
   - PlayerEnter
   - PlayerLeave
   - PutBombRPC
+  - FilpXRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
