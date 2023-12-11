@@ -180,7 +180,7 @@ public class BombController : MonoBehaviour
 
     public void BombstreamLength(int length)
     {
-        Debug.Log(length);
+ 
         streamLength = length;
     }
 
@@ -325,8 +325,6 @@ public class BombController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
 
         }
-        if (n == 2)
-            Debug.Log("2222222222");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

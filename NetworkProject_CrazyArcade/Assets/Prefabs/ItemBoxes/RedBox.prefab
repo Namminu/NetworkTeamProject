@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1969011324178302708}
   - component: {fileID: 3633452489176323432}
   - component: {fileID: 2500859335913391207}
+  - component: {fileID: 3805110240127138161}
   m_Layer: 10
   m_Name: RedBox
   m_TagString: VEHICLE
@@ -144,7 +145,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToSpawn:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7600012579988621560, guid: 8a8e45727a705c343baf7319991530b1, type: 3}
+  - {fileID: 5519369541515782920, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
+  - {fileID: 4029292474237689570, guid: 46730e63151c04e499aa7257b46abdbb, type: 3}
   isAlwaysSpawnObject: 0
+--- !u!114 &3805110240127138161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969011324178302711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

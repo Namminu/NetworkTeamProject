@@ -10,7 +10,7 @@ enum ItemNumber
     SCROLL
 }
 
-public class CreateRandomItem : MonoBehaviour
+public class CreateRandomItem : MonoBehaviourPun
 {
     public static int[] itemCount = new int[3];
 
@@ -26,10 +26,30 @@ public class CreateRandomItem : MonoBehaviour
 
     private void Start()
     {
-        itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
-        Debug.Log((itemSpawnInfo.spawnRate * 10f));
-        if(Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
-            SetRandomSpawnObject();
+        RandIteam();
+        
+    }
+
+    void RandIteam()
+    {
+        Debug.Log(PhotonNetwork.IsMasterClient.ToString());
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log(spawnObject);
+            itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
+            Debug.Log((itemSpawnInfo.spawnRate * 10f));
+            if (Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
+                SetRandomSpawnObject();
+                
+            photonView.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
+        }
+        
+    }
+
+    [PunRPC]
+    void OthersSpawnObject(GameObject newSpawnObject)
+    {
+        spawnObject = newSpawnObject;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -74,12 +94,14 @@ public class CreateRandomItem : MonoBehaviour
         }
 
         spawnObject = objectsToSpawn[randomItemIndex];
+        
     }
 
     public void SpawnRandomObject()
     {
         if (spawnObject)
         {
+            
             PhotonNetwork.Instantiate(spawnObject.name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
             createItem = true;
         }

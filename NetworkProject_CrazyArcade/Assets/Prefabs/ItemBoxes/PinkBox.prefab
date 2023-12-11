@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1969011324178302708}
   - component: {fileID: 7366404431297551983}
   - component: {fileID: 8704524457680681952}
+  - component: {fileID: -3506647493092660344}
   m_Layer: 10
   m_Name: PinkBox
   m_TagString: VEHICLE
@@ -148,3 +149,25 @@ MonoBehaviour:
   - {fileID: 5519369541515782920, guid: 5c9ffdca295a1f84aafc27532856847b, type: 3}
   - {fileID: 4029292474237689570, guid: 46730e63151c04e499aa7257b46abdbb, type: 3}
   isAlwaysSpawnObject: 0
+--- !u!114 &-3506647493092660344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969011324178302711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
