@@ -10,7 +10,7 @@ enum ItemNumber
     SCROLL
 }
 
-public class CreateRandomItem : MonoBehaviour
+public class CreateRandomItem : MonoBehaviourPun
 {
     public static int[] itemCount = new int[3];
 
@@ -76,9 +76,10 @@ public class CreateRandomItem : MonoBehaviour
         spawnObject = objectsToSpawn[randomItemIndex];
     }
 
+    [PunRPC]
     public void SpawnRandomObject()
     {
-        if (spawnObject)
+        if (spawnObject && PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(spawnObject.name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
             createItem = true;
@@ -86,3 +87,4 @@ public class CreateRandomItem : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
