@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 8176951208329301631}
   - component: {fileID: -8461788342181213528}
   - component: {fileID: -1594929361344242296}
+  - component: {fileID: -979247504376679121}
+  - component: {fileID: 656464899800192482}
   m_Layer: 3
   m_Name: playerBlue
   m_TagString: Player
@@ -239,6 +241,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8474584609462915194}
   - {fileID: -8461788342181213528}
+  - {fileID: -979247504376679121}
+  - {fileID: 656464899800192482}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -298,6 +302,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 2459436806591692946}
+--- !u!114 &-979247504376679121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975288008589873239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
+--- !u!114 &656464899800192482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975288008589873239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2459436806591692946
 GameObject:
   m_ObjectHideFlags: 0
