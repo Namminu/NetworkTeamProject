@@ -424,13 +424,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
 	private void isOtherDie()
 	{
-		if (isOtherPlayerDie && !checkIsOtherDie)
-		{
-			rb.velocity = Vector3.zero;
-			animator.SetTrigger("isDie");
-			Destroy(gameObject, 2.0f);
-			checkIsOtherDie = true;
-		}
+		//if (isOtherPlayerDie && !checkIsOtherDie)
+		//{
+		//	rb.velocity = Vector3.zero;
+		//	animator.SetTrigger("isDie");
+		//	Destroy(gameObject, 2.0f);
+		//	checkIsOtherDie = true;
+		//}
 	}
 
 	public void IsBomb()
