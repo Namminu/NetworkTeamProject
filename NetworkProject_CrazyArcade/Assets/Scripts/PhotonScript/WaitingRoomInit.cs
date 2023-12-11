@@ -169,6 +169,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		{
 			myCharacterIndex = Random.Range(0, playerImages.Length);
 			properties["isMaster"] = true;
+			PhotonNetwork.AutomaticallySyncScene = true;
 		}
 
 		GameObject player = Instantiate(playerImages[myCharacterIndex], playerImagePos[myWaitingIndex].transform);
@@ -211,6 +212,9 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	public void Ready()
 	{
+		if (PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
+			PhotonInit.Instance.toolTipText.StartTextEffect("방장은 레디할 수 없습니다!", Effect.FADE);
+
 		PhotonNetwork.AutomaticallySyncScene = true;
 	}
 
