@@ -211,7 +211,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	public void StartGame()
     {
-		PhotonNetwork.AutomaticallySyncScene = true;
 		PhotonNetwork.LoadLevel("Level1");
     }
 }
