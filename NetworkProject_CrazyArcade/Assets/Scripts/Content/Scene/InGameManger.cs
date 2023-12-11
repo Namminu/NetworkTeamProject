@@ -36,7 +36,8 @@ public class InGameManger : MonoBehaviourPun
 	// Start is called before the first frame update
 	void Start()
     {
-		 
+		StartCoroutine(temp_CreatePlayer());
+		GameStart();
 	}
 
     // Update is called once per frame 

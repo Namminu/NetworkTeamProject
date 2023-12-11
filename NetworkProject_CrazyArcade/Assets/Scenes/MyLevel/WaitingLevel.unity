@@ -206,7 +206,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 686552946}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1902,7 +1902,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 301974113}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4608337
+  m_Size: 0.46061677
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3628,7 +3628,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1722609928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313925824}
+        m_TargetAssemblyTypeName: WaitingRoomInit, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1722609928
 MonoBehaviour:
   m_ObjectHideFlags: 0

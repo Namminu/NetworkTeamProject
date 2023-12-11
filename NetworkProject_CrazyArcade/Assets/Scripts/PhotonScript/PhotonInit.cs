@@ -211,11 +211,6 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 		Debug.Log("Finish make a Room");
 	}
 
-    public override void OnJoinedRoom()
-    {
-		PhotonNetwork.LoadLevel("WaitingLevel");
-	}
-
     public void SetPlayerName(string name)
     {
 		if (!isReady)
@@ -233,11 +228,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public void NextScene()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			PhotonNetwork.LoadLevel("WaitingLevel");
-        }
-        else if(Input.GetKeyDown(KeyCode.F1))
+        if(Input.GetKeyDown(KeyCode.F1))
         {
             PhotonNetwork.JoinOrCreateRoom("room1", new RoomOptions { MaxPlayers = 4 }, null);
 
@@ -255,12 +246,13 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public override void OnJoinedRoom()
 	{
-		//Debug.Log("Joined Room");
-        //Debug.Log(PhotonNetwork.IsMasterClient.ToString());
-        //InGameManger IGM = GameObject.Find("InGameManager").GetComponent<InGameManger>();
-		//StartCoroutine(IGM.temp_CreatePlayer());
-		//IGM.GameStart();
+		PhotonNetwork.LoadLevel("WaitingLevel");
 	}
+
+	public void GameStart()
+    {
+        
+    }
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
     {

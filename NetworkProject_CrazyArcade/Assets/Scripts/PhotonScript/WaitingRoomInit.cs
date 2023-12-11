@@ -208,4 +208,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		return randNum;
 	}
     #endregion
+
+	public void StartGame()
+    {
+		PhotonNetwork.AutomaticallySyncScene = true;
+		PhotonNetwork.LoadLevel("Level1");
+    }
 }
