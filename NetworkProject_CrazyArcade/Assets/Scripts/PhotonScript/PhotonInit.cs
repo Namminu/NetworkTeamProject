@@ -252,6 +252,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public void GameStart()
     {
+		PhotonNetwork.AutomaticallySyncScene = true;
 		PhotonNetwork.LoadLevel("Level1");
 		StartCoroutine(OperateGame());
 	}
