@@ -156,8 +156,14 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	}
 	
 	// 플레이어가 대기방에 입장할때 실행되는 함수
-	void InitPlayerProperty()
+	IEnumerator InitPlayerProperty()
 	{
+		while(PhotonNetwork.NetworkClientState != ClientState.Joining)
+        {
+			Debug.Log("조인 중");
+			yield return null;
+        }
+
 		//이미 방에 들어와 있는 플레이어들의 캐릭터를 만들어줌
 		foreach (Player otherPlayer in PhotonNetwork.PlayerListOthers)
 		{
