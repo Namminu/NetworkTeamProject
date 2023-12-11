@@ -59,13 +59,13 @@ public class TextEffect : MonoBehaviour
         fadeColor.a = 0f;
 
         myText.color = startColor;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         myText.text += '.';
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         myText.text += '.';
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         myText.text += '.';
     }
 }

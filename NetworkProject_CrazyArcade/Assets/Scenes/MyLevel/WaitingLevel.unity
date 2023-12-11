@@ -205,8 +205,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 686552947}
   m_HandleRect: {fileID: 686552946}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -398,7 +398,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 4
+  m_Text: 
 --- !u!222 &152874451
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -664,7 +664,6 @@ GameObject:
   m_Component:
   - component: {fileID: 259397426}
   - component: {fileID: 259397428}
-  - component: {fileID: 259397427}
   m_Layer: 0
   m_Name: PlayerCamera3
   m_TagString: Untagged
@@ -688,14 +687,6 @@ Transform:
   - {fileID: 214933809}
   m_Father: {fileID: 1992105508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &259397427
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259397425}
-  m_Enabled: 1
 --- !u!20 &259397428
 Camera:
   m_ObjectHideFlags: 0
@@ -943,20 +934,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 3
-  instantiationId: 3
-  currentMasterID: -1
+  sceneViewId: 3
+  InstantiationId: 3
   isRuntimeInstantiated: 0
 --- !u!114 &313925824
 MonoBehaviour:
@@ -1156,7 +1143,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 3
+  m_Text: 
 --- !u!222 &461469651
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1351,7 +1338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 598494020}
   - component: {fileID: 598494022}
-  - component: {fileID: 598494021}
   m_Layer: 0
   m_Name: PlayerCamera4
   m_TagString: Untagged
@@ -1375,14 +1361,6 @@ Transform:
   - {fileID: 1773782926}
   m_Father: {fileID: 1992105508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &598494021
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598494019}
-  m_Enabled: 1
 --- !u!20 &598494022
 Camera:
   m_ObjectHideFlags: 0
@@ -1924,7 +1902,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 301974113}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.46068442
+  m_Size: 0.4608337
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2391,7 +2369,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 1
+  m_Text: 
 --- !u!222 &783602277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2642,51 +2620,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904233343}
   m_CullTransparentMesh: 1
---- !u!1 &1000603211
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1000603213}
-  - component: {fileID: 1000603212}
-  m_Layer: 0
-  m_Name: SetPlayerName
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1000603212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000603211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6da5e504dfd81b41932b465768459af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerName: 
---- !u!4 &1000603213
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000603211}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 527.0307, y: 251.9497, z: -1.1141577}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1193309502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3138,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1483682972}
   - component: {fileID: 1483682971}
-  - component: {fileID: 1483682970}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3213,14 +3145,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1483682970
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483682969}
-  m_Enabled: 1
 --- !u!20 &1483682971
 Camera:
   m_ObjectHideFlags: 0
@@ -3859,7 +3783,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1776524536}
   - component: {fileID: 1776524538}
-  - component: {fileID: 1776524537}
   m_Layer: 0
   m_Name: PlayerCamera2
   m_TagString: Untagged
@@ -3883,14 +3806,6 @@ Transform:
   - {fileID: 684997886}
   m_Father: {fileID: 1992105508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1776524537
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776524535}
-  m_Enabled: 1
 --- !u!20 &1776524538
 Camera:
   m_ObjectHideFlags: 0
@@ -4102,7 +4017,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1873679571}
   - component: {fileID: 1873679573}
-  - component: {fileID: 1873679572}
   m_Layer: 0
   m_Name: PlayerCamera1
   m_TagString: Untagged
@@ -4126,14 +4040,6 @@ Transform:
   - {fileID: 193023781}
   m_Father: {fileID: 1992105508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1873679572
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873679570}
-  m_Enabled: 1
 --- !u!20 &1873679573
 Camera:
   m_ObjectHideFlags: 0
@@ -4255,7 +4161,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 2
+  m_Text: 
 --- !u!222 &1908174542
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4646,6 +4552,5 @@ SceneRoots:
   - {fileID: 1332186349}
   - {fileID: 1367238297}
   - {fileID: 1283457968}
-  - {fileID: 1000603213}
   - {fileID: 1992105508}
   - {fileID: 313925822}
