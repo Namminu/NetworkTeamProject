@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using Photon.Pun;
 
-public class BombController : MonoBehaviourPun
+public class BombController : MonoBehaviour
 {
     public float bombTime = 2.5f;
     public int streamLength;
@@ -68,7 +67,7 @@ public class BombController : MonoBehaviourPun
                 {
                     if (distanceUp == hitUp.distance)
                     {
-                        GetRandSpawn(hitUp);
+                        hitUp.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                     }
                 }
 
@@ -81,7 +80,7 @@ public class BombController : MonoBehaviourPun
                 {
                     if (distanceDown == hitDown.distance)
                     {
-                        GetRandSpawn(hitDown);
+                        hitDown.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                     }
 
                 }
@@ -95,7 +94,7 @@ public class BombController : MonoBehaviourPun
                 {
                     if (distanceLeft == hitLeft.distance)
                     {
-                        GetRandSpawn(hitLeft);
+                        hitLeft.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                     }
                 }
 
@@ -108,7 +107,7 @@ public class BombController : MonoBehaviourPun
                 {
                     if (distanceRight == hitRight.distance)
                     {
-                        GetRandSpawn(hitRight);
+                        hitRight.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                     }
                 }
 
@@ -254,7 +253,7 @@ public class BombController : MonoBehaviourPun
                     distanceUp = hitUp.distance;
 
                     if (n == 2)
-                        GetRandSpawn(hitUp);
+                        hitUp.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
@@ -274,7 +273,7 @@ public class BombController : MonoBehaviourPun
                     distanceDown = hitDown.distance;
 
                     if (n == 2)
-                        GetRandSpawn(hitDown);
+                        hitDown.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
 
                 }
 
@@ -295,7 +294,7 @@ public class BombController : MonoBehaviourPun
                     distanceLeft = hitLeft.distance;
 
                     if (n == 2)
-                        GetRandSpawn(hitLeft);
+                        hitLeft.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
@@ -315,8 +314,7 @@ public class BombController : MonoBehaviourPun
                     distanceRight = hitRight.distance;
 
                     if (n == 2)
-                        GetRandSpawn(hitRight);
-
+                        hitRight.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
                 }
 
 
@@ -330,21 +328,6 @@ public class BombController : MonoBehaviourPun
         if (n == 2)
             Debug.Log("2222222222");
     }
-
-    [PunRPC]
-    void GetRandSpawn(RaycastHit2D raycast)
-    {
-
-        if(PhotonNetwork.IsMasterClient)
-        {
-            PhotonView ptView = raycast.collider.GetComponent<PhotonView>();
-            ptView.RPC("SpawnRandomObject", RpcTarget.All);
-            //raycast.collider.GetComponent<CreateRandomItem>().SpawnRandomObject();
-            //photonView.RPC("GetRandSpawn", RpcTarget.Others, raycast);
-        }
-    }
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
