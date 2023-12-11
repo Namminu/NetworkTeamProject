@@ -40,9 +40,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private int bombCount = 0;
 
+    [SerializeField]
     private bool isPlayerDie;
-    private bool isBomb = false;
-
+	private bool isOtherPlayerDie;
+    private bool checkIsOtherDie;
+	private bool isBomb = false;
 
     public PlayerStat playerstat;
 
@@ -73,16 +75,17 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         tr = GetComponent<Transform>();
         pv = GetComponent<PhotonView>();
 
+        //캐릭터 사망 체크 위함
         isPlayerDie = false;
-        //이 게임에서는 플레이어에 카메라가 부착될 필요가 없다고 생각해서 일단 주석처리
-        //if (pv.isMine) Camera.main.GetComponent<FollowCam>().targetTr = tr;
+        isOtherPlayerDie = false;
+        checkIsOtherDie = false;
 
-        //동기화 연결 위함
-        pv.ObservedComponents[0] = this;
+		//동기화 연결 위함
+		pv.ObservedComponents[0] = this;
 
         movespeed = Vector3.zero;
     }
-
+     
     private void FixedUpdate() 
     {
         if (pv.IsMine)
@@ -95,8 +98,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         else
         {
 			rb.velocity = otherVector;
-			tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
-		}
+            tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // 위치 보정
+            //tr.Translate((currentPos - tr.position) * Time.deltaTime * 10f);
+        }
 	}
     // Update is called once per frame
     void Update()
@@ -122,9 +126,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         else
         {
 			otherVector = otherMoveSpeed;
+			isOtherDie();
 		}
-		
-    }
+	}
 
 	//폭탄 놓기 호출
 	void PutBomb()  //로컬 플레이어가 작동하기 위한 폭탄 생성 함수
@@ -160,14 +164,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 				{
 					myBombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
 				}
-   //         if(pv.IsMine)   //로컬 플레이어 폭탄
-   //         {
-			//}
-   //         else
-   //         {
-   //             myBombX = otherBombX;
-   //             myBombY = otherBombY;
-			//}
 
 			GameObject bomb = PhotonNetwork.Instantiate("Bomb", new Vector3(myBombX, myBombY), Quaternion.identity);
 
@@ -381,6 +377,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             //폭탄 위치 전송
             stream.SendNext(myBombX);
 			stream.SendNext(myBombY);
+            //캐릭터 상태 전송
+            stream.SendNext(isPlayerDie);
 		}
         else //다른 사용자의 위치 동기화
         {
@@ -390,16 +388,32 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             //다른 사용자의 폭탄 위치 동기화
             otherBombX = (float)stream.ReceiveNext();
             otherBombY = (float)stream.ReceiveNext();
+            //다른 사용자의 상태 동기화
+            isOtherPlayerDie = (bool)stream.ReceiveNext();
 		}
     }
 
     public void IsDie()
     {
-        rb.velocity = Vector3.zero;
-        isPlayerDie = true;
-        animator.SetTrigger("isDie");
-        Destroy(gameObject, 2.0f);
+        if (pv.IsMine)
+        {
+            rb.velocity = Vector3.zero;
+            isPlayerDie = true;
+            animator.SetTrigger("isDie");
+            Destroy(gameObject, 2.0f);
+        }
     }
+
+    private void isOtherDie()
+    {
+        if (isOtherPlayerDie && !checkIsOtherDie)
+		{
+			rb.velocity = Vector3.zero;
+			animator.SetTrigger("isDie");
+			Destroy(gameObject, 2.0f);
+            checkIsOtherDie = true;
+		}
+	}
 
     public void IsBomb()
     {

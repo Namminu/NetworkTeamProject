@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 841357493613333957}
   - component: {fileID: 8244007732672234973}
   - component: {fileID: 7631459698394991733}
+  - component: {fileID: 2068801622091197917}
   m_Layer: 3
   m_Name: playerPink
   m_TagString: Player
@@ -174,6 +175,7 @@ MonoBehaviour:
   playerBomb: {fileID: 1762074461933015565}
   Bomb: {fileID: 3753820518954436409, guid: 5d6d8d951a3853841815f74c98d22c74, type: 3}
   bombNum: 1
+  isPlayerDie: 0
   playerstat: {fileID: 7160031277882944244}
   bombNumbers: []
 --- !u!95 &2310302989839574634
@@ -314,6 +316,37 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 920118479204373443}
+  - {fileID: 2068801622091197917}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2068801622091197917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488119832265796733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: goDown
+  - Type: 4
+    SynchronizeType: 0
+    Name: goUp
+  - Type: 4
+    SynchronizeType: 0
+    Name: goSide
+  - Type: 9
+    SynchronizeType: 0
+    Name: isDie
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
