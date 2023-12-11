@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +11,12 @@ public class SpeedBoostItem : BaseItem
 
     public override void OperateItemLogic(PlayerController player)
     {
-        player.playerstat.playerSpeed += speedBoost; // 플레이어의 속도 증가
+        if (player.photonView.IsMine)
+        {
+            player.playerstat.playerSpeed += speedBoost; // 플레이어의 속도 증가 
+        }
     }
+
+
+
 }

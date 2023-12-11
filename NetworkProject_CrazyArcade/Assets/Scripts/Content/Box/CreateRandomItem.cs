@@ -54,7 +54,6 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
     [PunRPC]
     public void OthersSpawnObject(int newSpawnObject)
     {
-        Debug.Log(newSpawnObject + " 성공?");
         spawnObject = newSpawnObject;
     }
 
@@ -108,9 +107,9 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
         
         if (objectsToSpawn[spawnObject])
         {
-            Instantiate(objectsToSpawn[spawnObject], transform.position, Quaternion.identity);
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Instantiate(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
 
-            //PhotonNetwork.Instantiate(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
             createItem = true;
         }
         Destroy(gameObject);

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using Photon.Pun;
 
-public class BombController : MonoBehaviour
+public class BombController : MonoBehaviourPun
 {
     public float bombTime = 2.5f;
     public int streamLength;
@@ -178,6 +179,7 @@ public class BombController : MonoBehaviour
         BombAction();
     }
 
+    [PunRPC]
     public void BombstreamLength(int length)
     {
  

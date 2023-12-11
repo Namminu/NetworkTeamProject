@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private float myBombX = 0.0f;
     private float myBombY = 0.0f;
+
     private float otherBombX = 0.0f;
     private float otherBombY = 0.0f;
 
@@ -177,7 +178,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 }
             }
 
-            bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
+            //bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
+            bomb.GetComponentInParent<BombController>().photonView.RPC("BombstreamLength", RpcTarget.All, playerstat.bombLength);
             bomb.GetComponentInParent<BombController>().setBombName("Bomb" + (++bombCount));
             bomb.GetComponentInParent<BombController>().overlappingPlayer = gameObject.name;
         }
@@ -432,6 +434,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         isBomb = false; 
     }
+
 
 }
 

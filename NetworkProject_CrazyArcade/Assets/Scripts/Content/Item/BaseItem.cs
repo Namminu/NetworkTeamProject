@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public abstract class BaseItem : MonoBehaviour
+public abstract class BaseItem : MonoBehaviourPun
 {
     public abstract void OperateItemLogic(PlayerController player);
 
+    PhotonView pv;
+
+    private void Start()
+    {
+        pv = gameObject.GetComponent<PhotonView>();
+    }
     void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.gameObject.tag == "Player")
@@ -14,8 +21,12 @@ public abstract class BaseItem : MonoBehaviour
             if (player != null)
             {
                 Debug.Log("∏‘¿Ω");
-                OperateItemLogic(player);
-                Destroy(gameObject);
+                if(player.photonView.IsMine)
+                {
+                    OperateItemLogic(player);
+                    Destroy(gameObject);
+                    pv.RPC("ItemEat", RpcTarget.Others);
+                }
             }
         }
 
@@ -23,5 +34,11 @@ public abstract class BaseItem : MonoBehaviour
         {
             Destroy(gameObject);         
         }
+    }
+
+    [PunRPC]
+    public void ItemEat()
+    {
+        Destroy(gameObject); 
     }
 }
