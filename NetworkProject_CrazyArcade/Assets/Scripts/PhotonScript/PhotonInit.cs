@@ -46,7 +46,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	[Header("인게임 관련 프로퍼티")]
 	public InGameManger InGameRoom;
-	private List<Player> Players;
+	private Player myInfo;
 
 	void Awake()
     {
@@ -262,11 +262,6 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 		PhotonNetwork.LoadLevel("WaitingLevel");
 	}
 
-	public void GameStart()
-    {
-		PhotonNetwork.LoadLevel("Level1");
-	}
-
 	IEnumerator OperateGame()
     {
 		while(InGameRoom == null)
@@ -275,7 +270,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         }
 
 		InGameRoom.GameStart();
-		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer());
+		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer(myInfo));
     }
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
@@ -350,6 +345,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         }
     }
 
-	public void SetPlayerForGame(List<Player> playerList) { Players = playerList; }
-	public List<Player> PassPlayerInfo() { return Players; }
+	public void SetPlayerForGame(Player player) { myInfo = player; }
+	public void ResetPlayerInfo() { myInfo = null; }
+	public Player PassPlayerInfo() { return myInfo; }
 }

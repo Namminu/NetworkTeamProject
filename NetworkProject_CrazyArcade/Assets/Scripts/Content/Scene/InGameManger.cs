@@ -18,6 +18,7 @@ public class InGameManger : MonoBehaviourPun
 	[Header("승리자 패널 표시 시간")]
     [Tooltip("대기방으로 화면 넘어가는 대기 시간")]
 	public float WaitTime;
+
     [Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")]
     public Text BackToWatingSecond; //시간 문구
 	private float inner_WatingTime;   //내부 코드에서 초기화를 위한 변수, 이 변수로 시간 설정할 예정
@@ -27,6 +28,7 @@ public class InGameManger : MonoBehaviourPun
 	[Header("플레이어 생성 위치 할당")]
 	[Tooltip("플레이어 생성 위치 리스트")]
 	public  GameObject[] playerSpawnLocation = new GameObject[4];
+
 	//[Tooltip("해당 위치에 플레이어 생성 가능한지 여부 판단")]
 	//public bool[] canSpawnPlayer;
 	[Tooltip("플레이어 프리팹")]
@@ -69,10 +71,12 @@ public class InGameManger : MonoBehaviourPun
 		BackToWatingSecond.text = (int)inner_WatingTime + " 초 뒤에 대기방으로 이동합니다...";
 	}
 
-	public IEnumerator temp_CreatePlayer()
+	public IEnumerator temp_CreatePlayer(Player myInfo)
 	{
-		Vector3 spawnPosition = playerSpawnLocation[Random.Range(0, playerSpawnLocation.Length)].transform.position;
-		PhotonNetwork.Instantiate(PlayerPrefabs[randomIndex].name, spawnPosition, Quaternion.identity, 0);
+
+		Vector3 spawnPosition = playerSpawnLocation[(int)myInfo.CustomProperties["waitingIndex"]].transform.position;
+		PhotonNetwork.Instantiate(PlayerPrefabs[(int)myInfo.CustomProperties["characterIndex"]].name, 
+			spawnPosition, Quaternion.identity, 0);
 
 		yield return null;
 
