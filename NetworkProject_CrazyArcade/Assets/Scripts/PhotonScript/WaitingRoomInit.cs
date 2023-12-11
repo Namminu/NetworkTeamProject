@@ -152,13 +152,14 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 		myWaitingIndex = currentRoom.PlayerCount - 1;
 
-		InitPlayerProperty();
+		StartCoroutine(InitPlayerProperty());
 	}
 	
 	// 플레이어가 대기방에 입장할때 실행되는 함수
 	IEnumerator InitPlayerProperty()
 	{
-		while(PhotonNetwork.NetworkClientState != ClientState.Joining)
+		
+		while(PhotonNetwork.NetworkClientState == ClientState.Joining)
         {
 			Debug.Log("조인 중");
 			yield return null;
