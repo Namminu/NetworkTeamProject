@@ -209,6 +209,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	}
     #endregion
 
+	public void Ready()
+	{
+		PhotonNetwork.AutomaticallySyncScene = true;
+	}
+
 	public void StartGame()
     {
 		PhotonInit.Instance.SetPlayerForGame(Players);
