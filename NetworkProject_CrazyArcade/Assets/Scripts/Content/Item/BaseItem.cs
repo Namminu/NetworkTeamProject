@@ -13,7 +13,7 @@ public abstract class BaseItem : MonoBehaviourPun
     {
         pv = gameObject.GetComponent<PhotonView>();
     }
-    void OnTriggerEnter2D(Collider2D other) 
+    void OnTriggerStay2D(Collider2D other) 
     {
         if (other.gameObject.tag == "Player")
         {
@@ -21,7 +21,7 @@ public abstract class BaseItem : MonoBehaviourPun
             if (player != null)
             {
                 Debug.Log("∏‘¿Ω");
-                if(player.photonView.IsMine)
+                if(player.photonView.IsMine && pv != null)
                 {
                     OperateItemLogic(player);
                     Destroy(gameObject);
@@ -29,7 +29,7 @@ public abstract class BaseItem : MonoBehaviourPun
                 }
             }
         }
-
+        
         if(other.gameObject.tag == "BombStream")
         {
             Destroy(gameObject);         
@@ -41,4 +41,5 @@ public abstract class BaseItem : MonoBehaviourPun
     {
         Destroy(gameObject); 
     }
+
 }

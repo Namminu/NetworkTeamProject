@@ -11945,6 +11945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4c4f0cd41c83942a1c85aaac30727e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winnerName: {fileID: 699325593}
   WaitTime: 10
   BackToWatingSecond: {fileID: 1836083980}
   winnerCanvas: {fileID: 121813088}
@@ -11956,8 +11957,8 @@ MonoBehaviour:
   PlayerPrefabs:
   - {fileID: 975288008589873239, guid: 41a979ab6eb16f9449f288d30f226f3e, type: 3}
   - {fileID: 8765305107695649508, guid: 30874dfe926ac914882d54fce640ccd1, type: 3}
-  - {fileID: 8488119832265796733, guid: fc3b9bb3f961a2a4885d30303401a2f0, type: 3}
   - {fileID: 7591677208759408198, guid: b4bc75a4d25bcd44dadec7b553cc2886, type: 3}
+  - {fileID: 8488119832265796733, guid: fc3b9bb3f961a2a4885d30303401a2f0, type: 3}
 --- !u!4 &2129061745
 Transform:
   m_ObjectHideFlags: 0
