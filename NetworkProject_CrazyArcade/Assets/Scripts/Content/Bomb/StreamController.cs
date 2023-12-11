@@ -21,7 +21,7 @@ public class StreamController : MonoBehaviour
     {
         if (other.tag == "BOMB")
         {
-            other.gameObject.GetComponent<BombController>().BombBombBomb();
+            other.gameObject.GetComponentInParent<BombController>().BombBombBomb();
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("HitBox"))
         {

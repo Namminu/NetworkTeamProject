@@ -163,23 +163,23 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             else
             {
                 myBombY = Mathf.CeilToInt(playerBomb.transform.position.y) - 0.5f;
-            }
+            } 
 
             GameObject bomb = PhotonNetwork.Instantiate("Bomb", new Vector3(myBombX, myBombY), Quaternion.identity);
 
             for (int i = 0; i < playerstat.numberOfBombs; i++)
             {
                 if (bombNumbers[i] == null)
-                {
+                { 
                     bombCount++;
                     bombNumbers[i] = bomb;
                     break;
                 }
             }
 
-            bomb.GetComponent<BombController>().BombstreamLength(playerstat.bombLength);
-            bomb.GetComponent<BombController>().setBombName("Bomb" + (++bombCount));
-            bomb.GetComponent<BombController>().overlappingPlayer = gameObject.name;
+            bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
+            bomb.GetComponentInParent<BombController>().setBombName("Bomb" + (++bombCount));
+            bomb.GetComponentInParent<BombController>().overlappingPlayer = gameObject.name;
         }
         yield return null;
     }
@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (collision.gameObject.tag == "BOMB")
         {
             if (collision.gameObject.tag == "BOMB")
-                if (collision.GetComponent<BombController>().overlappingPlayer == gameObject.name)
+                if (collision.GetComponentInParent<BombController>().overlappingPlayer == gameObject.name)
                     return;
 
             SetHitDir(collision);
@@ -318,7 +318,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (collision.gameObject.tag == "BOMB")
         {
-            BombController bombColl = collision.GetComponent<BombController>();
+            BombController bombColl = collision.GetComponentInParent<BombController>();
             if (bombColl.overlappingPlayer == gameObject.name)
             {
                 bombColl.overlappingPlayer = "";
@@ -359,16 +359,16 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             switch (dir)
             {
                 case Direction.Up:
-                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Up;
+                    hitObjectDirs[coll.gameObject.GetComponentInParent<BombController>().getBombName()] = Direction.Up;
                     break;
                 case Direction.Down:
-                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Down;
+                    hitObjectDirs[coll.gameObject.GetComponentInParent<BombController>().getBombName()] = Direction.Down;
                     break;
                 case Direction.Left:
-                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Left;
+                    hitObjectDirs[coll.gameObject.GetComponentInParent<BombController>().getBombName()] = Direction.Left;
                     break;
                 case Direction.Right:
-                    hitObjectDirs[coll.gameObject.GetComponent<BombController>().getBombName()] = Direction.Right;
+                    hitObjectDirs[coll.gameObject.GetComponentInParent<BombController>().getBombName()] = Direction.Right;
                     break;
                 case Direction.None:
                     break;

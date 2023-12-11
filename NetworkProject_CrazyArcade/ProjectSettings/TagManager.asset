@@ -9,6 +9,7 @@ TagManager:
   - BombStream
   - VEHICLE
   - PlayerTarget
+  - BombHere
   layers:
   - Default
   - TransparentFX
