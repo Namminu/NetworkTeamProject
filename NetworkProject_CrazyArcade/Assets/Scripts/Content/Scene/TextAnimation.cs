@@ -28,9 +28,6 @@ public class TextAnimation : MonoBehaviour
 		targetPosition = TargetTransform.position;
 		s_StartTime = startTime;
 
-		Debug.Log("시작 위치 : " + startPosition);
-		Debug.Log("목표 위치 : " + targetPosition);
-
 		StartCoroutine(TextSlideAnimation());
 	}
 	 
@@ -51,9 +48,6 @@ public class TextAnimation : MonoBehaviour
 			 
 			textTransform.transform.position = newVec;
 			yield return null;
-
-			Debug.Log("현재 위치 : " + textTransform.transform.position);
-			Debug.Log("코루틴 돌아가는 중");
 		}
 	}
 
