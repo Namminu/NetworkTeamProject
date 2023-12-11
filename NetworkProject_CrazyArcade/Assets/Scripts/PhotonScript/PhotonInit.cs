@@ -254,7 +254,6 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	public void GameStart()
     {
 		PhotonNetwork.LoadLevel("Level1");
-		StartCoroutine(OperateGame());
 	}
 
 	IEnumerator OperateGame()
