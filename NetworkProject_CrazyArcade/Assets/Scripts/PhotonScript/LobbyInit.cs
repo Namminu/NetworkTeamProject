@@ -28,7 +28,11 @@ public class LobbyInit : MonoBehaviour
         // Toggle 객체의 onValueChanged 이벤트에 콜백 함수를 등록합니다.
         myToggle.onValueChanged.AddListener(delegate { ToggleValueChanged(myToggle); });
 
-        PhotonInit.Instance.LobbyConnected();
+        if(PhotonNetwork.IsConnectedAndReady == false)
+        {
+            Debug.Log("연결 안됨!");
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public void InitMainLobby(string name)

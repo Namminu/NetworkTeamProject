@@ -132,6 +132,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 				PhotonNetwork.ConnectUsingSettings();
 				break;
 			case State.LOBBY:
+				PhotonNetwork.LoadLevel("LobbyLevel");
 				PhotonNetwork.JoinLobby();
 				break;
 			case State.ROOM:
@@ -183,8 +184,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsConnected == true)
         {
-			PhotonNetwork.LoadLevel("LobbyLevel");
-        }
+			StartCoroutine(TryJoin(State.LOBBY));
+		}
 		else
         {
 			toolTipText.StartTextEffect("로비 진입에 실패하였습니다!\n서버 연결을 확인해주세요", Effect.FADE);
@@ -199,12 +200,22 @@ public class PhotonInit : MonoBehaviourPunCallbacks
     //로비에 입장하였을 때 호출되는 콜백함수
     public override void OnJoinedLobby()
 	{
-		
+
 	}
 
 	public override void OnLeftLobby()
 	{
-		PhotonNetwork.LoadLevel("MainLevel");
+		if (SceneManager.GetActiveScene().name == "LobbyLevel")
+			PhotonNetwork.LoadLevel("MainLevel");
+
+	}
+	public override void OnLeftRoom()
+	{
+		if (SceneManager.GetActiveScene().name == "WaitingLevel")
+		{
+			Debug.Log("로비 나가기");
+			PhotonNetwork.LoadLevel("LobbyLevel");
+		}
 	}
 
 	//룸을 생성했을 떄의 콜백 함수

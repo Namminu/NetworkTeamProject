@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -12,6 +13,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	public GameObject[] playerImages = new GameObject[4];
 	private GameObject[] playerImagePos = new GameObject[4];
 	private Text[] playerText = new Text[4];
+	private Text[] readyText = new Text[4];
 	
 	private int myWaitingIndex;
 	private int myCharacterIndex;
@@ -70,6 +72,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				}
 			}
 			Players[Players.IndexOf(targetPlayer)] = targetPlayer;
+
+			foreach(Player player in Players)
+            {
+
+            }
 		}
 	}
 
@@ -140,6 +147,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		{
 			playerText[i] = GameObject.Find("Player" + (i + 1) + "NameText").transform.GetComponent<Text>();
 			playerImagePos[i] = GameObject.Find("PlayerImgPos" + (i + 1));
+			readyText[i] = GameObject.Find("Player" + (i + 1) + "ReadyText").transform.GetComponent<Text>();
 		}
 
 		myWaitingIndex = currentRoom.PlayerCount - 1;
@@ -212,13 +220,40 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	public void Ready()
 	{
-		if (PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
+		if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == true)
 			PhotonInit.Instance.toolTipText.StartTextEffect("방장은 레디할 수 없습니다!", Effect.FADE);
+
+		Hashtable properties = PhotonNetwork.LocalPlayer.CustomProperties;
+		properties["ready"] = (bool)properties["ready"] ? false : true;
+		
 
 		PhotonNetwork.AutomaticallySyncScene = true;
 	}
 
-	public void StartGame()
+	public void BackToLobby()
+    {
+		if((bool)PhotonNetwork.LocalPlayer.CustomProperties["ready"] == false && (bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == false)
+        {
+			PhotonInit.Instance.toolTipText.StartTextEffect("방을 나가려면 레디를 먼저 풀어주세요!", Effect.FADE);
+			return;
+        }
+
+		PhotonNetwork.LeaveRoom();
+		StartCoroutine(TryLeaveRoom());
+    }
+
+	IEnumerator TryLeaveRoom()
+    {
+		PhotonInit.Instance.toolTipText.StartTextEffect("방을 나가는중", Effect.WAIT);
+		while (PhotonNetwork.InRoom == true)
+        {
+			yield return null;
+        }
+
+		PhotonInit.Instance.toolTipText.SetInvisible();
+	}
+	
+    public void StartGame()
     {
 		PhotonInit.Instance.SetPlayerForGame(Players);
 		PhotonInit.Instance.GameStart();
