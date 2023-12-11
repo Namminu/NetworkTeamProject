@@ -12,7 +12,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	public GameObject[] playerImages = new GameObject[4];
 	private GameObject[] playerImagePos = new GameObject[4];
 	private Text[] playerText = new Text[4];
-	//private List<GameObject> playerObjects = new List<GameObject>();
+	
 	private int myWaitingIndex;
 	private int myCharacterIndex;
 
@@ -211,6 +211,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	public void StartGame()
     {
-		PhotonNetwork.LoadLevel("Level1");
+		PhotonInit.Instance.SetPlayerForGame(Players);
+		PhotonInit.Instance.GameStart();
     }
 }

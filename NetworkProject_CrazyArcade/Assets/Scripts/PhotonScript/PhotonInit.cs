@@ -46,6 +46,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	[Header("인게임 관련 프로퍼티")]
 	public InGameManger InGameRoom;
+	private List<Player> Players;
 
 	void Awake()
     {
@@ -251,7 +252,19 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public void GameStart()
     {
-        
+		PhotonNetwork.LoadLevel("Level1");
+		StartCoroutine(OperateGame());
+	}
+
+	IEnumerator OperateGame()
+    {
+		while(InGameRoom == null)
+        {
+			yield return new WaitForSeconds(0.2f);
+        }
+
+		InGameRoom.GameStart();
+		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer());
     }
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
@@ -325,4 +338,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 				toolTipText.StartTextEffect("비밀번호가 틀렸습니다!", Effect.FADE);
         }
     }
+
+	public void SetPlayerForGame(List<Player> playerList) { Players = playerList; }
+	public List<Player> PassPlayerInfo() { return Players; }
 }

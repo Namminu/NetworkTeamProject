@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (pv.IsMine)
         {
+            Debug.Log("³ª¾ß");
             if (!isPlayerDie)
             {
                 rb.velocity = movespeed;
