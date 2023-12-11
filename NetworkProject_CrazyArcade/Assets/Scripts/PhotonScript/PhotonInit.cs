@@ -112,6 +112,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 			{
 				InGameRoom = GameObject.Find("InGameManager").GetComponent<InGameManger>();
 			}
+			StartCoroutine(OperateGame());
 		}
 
 		NextScene();
