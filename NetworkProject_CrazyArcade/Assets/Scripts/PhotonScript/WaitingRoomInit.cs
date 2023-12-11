@@ -1,38 +1,188 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class WaitingRoomInit : MonoBehaviourPun
+public class WaitingRoomInit : MonoBehaviourPunCallbacks
 {
-	PhotonInit photonManger;
-	PhotonView pv;
-
 	[Header("Waiting Room")]
 	public GameObject[] playerImages = new GameObject[4];
 	private GameObject[] playerImagePos = new GameObject[4];
-	private List<GameObject> playerObjects = new List<GameObject>();
+	private Text[] playerText = new Text[4];
+	//private List<GameObject> playerObjects = new List<GameObject>();
 	private int myWaitingIndex;
 	private int myCharacterIndex;
 
-    private void Start()
-    {
-		photonManger = GameObject.Find("PhotonManager").GetComponent<PhotonInit>();
+	private Room currentRoom;
+	public List<Player> Players = new List<Player>();
+
+	private void Start()
+	{
+		// 현재 들어와있는 방 저장
+		currentRoom = PhotonNetwork.CurrentRoom;
 
 		InitWaitingRoom();
+	}
+
+	public override void OnPlayerEnteredRoom(Player newPlayer)
+	{
+		UpdatePlayerList(newPlayer, true);
+	}
+
+	public override void OnPlayerLeftRoom(Player otherPlayer)
+	{
+		UpdatePlayerList(otherPlayer, false);
+	}
+
+	void UpdatePlayerList(Player player, bool b_Enter)
+	{
+		Debug.Log(player.NickName + string.Format("님이 {0}하셨습니다.", b_Enter ? "입장" : "퇴장"));
+		if (b_Enter)
+		{
+			if (!Players.Contains(player))
+			{
+				Players.Add(player);
+			}
+		}
+		else
+		{
+			if (Players.IndexOf(player) != -1)
+			{
+				Players.RemoveAt(Players.IndexOf(player));
+				UpdatePlayerPanel(player, false);
+			}
+		}
+	}
+
+	public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+	{
+		if (Players.Contains(targetPlayer))
+		{
+			if ((bool)changedProps["InitComplete"] == false)
+			{
+				changedProps["InitComplete"] = true;
+				if (targetPlayer != PhotonNetwork.LocalPlayer)
+				{
+					UpdatePlayerPanel(targetPlayer, true);
+				}
+			}
+			Players[Players.IndexOf(targetPlayer)] = targetPlayer;
+		}
+	}
+
+	// 플레이어 패널 업데이트
+	void UpdatePlayerPanel(Player targetPlayer, bool is_Enter)
+	{
+		int targetPlayerWaitingIndex = (int)targetPlayer.CustomProperties["waitingIndex"];
+		// 만약 플레이어가 들어와서 변경된 것이라면
+		if (is_Enter)
+        {
+			Instantiate(playerImages[(int)targetPlayer.CustomProperties["characterIndex"]],
+						playerImagePos[targetPlayerWaitingIndex].transform);
+			playerText[targetPlayerWaitingIndex].text = targetPlayer.NickName;
+		}
+		else
+		{
+			// 나간 플레이어를 제거함
+			Destroy(playerImagePos[targetPlayerWaitingIndex].transform.GetChild(0).gameObject);
+			playerText[targetPlayerWaitingIndex].text = "";
+
+			foreach(Player player in Players)
+            {
+				int myPlayerIndex = (int)player.CustomProperties["waitingIndex"];
+				// 오른쪽 기준의 플레이어들이 왼쪽으로 밀려남
+				if (myPlayerIndex > targetPlayerWaitingIndex)
+                {
+					GameObject myPlayerImg = playerImagePos[myPlayerIndex].transform.GetChild(0).gameObject;
+					string myPlayerText = playerText[myPlayerIndex].text;
+					int newPlayerIndex = myPlayerIndex - 1;
+					
+					// 플레이어 이미지 위치 다시 설정
+					myPlayerImg.transform.SetParent(playerImagePos[newPlayerIndex].transform);
+					myPlayerImg.transform.localPosition = Vector3.zero;
+					myPlayerImg.transform.localScale = Vector3.one;
+
+					// 플레이어 텍스트 위치 설정
+					playerText[myPlayerIndex].text = "";
+					playerText[newPlayerIndex].text = myPlayerText;
+
+					// 플레이어 waitingIndex프로퍼티 값 다시 설정
+					Hashtable tempProperties = player.CustomProperties;
+					tempProperties["waitingIndex"] = newPlayerIndex;
+					player.SetCustomProperties(tempProperties);
+				}		
+            }
+		}
+	}
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+			for (int i = 0; i < Players.Count; i++)
+			{
+				Debug.Log("Player[" + i + "]");
+				Debug.Log("IsMaster: " + Players[i].CustomProperties["isMaster"]);
+				Debug.Log("waitingIndex: " + Players[i].CustomProperties["waitingIndex"]);
+				Debug.Log("characterIndex: " + Players[i].CustomProperties["characterIndex"]);
+				Debug.Log("ready: " + Players[i].CustomProperties["ready"]);
+			}
+		}
     }
 
     #region 대기방 관련 메소드
     public void InitWaitingRoom()
 	{
-		pv = GetComponent<PhotonView>();
-
 		for (int i = 0; i < playerImagePos.Length; i++)
+		{
+			playerText[i] = GameObject.Find("Player" + (i + 1) + "NameText").transform.GetComponent<Text>();
 			playerImagePos[i] = GameObject.Find("PlayerImgPos" + (i + 1));
+		}
 
-		myWaitingIndex = playerObjects.Count + 1;
+		myWaitingIndex = currentRoom.PlayerCount - 1;
 
-		EnterWaitingRoom();
+		InitPlayerProperty();
+	}
+	
+	// 플레이어가 대기방에 입장할때 실행되는 함수
+	void InitPlayerProperty()
+	{
+		//이미 방에 들어와 있는 플레이어들의 캐릭터를 만들어줌
+		foreach (Player otherPlayer in PhotonNetwork.PlayerListOthers)
+		{
+			Players.Add(otherPlayer);
+			Instantiate(playerImages[(int)otherPlayer.CustomProperties["characterIndex"]],
+				playerImagePos[(int)otherPlayer.CustomProperties["waitingIndex"]].transform);
+			playerText[(int)otherPlayer.CustomProperties["waitingIndex"]].text = otherPlayer.NickName;
+		}
+
+		Hashtable properties = new Hashtable();
+		properties.Add("isMaster", false);
+
+		// 캐릭터 랜덤으로 설정함 -> 방에 이미 들어와있는 플레이어들의 캐릭터랑 중복되지 않게함
+		if (currentRoom.PlayerCount != 1)
+			myCharacterIndex = SetCharacterIndex();
+		else
+		{
+			myCharacterIndex = Random.Range(0, playerImages.Length);
+			properties["isMaster"] = true;
+		}
+
+		GameObject player = Instantiate(playerImages[myCharacterIndex], playerImagePos[myWaitingIndex].transform);
+
+		properties.Add("waitingIndex", myWaitingIndex);
+		properties.Add("characterIndex", player.GetComponent<CharacterInfo>().CharacterNumber);
+		properties.Add("ready", false);
+		properties.Add("InitComplete", false);
+
+		PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+
+		Players.Add(PhotonNetwork.LocalPlayer);
+		playerText[myWaitingIndex].text = PhotonNetwork.LocalPlayer.NickName;
+		PhotonInit.Instance.toolTipText.StartTextEffect(string.Format("{0}님의 방에 입장하였습니다", PhotonNetwork.MasterClient.NickName), Effect.FADE);
 	}
 
 	// 캐릭터 중복을 막기위한 함수
@@ -41,8 +191,14 @@ public class WaitingRoomInit : MonoBehaviourPun
 		int randNum;
 		List<int> exclusionNum = new List<int>();
 
-		for (int i = 0; i < playerObjects.Count; i++)
-			exclusionNum.Add(playerObjects[i].GetComponent<CharacterInfo>().CharacterNumber);
+		for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+		{
+			if (PhotonNetwork.PlayerList[i] != PhotonNetwork.LocalPlayer)
+			{
+				if (Players[i].CustomProperties["characterIndex"] != null)
+					exclusionNum.Add((int)Players[i].CustomProperties["characterIndex"]);
+			}
+		}
 
 		do
 		{
@@ -50,95 +206,6 @@ public class WaitingRoomInit : MonoBehaviourPun
 		} while (exclusionNum.Contains(randNum));
 
 		return randNum;
-	}
-
-	// 플레이어가 대기방에 입장할때 실행되는 함수
-	void EnterWaitingRoom()
-	{
-		// 만약 대기방에 플레이어가 꽉차있다면 
-		if (playerObjects.Count >= 4)
-		{
-			Debug.Log("대기방이 꽉찼습니다!");
-			PhotonNetwork.LoadLevel("LobbyLevel");
-			return;
-		}
-
-		// 캐릭터 랜덤으로 설정함 -> 방에 이미 들어와있는 플레이어들의 캐릭터랑 중복되지 않게함
-		if (playerObjects.Count != 0)
-			myCharacterIndex = SetCharacterIndex();
-		else
-			myCharacterIndex = Random.Range(0, playerImages.Length);
-
-		// 모든 플레이어들의 Player패널에다가 입장한 플레이어 이미지 생성 
-		pv.RPC("PlayerEnter", RpcTarget.All, playerObjects.Count, myCharacterIndex);
-	}
-
-	// 플레이어가 방에 나갈때 실행되는 함수
-	void LeaveWaitingRoom()
-	{
-		// 모든 플레이어들의 Player패널에 나간 플레이어 이미지 없앰
-		pv.RPC("PlayerLeave", RpcTarget.All, myWaitingIndex);
-	}
-
-	[PunRPC]
-	void PlayerEnter(int index, int playerImgIndex)
-	{
-		InstantiatePlayerImage(index, playerImgIndex);
-	}
-
-	[PunRPC]
-	void PlayerLeave(int index)
-	{
-		DestroyPlayerImage(index);
-	}
-
-	void InstantiatePlayerImage(int index, int playerImgIndex)
-	{
-		Debug.Log("Create Image at: " + index);
-		GameObject playerWaitingObj = Instantiate(playerImages[playerImgIndex], playerImagePos[index].transform);
-		playerObjects.Add(playerWaitingObj);
-	}
-
-	void DestroyPlayerImage(int index)
-	{
-		// Destroy할 오브젝트 인덱스 찾기
-		GameObject targetOjbectToDestroy = playerObjects[index - 1];
-		playerObjects.Remove(targetOjbectToDestroy);
-		Destroy(targetOjbectToDestroy);
-
-		// 만약 자신의 인덱스가 아니라면 상대방이 나간것이므로 Player패널 업데이트
-		UpdatePlayerPanel(index);
-
-		if (myWaitingIndex > index)
-			myWaitingIndex -= 1;
-	}
-
-	// 플레이어 패널 업데이트
-	void UpdatePlayerPanel(int leavedPlayerIndex)
-	{
-		for (int i = leavedPlayerIndex; i < playerImagePos.Length; i++)
-		{
-			if (playerImagePos[i].transform.childCount != 0)
-			{
-				GameObject targetObject = playerImagePos[i].transform.GetChild(0).gameObject;
-				targetObject.transform.SetParent(playerImagePos[i - 1].transform);
-				targetObject.transform.localPosition = Vector3.zero;
-				targetObject.transform.localScale = Vector3.one;
-			}
-		}
-	}
-
-	// 디버깅 하기 위해 임시로 사용하는 업데이트문
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			LeaveWaitingRoom();
-		}
-		else if (Input.GetKeyDown(KeyCode.E))
-		{
-			EnterWaitingRoom();
-		}
 	}
     #endregion
 }
