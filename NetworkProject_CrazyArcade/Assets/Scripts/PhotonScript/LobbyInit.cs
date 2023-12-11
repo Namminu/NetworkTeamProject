@@ -31,8 +31,48 @@ public class LobbyInit : MonoBehaviour
         if(PhotonNetwork.IsConnectedAndReady == false)
         {
             Debug.Log("연결 안됨!");
-            PhotonNetwork.ConnectUsingSettings();
+            StartCoroutine(TryConnect());
+            //PhotonNetwork.Disconnect();
+            //StartCoroutine(OnDisconnected());
+            RoomListRenewal(PhotonInit.Instance.rooms);
         }
+    }
+
+    IEnumerator TryConnect()
+    {
+        if (!PhotonNetwork.IsConnectedAndReady)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+
+            while (PhotonNetwork.IsConnectedAndReady == false)
+            {
+                Debug.Log("다시 연결 중");
+                yield return null;
+            }
+        }
+
+        PhotonNetwork.JoinLobby();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log(PhotonNetwork.IsConnectedAndReady);
+            Debug.Log(PhotonNetwork.InLobby);
+        }
+
+    }
+
+    IEnumerator OnDisconnected()
+    {
+        while(PhotonNetwork.IsConnected == true)
+        {
+            Debug.Log("연결 끊는 중");
+            yield return null;
+        }
+
+        
     }
 
     public void InitMainLobby(string name)
