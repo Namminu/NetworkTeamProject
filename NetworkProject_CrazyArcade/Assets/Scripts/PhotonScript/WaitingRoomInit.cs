@@ -54,33 +54,26 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		chatText.text += PhotonNetwork.LocalPlayer.NickName + " : " + chat + "\n";
 		scroll_rext.verticalNormalizedPosition = 0.0f;
 	}
+	public void OnEndEditEventMethod()
+	{
+		if(Input.GetKeyDown(KeyCode.Return)) 
+		{
+			SendChatingMessage();
+		}
+	}
 	public void SendChatingMessage() 
 	{
+		if (playerInput.text.Equals("")) return;
+
 		chatMessage = playerInput.text;
 		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage);
 		playerInput.text = string.Empty; 
 	}
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if(Input.GetKeyDown(KeyCode.Return) && playerInput.isFocused == false)
 		{
-			if (playerInput.isFocused)
-			{
-				if (playerInput.text.Length > 0)
-				{
-					SendChatingMessage();
-					playerInput.ActivateInputField();
-					playerInput.Select();
-				}
-				else if (playerInput.text.Length == 0)
-				{
-					playerInput.DeactivateInputField();
-				}
-			}
-			else
-			{
-				playerInput.ActivateInputField();
-			}
+			playerInput.ActivateInputField();
 		}
 	}
 
