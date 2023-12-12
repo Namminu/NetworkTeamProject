@@ -332,9 +332,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				}
             }
 			PhotonInit.Instance.SetPlayerForGame(PhotonNetwork.LocalPlayer);
-			int sceneIndex = Random.Range(1, 4);
-			PhotonNetwork.LoadLevel("Level" + sceneIndex);
-		}
+            //int sceneIndex = Random.Range(1, 4);
+            //PhotonNetwork.LoadLevel("Level" + sceneIndex);
+            PhotonNetwork.LoadLevel("Level1");
+        }
 		else
 			PhotonInit.Instance.toolTipText.StartTextEffect("방장만 게임을 시작할 수 있습니다!", Effect.FADE);
 	}
