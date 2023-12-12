@@ -183,6 +183,8 @@ GameObject:
   - component: {fileID: 4524117401862979304}
   - component: {fileID: -5449009297080495542}
   - component: {fileID: 6098149777686770708}
+  - component: {fileID: 9027454538739763692}
+  - component: {fileID: -2460595012979865610}
   m_Layer: 3
   m_Name: playerGreen
   m_TagString: Player
@@ -416,6 +418,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 5458965161898722590}
   - {fileID: -5449009297080495542}
+  - {fileID: 9027454538739763692}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -462,6 +465,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 8871821584521293221}
+--- !u!114 &9027454538739763692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765305107695649508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
+--- !u!114 &-2460595012979865610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765305107695649508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 1
 --- !u!1 &8871821584521293221
 GameObject:
   m_ObjectHideFlags: 0

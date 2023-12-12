@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			if (!isPlayerDie)
 			{
-				rb.velocity = movespeed;
+				rb.velocity = playerMove();
 			}
 		}
 		/*else if ((tr.position - currentPos).sqrMagnitude >= 0.5)
