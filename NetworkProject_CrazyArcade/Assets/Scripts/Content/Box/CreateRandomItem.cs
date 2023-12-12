@@ -33,6 +33,14 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
         pv = GetComponent<PhotonView>();
     }
 
+    public void InitRandItem()
+    {
+        for (int i = 0; i < itemCount.Length; i++)
+        {
+            itemCount[i] = 0;
+        }
+    }
+
     public void RandIteam()
     {
         Debug.Log(PhotonNetwork.IsMasterClient.ToString() + "      1");

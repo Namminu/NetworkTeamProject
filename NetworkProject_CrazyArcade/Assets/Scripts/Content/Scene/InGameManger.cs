@@ -97,6 +97,7 @@ public class InGameManger : MonoBehaviourPun
             creatRand = GameObject.FindObjectsOfType<CreateRandomItem>();
             for (int i = 0; i < creatRand.Length; i++)
             {
+				creatRand[i].InitRandItem();
                 creatRand[i].RandIteam();
             }
         }
