@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Linq;
 
 public enum State
 {
@@ -46,7 +47,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	[Header("인게임 관련 프로퍼티")]
 	public InGameManger InGameRoom;
-	private List<Player> Players;
+	private Player myInfo;
 
 	void Awake()
     {
@@ -132,6 +133,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 				PhotonNetwork.ConnectUsingSettings();
 				break;
 			case State.LOBBY:
+				PhotonNetwork.LoadLevel("LobbyLevel");
 				PhotonNetwork.JoinLobby();
 				break;
 			case State.ROOM:
@@ -183,8 +185,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsConnected == true)
         {
-			PhotonNetwork.LoadLevel("LobbyLevel");
-        }
+			StartCoroutine(TryJoin(State.LOBBY));
+		}
 		else
         {
 			toolTipText.StartTextEffect("로비 진입에 실패하였습니다!\n서버 연결을 확인해주세요", Effect.FADE);
@@ -199,12 +201,22 @@ public class PhotonInit : MonoBehaviourPunCallbacks
     //로비에 입장하였을 때 호출되는 콜백함수
     public override void OnJoinedLobby()
 	{
-		
+
 	}
 
 	public override void OnLeftLobby()
 	{
-		PhotonNetwork.LoadLevel("MainLevel");
+		if (SceneManager.GetActiveScene().name == "LobbyLevel")
+			PhotonNetwork.LoadLevel("MainLevel");
+
+	}
+	public override void OnLeftRoom()
+	{
+		if (SceneManager.GetActiveScene().name == "WaitingLevel")
+		{
+			Debug.Log("로비 나가기");
+			PhotonNetwork.LoadLevel("LobbyLevel");
+		}
 	}
 
 	//룸을 생성했을 떄의 콜백 함수
@@ -251,11 +263,6 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 		PhotonNetwork.LoadLevel("WaitingLevel");
 	}
 
-	public void GameStart()
-    {
-		PhotonNetwork.LoadLevel("Level1");
-	}
-
 	IEnumerator OperateGame()
     {
 		while(InGameRoom == null)
@@ -264,8 +271,15 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         }
 
 		InGameRoom.GameStart();
-		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer());
-    }
+		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer(myInfo, waitingRoom.Players.Count));
+		SetPlayersNameList(waitingRoom.playersName);
+
+	}
+
+	public List<string> SetPlayersNameList(List<string> players)
+	{
+		return InGameRoom.playersName = new List<string>(players.ToList().ToArray());
+	}
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
     {
@@ -339,6 +353,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         }
     }
 
-	public void SetPlayerForGame(List<Player> playerList) { Players = playerList; }
-	public List<Player> PassPlayerInfo() { return Players; }
+	public void SetPlayerForGame(Player player) { myInfo = player; }
+	public void ResetPlayerInfo() { myInfo = null; }
+	public Player PassPlayerInfo() { return myInfo; }
 }

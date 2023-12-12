@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -12,12 +13,17 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	public GameObject[] playerImages = new GameObject[4];
 	private GameObject[] playerImagePos = new GameObject[4];
 	private Text[] playerText = new Text[4];
+	public GameObject[] readyText = new GameObject[4];
 	
 	private int myWaitingIndex;
 	private int myCharacterIndex;
 
 	private Room currentRoom;
 	public List<Player> Players = new List<Player>();
+	public List<string> playersName = new List<string>();
+
+	[Header("채팅 관련 변수들")]
+	public string chatMessage;
 
 	private void Start()
 	{
@@ -45,6 +51,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			if (!Players.Contains(player))
 			{
 				Players.Add(player);
+				playersName.Add(player.NickName);
 			}
 		}
 		else
@@ -52,7 +59,16 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			if (Players.IndexOf(player) != -1)
 			{
 				Players.RemoveAt(Players.IndexOf(player));
+				playersName.RemoveAt(player.NickName.IndexOf(player.NickName));
 				UpdatePlayerPanel(player, false);
+
+				Hashtable properties = new Hashtable();
+				properties.Add("isMaster", false);
+				properties.Add("waitingIndex", -1);
+				properties.Add("characterIndex", -1);
+				properties.Add("ready", false);
+				properties.Add("InitComplete", false);
+				player.SetCustomProperties(properties);
 			}
 		}
 	}
@@ -70,6 +86,20 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				}
 			}
 			Players[Players.IndexOf(targetPlayer)] = targetPlayer;
+
+			// 레디 텍스트 업데이트
+			for(int i = 1; i < readyText.Length; i++)
+            {
+				if(i <= Players.Count - 1)
+                {
+					if ((bool)Players[i].CustomProperties["ready"]) readyText[i].SetActive(true);
+					else readyText[i].SetActive(false);
+				}
+				else
+                {
+					readyText[i].SetActive(false);
+				}
+            }
 		}
 	}
 
@@ -112,6 +142,14 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 					// 플레이어 waitingIndex프로퍼티 값 다시 설정
 					Hashtable tempProperties = player.CustomProperties;
 					tempProperties["waitingIndex"] = newPlayerIndex;
+
+					// 만약 방장 자리라면 방장으로 설정
+					if (newPlayerIndex == targetPlayerWaitingIndex)
+					{
+						tempProperties["isMaster"] = true;
+						tempProperties["ready"] = true;
+					}
+
 					player.SetCustomProperties(tempProperties);
 				}		
             }
@@ -144,16 +182,24 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 		myWaitingIndex = currentRoom.PlayerCount - 1;
 
-		InitPlayerProperty();
+		StartCoroutine(InitPlayerProperty());
 	}
 	
 	// 플레이어가 대기방에 입장할때 실행되는 함수
-	void InitPlayerProperty()
+	IEnumerator InitPlayerProperty()
 	{
+		
+		while(PhotonNetwork.NetworkClientState == ClientState.Joining)
+        {
+			Debug.Log("조인 중");
+			yield return null;
+        }
+
 		//이미 방에 들어와 있는 플레이어들의 캐릭터를 만들어줌
 		foreach (Player otherPlayer in PhotonNetwork.PlayerListOthers)
 		{
 			Players.Add(otherPlayer);
+			playersName.Add(otherPlayer.NickName);
 			Instantiate(playerImages[(int)otherPlayer.CustomProperties["characterIndex"]],
 				playerImagePos[(int)otherPlayer.CustomProperties["waitingIndex"]].transform);
 			playerText[(int)otherPlayer.CustomProperties["waitingIndex"]].text = otherPlayer.NickName;
@@ -161,14 +207,16 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 		Hashtable properties = new Hashtable();
 		properties.Add("isMaster", false);
+		properties.Add("ready", false);
 
 		// 캐릭터 랜덤으로 설정함 -> 방에 이미 들어와있는 플레이어들의 캐릭터랑 중복되지 않게함
-		if (currentRoom.PlayerCount != 1)
+		if (currentRoom.PlayerCount >= 1)
 			myCharacterIndex = SetCharacterIndex();
 		else
 		{
 			myCharacterIndex = Random.Range(0, playerImages.Length);
 			properties["isMaster"] = true;
+			properties["ready"] = true;
 			PhotonNetwork.AutomaticallySyncScene = true;
 		}
 
@@ -176,7 +224,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 		properties.Add("waitingIndex", myWaitingIndex);
 		properties.Add("characterIndex", player.GetComponent<CharacterInfo>().CharacterNumber);
-		properties.Add("ready", false);
 		properties.Add("InitComplete", false);
 
 		PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
@@ -212,15 +259,70 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	public void Ready()
 	{
-		if (PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
-			PhotonInit.Instance.toolTipText.StartTextEffect("방장은 레디할 수 없습니다!", Effect.FADE);
+		if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == true)
+		{
+			PhotonInit.Instance.toolTipText.StartTextEffect("방장은 레디를 풀 수 없습니다!", Effect.FADE);
+			return;
+		}
 
-		PhotonNetwork.AutomaticallySyncScene = true;
+		Hashtable properties = PhotonNetwork.LocalPlayer.CustomProperties;
+		properties["ready"] = (bool)properties["ready"] ? false : true;
+		PhotonNetwork.AutomaticallySyncScene = (bool)properties["ready"];
+
+		PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+
+		if ((bool)properties["ready"])
+			PhotonInit.Instance.SetPlayerForGame(PhotonNetwork.LocalPlayer);
+		else
+			PhotonInit.Instance.ResetPlayerInfo();
 	}
 
-	public void StartGame()
+	public void BackToLobby()
     {
-		PhotonInit.Instance.SetPlayerForGame(Players);
-		PhotonInit.Instance.GameStart();
+		if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == false)
+		{
+			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["ready"] == true)
+			{
+				PhotonInit.Instance.toolTipText.StartTextEffect("방을 나가려면 레디를 먼저 풀어주세요!", Effect.FADE);
+				return;
+			}
+		}
+
+		PhotonNetwork.AutomaticallySyncScene = false;
+		PhotonNetwork.LeaveRoom();
+		StartCoroutine(TryLeaveRoom());
     }
+
+	IEnumerator TryLeaveRoom()
+    {
+		PhotonInit.Instance.toolTipText.StartTextEffect("방을 나가는중", Effect.WAIT);
+		while (PhotonNetwork.InRoom == true)
+        {
+			yield return null;
+        }
+
+		PhotonInit.Instance.toolTipText.SetInvisible();
+	}
+	
+    public void StartGame()
+    {
+		if (PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
+		{
+			foreach(Player player in Players)
+            {
+				if((bool)player.CustomProperties["ready"] == false)
+                {
+					PhotonInit.Instance.toolTipText.StartTextEffect("모두 준비를 해야 시작할 수 있습니다!", Effect.FADE);
+					return;
+				}
+            }
+			PhotonInit.Instance.SetPlayerForGame(PhotonNetwork.LocalPlayer);
+			PhotonNetwork.LoadLevel("Level1");	// 이후 Level2, Level3 까지 완성되면 아래 2줄로 수정
+			//랜덤씬 불러오기
+			//int sceneIndex = Random.Range(1,3);
+			//PhotonNetwork.LoadLevel("Level" + sceneIndex);
+		}
+		else
+			PhotonInit.Instance.toolTipText.StartTextEffect("방장만 게임을 시작할 수 있습니다!", Effect.FADE);
+	}
 }
