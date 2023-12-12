@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 			}
 
 			//bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
-			bomb.GetComponentInParent<BombController>().photonView.RPC("BombLength", RpcTarget.Others, playerstat.bombLength);
+			bomb.GetComponentInParent<BombController>().photonView.RPC("BombLength", RpcTarget.All, playerstat.bombLength);
 			bomb.GetComponentInParent<BombController>().setBombName("Bomb" + (++bombCount));
 			bomb.GetComponentInParent<BombController>().overlappingPlayer = gameObject.name;
 		}
