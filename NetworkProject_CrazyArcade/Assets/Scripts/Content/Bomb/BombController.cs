@@ -176,7 +176,6 @@ public class BombController : MonoBehaviourPun
     {
         if(!isburstsfast)
         {
-            animator.SetTrigger("isBomb");
             isburstsfast = true;
             BombAction();
         }
