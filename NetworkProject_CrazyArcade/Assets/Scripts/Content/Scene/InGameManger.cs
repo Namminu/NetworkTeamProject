@@ -40,13 +40,19 @@ public class InGameManger : MonoBehaviourPun
 	void Start()
     {
 		pv = GetComponent<PhotonView>();
-	}
+        PhotonNetwork.NetworkStatisticsEnabled = true;
+    }
 
     // Update is called once per frame 
     void Update()
     {
+        // 네트워크 통계 정보 가져오기
+        var stats = PhotonNetwork.NetworkingClient.LoadBalancingPeer.VitalStatsToString(false);
 
-	}
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            // 네트워크 통계 정보 출력
+            Debug.Log(stats);
+    }
 
     //플레이어 사망 시 호출 함수
   //  public void IsGameClear(List<Player> playerCount) 

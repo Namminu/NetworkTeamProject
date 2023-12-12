@@ -108,7 +108,7 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
         if (objectsToSpawn[spawnObject])
         {
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Instantiate(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+                PhotonNetwork.InstantiateRoomObject(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
 
             createItem = true;
         }

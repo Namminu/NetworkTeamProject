@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			if (!isPlayerDie)
 			{
-				rb.velocity = movespeed;
+				rb.velocity = playerMove();
 			}
 		}
 		/*else if ((tr.position - currentPos).sqrMagnitude >= 0.5)
@@ -413,24 +413,24 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
 	public void IsDie()
 	{
-		if (pv.IsMine)
-		{
-			rb.velocity = Vector3.zero;
-			isPlayerDie = true;
-			animator.SetTrigger("isDie");
-			Destroy(gameObject, 2.0f);
-		}
+		//if (pv.IsMine)
+		//{
+		//	rb.velocity = Vector3.zero;
+		//	isPlayerDie = true;
+		//	animator.SetTrigger("isDie");
+		//	Destroy(gameObject, 2.0f);
+		//}
 	}
 
 	private void isOtherDie()
 	{
-		//if (isOtherPlayerDie && !checkIsOtherDie)
-		//{
-		//	rb.velocity = Vector3.zero;
-		//	animator.SetTrigger("isDie");
-		//	Destroy(gameObject, 2.0f);
-		//	checkIsOtherDie = true;
-		//}
+		if (isOtherPlayerDie && !checkIsOtherDie)
+		{
+			rb.velocity = Vector3.zero;
+			animator.SetTrigger("isDie");
+			Destroy(gameObject, 2.0f);
+			checkIsOtherDie = true;
+		}
 	}
 
 	public void IsBomb()
