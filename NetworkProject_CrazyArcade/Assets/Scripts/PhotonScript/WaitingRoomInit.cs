@@ -45,13 +45,13 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	}
 
 	[PunRPC]
-	public void ChatInfo(string sChat, PhotonMessageInfo info)
+	public void ChatInfo(string sChat, string name, PhotonMessageInfo info)
 	{
-		ShowChat(sChat);
+		ShowChat(sChat, name);
 	}
-	public void ShowChat(string chat)
+	public void ShowChat(string chat, string name)
 	{
-		chatText.text += PhotonNetwork.LocalPlayer.NickName + " : " + chat + "\n";
+		chatText.text += name + " : " + chat + "\n";
 		scroll_rext.verticalNormalizedPosition = 0.0f;
 	}
 	public void OnEndEditEventMethod()
@@ -66,7 +66,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		if (playerInput.text.Equals("")) return;
 
 		chatMessage = playerInput.text;
-		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage);
+		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, PhotonNetwork.LocalPlayer.NickName);
 		playerInput.text = string.Empty; 
 	}
 	private void Update()
