@@ -20,6 +20,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	private Room currentRoom;
 	public List<Player> Players = new List<Player>();
+	public List<string> playersName = new List<string>();
 
 	private void Start()
 	{
@@ -47,6 +48,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			if (!Players.Contains(player))
 			{
 				Players.Add(player);
+				playersName.Add(player.NickName);
 			}
 		}
 		else
@@ -54,6 +56,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			if (Players.IndexOf(player) != -1)
 			{
 				Players.RemoveAt(Players.IndexOf(player));
+				playersName.RemoveAt(player.NickName.IndexOf(player.NickName));
 				UpdatePlayerPanel(player, false);
 
 				Hashtable properties = new Hashtable();
@@ -193,6 +196,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		foreach (Player otherPlayer in PhotonNetwork.PlayerListOthers)
 		{
 			Players.Add(otherPlayer);
+			playersName.Add(otherPlayer.NickName);
 			Instantiate(playerImages[(int)otherPlayer.CustomProperties["characterIndex"]],
 				playerImagePos[(int)otherPlayer.CustomProperties["waitingIndex"]].transform);
 			playerText[(int)otherPlayer.CustomProperties["waitingIndex"]].text = otherPlayer.NickName;
@@ -310,7 +314,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				}
             }
 			PhotonInit.Instance.SetPlayerForGame(PhotonNetwork.LocalPlayer);
-			PhotonNetwork.LoadLevel("Level1");
+			PhotonNetwork.LoadLevel("Level1");	// 이후 Level2, Level3 까지 완성되면 아래 2줄로 수정
+			//랜덤씬 불러오기
+			//int sceneIndex = Random.Range(1,3);
+			//PhotonNetwork.LoadLevel("Level" + sceneIndex);
 		}
 		else
 			PhotonInit.Instance.toolTipText.StartTextEffect("방장만 게임을 시작할 수 있습니다!", Effect.FADE);

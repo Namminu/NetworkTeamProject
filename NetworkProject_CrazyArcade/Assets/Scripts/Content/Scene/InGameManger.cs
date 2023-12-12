@@ -7,8 +7,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Linq;
-using Random = UnityEngine.Random;
 using UnityEditor;
+using System.Text;
 
 public class InGameManger : MonoBehaviourPun
 {
@@ -31,42 +31,46 @@ public class InGameManger : MonoBehaviourPun
 	[Tooltip("플레이어 생성 위치 리스트")]
 	public  GameObject[] playerSpawnLocation = new GameObject[4];
 
-	//[Tooltip("해당 위치에 플레이어 생성 가능한지 여부 판단")]
-	//public bool[] canSpawnPlayer;
 	[Tooltip("플레이어 프리팹")]
 	public GameObject[] PlayerPrefabs = new GameObject[4];
 
-	private int randomIndex;
-
+	[Tooltip("승리 조건 판별을 위한 플레이어 수 변수")]
+	public int playerCount = 0;
+	public string[] playersName;
 	// Start is called before the first frame update
 	void Start()
     {
 		pv = GetComponent<PhotonView>();
 	}
 
-    // Update is called once per frame 
-    void Update()
+	// Update is called once per frame 
+	void Update()
     {
+		playersName = new string[playerCount];
 
+		//if (playerCount<=1)
+		//{
+		//	GameClear(/* 그 플레이어 정보*/);
+		//}
+
+		Debug.Log("플레이어 수 : " + playerCount);
+		Debug.Log("플레이어들 이름 리스트 : " + playersName.Length);
 	}
 
-    //플레이어 사망 시 호출 함수
-  //  public void IsGameClear(List<Player> playerCount) 
-  //  {
-		//if (playerCount.Count == 1)	//최종 우승자
-		//{
-		//	winnerCanvas.SetActive(true);
-		//	inner_WatingTime = WaitTime;
-
-		//	SetWinnerName(playerCount[????].Nickname);
-		//	BackToWaitingRoom();
-		//    SetWatingSecondText();
-		//}
-  //  }
-
-	public void SetWinnerName(Text IamWinner)
+	//게임 클리어 시 호출 함수
+	public void GameClear(Player winner)
 	{
-		winnerName.text = IamWinner.text;
+		winnerCanvas.SetActive(true);
+		inner_WatingTime = WaitTime;
+
+		SetWinnerName(winner.NickName);
+		BackToWaitingRoom();
+		SetWatingSecondText();
+	}
+
+	public void SetWinnerName(string IamWinner)
+	{
+		winnerName.text = IamWinner.ToString();
 	}
 
 	public void BackToWaitingRoom()
@@ -82,14 +86,14 @@ public class InGameManger : MonoBehaviourPun
 		BackToWatingSecond.text = (int)inner_WatingTime + " 초 뒤에 대기방으로 이동합니다...";
 	}
 
-	public IEnumerator temp_CreatePlayer(Player myInfo)
+	public IEnumerator temp_CreatePlayer(Player myInfo, int players)
 	{
-
 		Vector3 spawnPosition = playerSpawnLocation[(int)myInfo.CustomProperties["waitingIndex"]].transform.position;
 		PhotonNetwork.Instantiate(PlayerPrefabs[(int)myInfo.CustomProperties["characterIndex"]].name, 
 			spawnPosition, Quaternion.identity, 0);
 
 		yield return null;
+		playerCount = players;
 	}
 
     public void GameStart()
@@ -99,7 +103,6 @@ public class InGameManger : MonoBehaviourPun
 		for(int i = 0; i < creatRand.Length;i++)
 		{
 			creatRand[i].RandIteam();
-
         }
     }
 

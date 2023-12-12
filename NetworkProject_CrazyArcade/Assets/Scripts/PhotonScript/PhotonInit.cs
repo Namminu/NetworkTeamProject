@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Linq;
 
 public enum State
 {
@@ -270,8 +271,15 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         }
 
 		InGameRoom.GameStart();
-		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer(myInfo));
-    }
+		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer(myInfo, waitingRoom.Players.Count));
+		SetPlayersNameList(waitingRoom.playersName);
+
+	}
+
+	public List<string> SetPlayersNameList(List<string> players)
+	{
+		return InGameRoom.playersName = players.ToList();
+	}
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
     {

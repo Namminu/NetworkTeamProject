@@ -32,13 +32,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	//private Text playerName;
 	private Transform tr;
 	private PhotonView pv;
-	private Vector3 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
-	private Quaternion currentRot;  //회전이 필요한가?
+	private Vector3 currentPos;
 
 	private Direction dir = Direction.Down;
 	private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
 
 	private int bombCount = 0;
+
+	private InGameManger IGM;
 
 	[SerializeField]
 	private bool isPlayerDie;
@@ -85,6 +86,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		pv.ObservedComponents[0] = this;
 
 		movespeed = Vector3.zero;
+
+		IGM = FindObjectOfType<InGameManger>();
 	}
 
 	private void FixedUpdate()
@@ -420,6 +423,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 			animator.SetTrigger("isDie");
 			Destroy(gameObject, 2.0f);
 		}
+		IGM.playerCount--;
 	}
 
 	private void isOtherDie()
