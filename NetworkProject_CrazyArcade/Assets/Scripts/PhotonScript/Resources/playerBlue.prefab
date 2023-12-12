@@ -179,12 +179,12 @@ MonoBehaviour:
   playerSpeed: 0
   numberOfBombs: 0
   bombLength: 0
-  startPlayerSpeed: 5
+  startPlayerSpeed: 4
   startNumberOfBombs: 1
   startBombLength: 1
   MaxSpeed: 7
-  MaxBombs: 7
-  MaxBombStream: 7
+  MaxBombs: 6
+  MaxBombStream: 6
 --- !u!70 &6363683597638102900
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

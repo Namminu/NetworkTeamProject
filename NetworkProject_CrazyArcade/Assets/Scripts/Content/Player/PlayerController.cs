@@ -409,14 +409,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
 	public void IsDie()
 	{
-		//if (pv.IsMine)
-		//{
-		//	PhotonInit.Instance.SetPlayerPropertyState("isDie", true);
-		//	rb.velocity = Vector3.zero;
-		//	isPlayerDie = true;
-		//	animator.SetTrigger("isDie");
-		//	Destroy(gameObject, 2.0f);
-		//}
+		if (pv.IsMine)
+		{
+			PhotonInit.Instance.SetPlayerPropertyState("isDie", true);
+			rb.velocity = Vector3.zero;
+			isPlayerDie = true;
+			animator.SetTrigger("isDie");
+			Destroy(gameObject, 2.0f);
+		}
 	}
 
 	private void isOtherDie()

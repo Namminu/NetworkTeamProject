@@ -343,12 +343,12 @@ MonoBehaviour:
   playerSpeed: 0
   numberOfBombs: 0
   bombLength: 0
-  startPlayerSpeed: 5
+  startPlayerSpeed: 4
   startNumberOfBombs: 1
   startBombLength: 1
-  MaxSpeed: 8
-  MaxBombs: 7
-  MaxBombStream: 7
+  MaxSpeed: 7
+  MaxBombs: 6
+  MaxBombStream: 6
 --- !u!70 &1498335526655107912
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -419,6 +419,7 @@ MonoBehaviour:
   - {fileID: 5458965161898722590}
   - {fileID: -5449009297080495542}
   - {fileID: 9027454538739763692}
+  - {fileID: -2460595012979865610}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
