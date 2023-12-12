@@ -174,9 +174,13 @@ public class BombController : MonoBehaviourPun
     // 물줄기에 폭탄이 닿았을때 터지기
     public void BombBombBomb()
     {
-        animator.SetTrigger("isBomb");
-        isburstsfast = true;
-        BombAction();
+        if(!isburstsfast)
+        {
+            animator.SetTrigger("isBomb");
+            isburstsfast = true;
+            BombAction();
+        }
+        
     }
 
     [PunRPC]
