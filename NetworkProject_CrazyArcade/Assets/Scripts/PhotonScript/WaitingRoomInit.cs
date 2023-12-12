@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Unity.VisualScripting;
 
 public class WaitingRoomInit : MonoBehaviourPunCallbacks
 {
@@ -14,19 +15,73 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	private GameObject[] playerImagePos = new GameObject[4];
 	private Text[] playerText = new Text[4];
 	public GameObject[] readyText = new GameObject[4];
-	
+
 	private int myWaitingIndex;
 	private int myCharacterIndex;
 
 	public List<Player> Players = new List<Player>();
 
+	//채팅 관련
+	public string chatMessage;
+	Text chatText;
+	ScrollRect scroll_rext = null;
+	public InputField playerInput;
+	bool isEnter = false;
+
 	private void Start()
 	{
 		// 현재 들어와있는 방 저장
 		InitWaitingRoom();
+		//채팅 관련
+		chatText = GameObject.Find("ChattingLog").GetComponent<Text>();
+		scroll_rext = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
 
-		PhotonInit pi = FindObjectOfType<PhotonInit>();
-		pi.WaitingStart();
+
+		//playerInput.OnDeselect(AddListener(delegate { disconnectEnter(); }));
+	}
+	private void disconnectEnter()
+	{
+		if (isEnter) isEnter = false;
+	}
+
+	[PunRPC]
+	public void ChatInfo(string sChat, PhotonMessageInfo info)
+	{
+		ShowChat(sChat);
+	}
+	public void ShowChat(string chat)
+	{
+		chatText.text += PhotonNetwork.LocalPlayer.NickName + " : " + chat + "\n";
+		scroll_rext.verticalNormalizedPosition = 0.0f;
+	}
+	public void SendChatingMessage() 
+	{
+		chatMessage = playerInput.text;
+		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage);
+		playerInput.text = string.Empty; 
+	}
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Return))
+		{
+			if (playerInput.isFocused)
+			{
+				if (playerInput.text.Length > 0)
+				{
+					SendChatingMessage();
+					playerInput.ActivateInputField();
+					playerInput.Select();
+				}
+				else if (playerInput.text.Length == 0)
+				{
+					playerInput.DeactivateInputField();
+				}
+			}
+			else
+			{
+				playerInput.ActivateInputField();
+			}
+		}
 	}
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -146,23 +201,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
             }
 		}
 	}
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-			for (int i = 0; i < Players.Count; i++)
-			{
-				Debug.Log("Player[" + i + "]");
-				Debug.Log("IsMaster: " + PhotonNetwork.PlayerList[i].CustomProperties["isMaster"]);
-				Debug.Log("waitingIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["waitingIndex"]);
-				Debug.Log("characterIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["characterIndex"]);
-				Debug.Log("ready: " + PhotonNetwork.PlayerList[i].CustomProperties["ready"]);
-				Debug.Log("InitComplete: " + PhotonNetwork.PlayerList[i].CustomProperties["InitComplete"]);
-				Debug.Log("isDie: " + PhotonNetwork.PlayerList[i].CustomProperties["isDie"]);
-			}
-		}
-    }
 
     #region 대기방 관련 메소드
     public void InitWaitingRoom()
