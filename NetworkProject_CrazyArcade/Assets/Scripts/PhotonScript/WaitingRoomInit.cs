@@ -18,14 +18,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	private int myWaitingIndex;
 	private int myCharacterIndex;
 
-	private Room currentRoom;
 	public List<Player> Players = new List<Player>();
 
 	private void Start()
 	{
 		// 현재 들어와있는 방 저장
-		currentRoom = PhotonNetwork.CurrentRoom;
-
 		InitWaitingRoom();
 	}
 
@@ -56,13 +53,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				Players.RemoveAt(Players.IndexOf(player));
 				UpdatePlayerPanel(player, false);
 
-				Hashtable properties = new Hashtable();
-				properties.Add("isMaster", false);
-				properties.Add("waitingIndex", -1);
-				properties.Add("characterIndex", -1);
-				properties.Add("ready", false);
-				properties.Add("InitComplete", false);
-				player.SetCustomProperties(properties);
+				InitProperties(player);
 			}
 		}
 	}
@@ -73,7 +64,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		{
 			if ((bool)changedProps["InitComplete"] == false)
 			{
-				changedProps["InitComplete"] = true;
+				Hashtable properties = targetPlayer.CustomProperties;
+				properties["InitComplete"] = true;
+				targetPlayer.SetCustomProperties(properties);
+
 				if (targetPlayer != PhotonNetwork.LocalPlayer)
 				{
 					UpdatePlayerPanel(targetPlayer, true);
@@ -157,10 +151,12 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			for (int i = 0; i < Players.Count; i++)
 			{
 				Debug.Log("Player[" + i + "]");
-				Debug.Log("IsMaster: " + Players[i].CustomProperties["isMaster"]);
-				Debug.Log("waitingIndex: " + Players[i].CustomProperties["waitingIndex"]);
-				Debug.Log("characterIndex: " + Players[i].CustomProperties["characterIndex"]);
-				Debug.Log("ready: " + Players[i].CustomProperties["ready"]);
+				Debug.Log("IsMaster: " + PhotonNetwork.PlayerList[i].CustomProperties["isMaster"]);
+				Debug.Log("waitingIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["waitingIndex"]);
+				Debug.Log("characterIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["characterIndex"]);
+				Debug.Log("ready: " + PhotonNetwork.PlayerList[i].CustomProperties["ready"]);
+				Debug.Log("InitComplete: " + PhotonNetwork.PlayerList[i].CustomProperties["InitComplete"]);
+				Debug.Log("isDie: " + PhotonNetwork.PlayerList[i].CustomProperties["isDie"]);
 			}
 		}
     }
@@ -174,9 +170,32 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			playerImagePos[i] = GameObject.Find("PlayerImgPos" + (i + 1));
 		}
 
-		myWaitingIndex = currentRoom.PlayerCount - 1;
+		if (!PhotonInit.Instance.GetIsGameStart())
+			StartCoroutine(InitPlayerProperty());
+		else
+        {
+			foreach(Player player in PhotonNetwork.PlayerList)
+            {
+				PhotonInit.Instance.SetIsGameStart(false);
+				Players.Add(player);
+				Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
+					playerImagePos[(int)player.CustomProperties["waitingIndex"]].transform);
+				playerText[(int)player.CustomProperties["waitingIndex"]].text = player.NickName;
 
-		StartCoroutine(InitPlayerProperty());
+				Hashtable properites = player.CustomProperties;
+
+				if (PhotonNetwork.MasterClient != player)
+				{
+					properites["ready"] = false;
+				}
+				properites["isDie"] = false;
+				player.SetCustomProperties(properites);
+			}
+
+			if (PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
+				PhotonNetwork.AutomaticallySyncScene = false;
+
+		}			
 	}
 	
 	// 플레이어가 대기방에 입장할때 실행되는 함수
@@ -198,12 +217,14 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			playerText[(int)otherPlayer.CustomProperties["waitingIndex"]].text = otherPlayer.NickName;
 		}
 
+		myWaitingIndex = Players.Count;
+
 		Hashtable properties = new Hashtable();
 		properties.Add("isMaster", false);
 		properties.Add("ready", false);
 
 		// 캐릭터 랜덤으로 설정함 -> 방에 이미 들어와있는 플레이어들의 캐릭터랑 중복되지 않게함
-		if (currentRoom.PlayerCount >= 1)
+		if (Players.Count >= 1)
 			myCharacterIndex = SetCharacterIndex();
 		else
 		{
@@ -218,6 +239,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		properties.Add("waitingIndex", myWaitingIndex);
 		properties.Add("characterIndex", player.GetComponent<CharacterInfo>().CharacterNumber);
 		properties.Add("InitComplete", false);
+		properties.Add("isDie", false);
 
 		PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
 
@@ -257,7 +279,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			PhotonInit.Instance.toolTipText.StartTextEffect("방장은 레디를 풀 수 없습니다!", Effect.FADE);
 			return;
 		}
-
+		Debug.Log("안됨");
 		Hashtable properties = PhotonNetwork.LocalPlayer.CustomProperties;
 		properties["ready"] = (bool)properties["ready"] ? false : true;
 		PhotonNetwork.AutomaticallySyncScene = (bool)properties["ready"];
@@ -314,5 +336,17 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		}
 		else
 			PhotonInit.Instance.toolTipText.StartTextEffect("방장만 게임을 시작할 수 있습니다!", Effect.FADE);
+	}
+
+	public void InitProperties(Player player)
+    {
+		Hashtable emptyProperties = new Hashtable();
+		emptyProperties.Add("isMaster", false);
+		emptyProperties.Add("waitingIndex", -1);
+		emptyProperties.Add("characterIndex", -1);
+		emptyProperties.Add("ready", false);
+		emptyProperties.Add("InitComplete", false);
+		emptyProperties.Add("isDie", false);
+		player.SetCustomProperties(emptyProperties);
 	}
 }

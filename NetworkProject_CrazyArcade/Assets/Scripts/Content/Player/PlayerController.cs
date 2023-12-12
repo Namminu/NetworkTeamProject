@@ -415,6 +415,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	{
 		if (pv.IsMine)
 		{
+			PhotonInit.Instance.SetPlayerPropertyState("isDie", true);
 			rb.velocity = Vector3.zero;
 			isPlayerDie = true;
 			animator.SetTrigger("isDie");

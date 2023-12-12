@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Data;
 using JetBrains.Annotations;
-using Photon.Realtime;
 using UnityEngine.UIElements;
 using Photon.Pun;
 using Photon.Realtime;
@@ -47,6 +46,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	[Header("인게임 관련 프로퍼티")]
 	public InGameManger InGameRoom;
 	private Player myInfo;
+	private bool isGameStart = false;
 
 	void Awake()
     {
@@ -112,6 +112,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 			{
 				InGameRoom = GameObject.Find("InGameManager").GetComponent<InGameManger>();
 			}
+
 			StartCoroutine(OperateGame());
 		}
 
@@ -269,8 +270,9 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 			yield return new WaitForSeconds(0.2f);
         }
 
-		InGameRoom.GameStart();
-		InGameRoom.StartCoroutine(InGameRoom.temp_CreatePlayer(myInfo));
+		isGameStart = true;
+		InGameRoom.GameStart(myInfo);
+		InGameRoom.StartCoroutine(InGameRoom.CreatePlayer(myInfo));
     }
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)
@@ -347,5 +349,12 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public void SetPlayerForGame(Player player) { myInfo = player; }
 	public void ResetPlayerInfo() { myInfo = null; }
-	public Player PassPlayerInfo() { return myInfo; }
+	public bool GetIsGameStart() { return isGameStart; }
+	public void SetIsGameStart(bool b_GameStart) { isGameStart = b_GameStart; } 
+	public void SetPlayerPropertyState(string property, bool state)
+	{
+		Hashtable tempProperties = myInfo.CustomProperties;
+		tempProperties[property] = state;
+		myInfo.SetCustomProperties(tempProperties);
+	}
 }

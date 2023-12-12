@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -23,7 +24,6 @@ public class InGameManger : MonoBehaviourPun
 
     [Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")]
     public Text BackToWatingSecond; //시간 문구
-	private float inner_WatingTime;   //내부 코드에서 초기화를 위한 변수, 이 변수로 시간 설정할 예정
 
     public GameObject winnerCanvas;
 
@@ -38,53 +38,46 @@ public class InGameManger : MonoBehaviourPun
 
 	private int randomIndex;
 
+	// 게임 시작 시의 로직과 관련
+	private List<Player> playerList;
+	private Player me;
+	private Player winner;
+	public int count;
+
 	// Start is called before the first frame update
 	void Start()
     {
 		pv = GetComponent<PhotonView>();
 	}
 
-    // Update is called once per frame 
-    void Update()
+    public void IsGameClear()
     {
-
-	}
-
-    //플레이어 사망 시 호출 함수
-  //  public void IsGameClear(List<Player> playerCount) 
-  //  {
-		//if (playerCount.Count == 1)	//최종 우승자
-		//{
-		//	winnerCanvas.SetActive(true);
-		//	inner_WatingTime = WaitTime;
-
-		//	SetWinnerName(playerCount[????].Nickname);
-		//	BackToWaitingRoom();
-		//    SetWatingSecondText();
-		//}
-  //  }
-
-	public void SetWinnerName(Text IamWinner)
-	{
-		winnerName.text = IamWinner.text;
-	}
-
-	public void BackToWaitingRoom()
-    {
-        if(inner_WatingTime <= 0.0f)
-        {
-			PhotonNetwork.LoadLevel("WaitingLevel");
-		}
+		winnerCanvas.SetActive(true);
+		winnerName.text = winner.NickName;
+		StartCoroutine(BackToWaitingRoom(WaitTime));
     }
 
-    public void SetWatingSecondText()
+	IEnumerator BackToWaitingRoom(float time)
     {
-		BackToWatingSecond.text = (int)inner_WatingTime + " 초 뒤에 대기방으로 이동합니다...";
+		float waitTime = time;
+		
+		while(waitTime >= 0f)
+        {
+			SetWatingSecondText((int)waitTime);
+			waitTime -= 1f;
+			yield return new WaitForSeconds(1f);
+		}
+
+		SceneManager.LoadScene("WaitingLevel");
+    }
+
+    public void SetWatingSecondText(int time)
+    {
+		BackToWatingSecond.text = time + " 초 뒤에 대기방으로 이동합니다...";
 	}
 
-	public IEnumerator temp_CreatePlayer(Player myInfo)
+	public IEnumerator CreatePlayer(Player myInfo)
 	{
-
 		Vector3 spawnPosition = playerSpawnLocation[(int)myInfo.CustomProperties["waitingIndex"]].transform.position;
 		PhotonNetwork.Instantiate(PlayerPrefabs[(int)myInfo.CustomProperties["characterIndex"]].name, 
 			spawnPosition, Quaternion.identity, 0);
@@ -92,18 +85,60 @@ public class InGameManger : MonoBehaviourPun
 		yield return null;
 	}
 
-    public void GameStart()
+    public void GameStart(Player myInfo)
 	{
-        CreateRandomItem[] creatRand;
+		me = myInfo;
+		StartCoroutine(CheckWinner());
+
+		CreateRandomItem[] creatRand;
         creatRand = GameObject.FindObjectsOfType<CreateRandomItem>();
 		for(int i = 0; i < creatRand.Length;i++)
 		{
 			creatRand[i].RandIteam();
-
         }
     }
 
-    [PunRPC]
+	IEnumerator CheckWinner()
+    {
+		while (true)
+		{
+			count = CheckPlayerAlive();
+			if (count <= 1) break;
+			yield return null;
+		}
+
+		if(count == 0)
+        {
+			CreatePlayer(me);
+			StartCoroutine(CheckWinner());
+        }
+		else
+        {
+			foreach(Player player in PhotonNetwork.PlayerList)
+            {
+				if((bool)player.CustomProperties["isDie"] == false)
+                {
+					winner = player;
+				}
+            }
+			IsGameClear();
+		}
+	}
+
+	public int CheckPlayerAlive()
+	{
+		int aliveCount = PhotonNetwork.PlayerList.Length;
+		foreach (Player player in PhotonNetwork.PlayerList)
+		{
+			if ((bool)player.CustomProperties["isDie"])
+			{
+				aliveCount -= 1;
+			}
+		}
+		return aliveCount;
+	}
+
+	[PunRPC]
 	public void MakePlayer(int index, Vector3 pos, Quaternion rotation)
     {
 		Debug.Log("생성 완료");

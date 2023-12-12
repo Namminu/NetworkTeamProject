@@ -30,26 +30,30 @@ public class LobbyInit : MonoBehaviour
 
         if(PhotonNetwork.IsConnectedAndReady == false)
         {
-            Debug.Log("연결 안됨!");
-            StartCoroutine(TryConnect());
-            RoomListRenewal(PhotonInit.Instance.rooms);
+            StartCoroutine(TryReconnect());
         }
     }
 
-    IEnumerator TryConnect()
+    IEnumerator TryReconnect()
     {
         if (!PhotonNetwork.IsConnectedAndReady)
         {
             PhotonNetwork.ConnectUsingSettings();
 
+            PhotonInit.Instance.toolTipText.StartTextEffect("로비 진입 중", Effect.WAIT);
             while (PhotonNetwork.IsConnectedAndReady == false)
             {
-                Debug.Log("다시 연결 중");
                 yield return null;
             }
         }
 
         PhotonNetwork.JoinLobby();
+
+        while(PhotonNetwork.InLobby == false)
+        {
+            yield return null;
+        }
+        PhotonInit.Instance.toolTipText.SetInvisible();
     }
 
     private void Update()
@@ -60,17 +64,6 @@ public class LobbyInit : MonoBehaviour
             Debug.Log(PhotonNetwork.InLobby);
         }
 
-    }
-
-    IEnumerator OnDisconnected()
-    {
-        while(PhotonNetwork.IsConnected == true)
-        {
-            Debug.Log("연결 끊는 중");
-            yield return null;
-        }
-
-        
     }
 
     public void InitMainLobby(string name)
