@@ -93,16 +93,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 				rb.velocity = playerMove();
 			}
 		}
-		/*else if ((tr.position - currentPos).sqrMagnitude >= 0.5)
-        {
-            tr.position = currentPos;
-        }
-        else
-        {
-            rb.velocity = otherVector;
-            tr.position = Vector3.Lerp(tr.position, currentPos, Time.deltaTime * 10f); // À§Ä¡ º¸Á¤
-            //tr.Translate((currentPos - tr.position) * Time.deltaTime * 10f);
-        }*/
 	}
 	// Update is called once per frame
 	void Update()
@@ -111,8 +101,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			if (!isPlayerDie)
 			{
-				movespeed = playerMove();
-
 				//ÆøÅº ³õ±â
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
@@ -120,16 +108,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 				}
 				//ÆøÅº °¹¼ö Ã¼Å©
 				CheckNumberBombs();
-
-				// À§Ä¡ º¸Á¤
-				otherVector = otherMoveSpeed;
 			}
 		}
-
 		else
 		{
-			otherVector = otherMoveSpeed;
-
 			isOtherDie();
 		}
 
