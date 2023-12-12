@@ -90,12 +90,17 @@ public class InGameManger : MonoBehaviourPun
 		me = myInfo;
 		StartCoroutine(CheckWinner());
 
-		CreateRandomItem[] creatRand;
-        creatRand = GameObject.FindObjectsOfType<CreateRandomItem>();
-		for(int i = 0; i < creatRand.Length;i++)
+
+        if (PhotonNetwork.IsMasterClient)
 		{
-			creatRand[i].RandIteam();
+            CreateRandomItem[] creatRand;
+            creatRand = GameObject.FindObjectsOfType<CreateRandomItem>();
+            for (int i = 0; i < creatRand.Length; i++)
+            {
+                creatRand[i].RandIteam();
+            }
         }
+            
     }
 
 	IEnumerator CheckWinner()

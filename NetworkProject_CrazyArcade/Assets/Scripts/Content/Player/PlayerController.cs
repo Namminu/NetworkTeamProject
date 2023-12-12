@@ -55,11 +55,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	private Vector3 otherVector;
 	private Vector3 otherMoveSpeed;
 
-	private float myBombX = 0.0f;
-	private float myBombY = 0.0f;
 
-	private float otherBombX = 0.0f;
-	private float otherBombY = 0.0f;
+
 
 	void Start()
 	{
@@ -153,6 +150,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	//폭탄 놓기 코루틴
 	IEnumerator CreateBomb()
 	{
+
+        float myBombX = 0.0f;
+		float myBombY = 0.0f;
 		if (playerstat.numberOfBombs > bombCount && !isBomb)
 		{
 			if (transform.position.x >= 0)
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 			}
 
 			//bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
-			bomb.GetComponentInParent<BombController>().photonView.RPC("BombstreamLength", RpcTarget.All, playerstat.bombLength);
+			bomb.GetComponentInParent<BombController>().photonView.RPC("BombLength", RpcTarget.Others, playerstat.bombLength);
 			bomb.GetComponentInParent<BombController>().setBombName("Bomb" + (++bombCount));
 			bomb.GetComponentInParent<BombController>().overlappingPlayer = gameObject.name;
 		}
@@ -390,22 +390,18 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		if (stream.IsWriting)    //내 위치 서버로 원격 전송
 		{
 			//캐릭터 위치 전송
-			stream.SendNext(tr.position);
-			stream.SendNext(movespeed);
-			//폭탄 위치 전송
-			stream.SendNext(myBombX);
-			stream.SendNext(myBombY);
+			//stream.SendNext(tr.position);
+			//stream.SendNext(movespeed);
+
 			//캐릭터 상태 전송
 			stream.SendNext(isPlayerDie);
 		}
 		else //다른 사용자의 위치 동기화
 		{
 			//다른 사용자의 위치 동기화
-			currentPos = (Vector3)stream.ReceiveNext();
-			otherMoveSpeed = (Vector3)stream.ReceiveNext();
-			//다른 사용자의 폭탄 위치 동기화
-			otherBombX = (float)stream.ReceiveNext();
-			otherBombY = (float)stream.ReceiveNext();
+			//currentPos = (Vector3)stream.ReceiveNext();
+			//otherMoveSpeed = (Vector3)stream.ReceiveNext();
+
 			//다른 사용자의 상태 동기화
 			isOtherPlayerDie = (bool)stream.ReceiveNext();
 		}

@@ -180,7 +180,7 @@ public class BombController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void BombstreamLength(int length)
+    public void BombLength(int length)
     {
  
         streamLength = length;
