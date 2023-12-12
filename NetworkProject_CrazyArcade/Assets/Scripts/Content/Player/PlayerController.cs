@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			if (!isPlayerDie)
 			{
-				rb.velocity = playerMove();
+				rb.velocity = movespeed;
 			}
 		}
 	}
@@ -101,8 +101,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			if (!isPlayerDie)
 			{
-				//ÆøÅº ³õ±â
-				if (Input.GetKeyDown(KeyCode.Space))
+                movespeed = playerMove();
+                //ÆøÅº ³õ±â
+                if (Input.GetKeyDown(KeyCode.Space))
 				{
 					PutBomb();
 				}
