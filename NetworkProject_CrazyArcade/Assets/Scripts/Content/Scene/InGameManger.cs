@@ -36,7 +36,7 @@ public class InGameManger : MonoBehaviourPun
 
 	[Tooltip("승리 조건 판별을 위한 플레이어 수 변수")]
 	public int playerCount = 0;
-	public string[] playersName;
+	public List<string> playersName;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -46,24 +46,26 @@ public class InGameManger : MonoBehaviourPun
 	// Update is called once per frame 
 	void Update()
     {
-		playersName = new string[playerCount];
+		playersName = new List<string>(playerCount);
 
-		//if (playerCount<=1)
-		//{
-		//	GameClear(/* 그 플레이어 정보*/);
-		//}
+		//모르겠다........ 
+		//playerName 리스트에 플레이어들의 이름을 추가하는건 완료 / 제거를 인게임에서 플레이어가 사망할 때 하려고 하는데 방법을 모르겠음
+		if (playerCount <= 1)
+		{
+			GameClear(playersName);
+		}
 
 		Debug.Log("플레이어 수 : " + playerCount);
-		Debug.Log("플레이어들 이름 리스트 : " + playersName.Length);
+		Debug.Log("플레이어들 이름 리스트 : " + playersName.Count);
 	}
 
 	//게임 클리어 시 호출 함수
-	public void GameClear(Player winner)
+	public void GameClear(List<string> winner)
 	{
 		winnerCanvas.SetActive(true);
 		inner_WatingTime = WaitTime;
 
-		SetWinnerName(winner.NickName);
+		SetWinnerName(winner[0]);	//사망한 플레이어는 전부 제거하고 남은 플레이어는 무조건 하나
 		BackToWaitingRoom();
 		SetWatingSecondText();
 	}

@@ -278,7 +278,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
 	public List<string> SetPlayersNameList(List<string> players)
 	{
-		return InGameRoom.playersName = players.ToList();
+		return InGameRoom.playersName = new List<string>(players.ToList().ToArray());
 	}
 
 	public bool CreateRoom(string roomName, string pw, bool isPassword)

@@ -22,6 +22,9 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	public List<Player> Players = new List<Player>();
 	public List<string> playersName = new List<string>();
 
+	[Header("채팅 관련 변수들")]
+	public string chatMessage;
+
 	private void Start()
 	{
 		// 현재 들어와있는 방 저장
