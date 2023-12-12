@@ -205,7 +205,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 686552947}
   m_HandleRect: {fileID: 686552946}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 301974113}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.46062908
+  m_Size: 0.46064514
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2544,7 +2544,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 881906293}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1408486623}
+        m_TargetAssemblyTypeName: PhotonInit, Assembly-CSharp
+        m_MethodName: SetPlayerName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &881906293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3184,6 +3196,57 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1408486622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1408486624}
+  - component: {fileID: 1408486623}
+  m_Layer: 0
+  m_Name: PhotonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1408486623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408486622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b88ff0334625649b5f26eb3ba9e111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToolTipCanvas: {fileID: 0}
+  toolTipText: {fileID: 0}
+  mainRoom: {fileID: 0}
+  lobbyRoom: {fileID: 0}
+  waitingRoom: {fileID: 0}
+  InGameRoom: {fileID: 0}
+  chatMessage: 
+--- !u!4 &1408486624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408486622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 527.0307, y: 251.9497, z: -1.1141577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4915,3 +4978,4 @@ SceneRoots:
   - {fileID: 1283457968}
   - {fileID: 1992105508}
   - {fileID: 313925822}
+  - {fileID: 1408486624}

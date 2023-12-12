@@ -24,6 +24,9 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	{
 		// 현재 들어와있는 방 저장
 		InitWaitingRoom();
+
+		PhotonInit pi = FindObjectOfType<PhotonInit>();
+		pi.WaitingStart();
 	}
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)

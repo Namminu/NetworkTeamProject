@@ -47,6 +47,10 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 	public InGameManger InGameRoom;
 	private Player myInfo;
 	private bool isGameStart = false;
+	//채팅 관련
+	public string chatMessage;
+	Text chatText;
+	ScrollRect scroll_rext = null;
 
 	void Awake()
     {
@@ -65,7 +69,29 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 			Destroy(gameObject);
 	}
 
-    private void Update()
+	public void WaitingStart()
+	{
+		Debug.Log("dlffldlflffl");
+
+		chatText = GameObject.Find("ChatingInputText").GetComponent<Text>();
+		scroll_rext = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
+	}
+
+
+
+	[PunRPC]
+	public void ChatInfo(string sChat, PhotonMessageInfo info)
+	{
+		ShowChat(sChat);
+	}
+
+	public void ShowChat(string chat)
+	{
+		chatText.text += PhotonNetwork.LocalPlayer.NickName + " : " + chat + "\n";
+		scroll_rext.verticalNormalizedPosition = 0.0f;
+	}
+
+	private void Update()
     {
 		if (!isMain && SceneManager.GetActiveScene().name == "MainLevel")
 		{
@@ -227,17 +253,26 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
     public void SetPlayerName(string name)
     {
-		if (!isReady)
-			return;
-
-		if (name == "")
+		if(isMain)
 		{
-			toolTipText.StartTextEffect("이름을 정해주세요!", Effect.FADE);
+			if (!isReady)
 			return;
-		}
 
-		PhotonNetwork.LocalPlayer.NickName = name;
-		ConnectToLobby();
+			if (name == "")
+			{
+				toolTipText.StartTextEffect("이름을 정해주세요!", Effect.FADE);
+				return;
+			}
+
+			PhotonNetwork.LocalPlayer.NickName = name;
+			ConnectToLobby();
+		}
+		else if(isWaitingRoom)
+		{
+			chatMessage = name;
+			photonView.RPC("ChatInfo", RpcTarget.All, chatMessage);
+			name = string.Empty;
+		}
     }
 
 	public void NextScene()
