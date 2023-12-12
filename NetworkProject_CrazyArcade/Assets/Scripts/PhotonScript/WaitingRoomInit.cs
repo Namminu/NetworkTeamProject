@@ -174,28 +174,36 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			StartCoroutine(InitPlayerProperty());
 		else
         {
+			int count = 0;
 			foreach(Player player in PhotonNetwork.PlayerList)
             {
 				PhotonInit.Instance.SetIsGameStart(false);
 				Players.Add(player);
-				Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
-					playerImagePos[(int)player.CustomProperties["waitingIndex"]].transform);
-				playerText[(int)player.CustomProperties["waitingIndex"]].text = player.NickName;
+
+				//Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
+				//	playerImagePos[(int)player.CustomProperties["waitingIndex"]].transform);
+				//playerText[(int)player.CustomProperties["waitingIndex"]].text = player.NickName;
 
 				Hashtable properites = player.CustomProperties;
-
 				if (PhotonNetwork.MasterClient != player)
 				{
 					properites["ready"] = false;
 				}
+				properites["waitingIndex"] = count++;
+				properites["InitComplete"] = false;
 				properites["isDie"] = false;
 				player.SetCustomProperties(properites);
 			}
 
 			if (PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
 				PhotonNetwork.AutomaticallySyncScene = false;
-
-		}			
+			else
+			{
+				Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
+					playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
+				playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
+			}
+		}
 	}
 	
 	// 플레이어가 대기방에 입장할때 실행되는 함수
