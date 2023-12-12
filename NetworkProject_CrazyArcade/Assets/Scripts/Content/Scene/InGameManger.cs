@@ -44,6 +44,9 @@ public class InGameManger : MonoBehaviourPun
 	private Player winner;
 	public int count;
 
+	[Tooltip("게임 클리어 시 winner UI 로딩까지의 시간")]
+	public float winnerUITime;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -90,7 +93,6 @@ public class InGameManger : MonoBehaviourPun
 		me = myInfo;
 		StartCoroutine(CheckWinner());
 
-
         if (PhotonNetwork.IsMasterClient)
 		{
             CreateRandomItem[] creatRand;
@@ -127,7 +129,7 @@ public class InGameManger : MonoBehaviourPun
 					winner = player;
 				}
             }
-			IsGameClear();
+			Invoke("IsGameClear", winnerUITime);
 		}
 	}
 

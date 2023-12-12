@@ -421,7 +421,4 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	{
 		isBomb = false;
 	}
-
-
-
 }

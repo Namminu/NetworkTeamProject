@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 54071330}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5382,10 +5382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4c4f0cd41c83942a1c85aaac30727e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winnerName: {fileID: 0}
-  WaitTime: 10
+  winnerName: {fileID: 408819585}
+  WaitTime: 7
   BackToWatingSecond: {fileID: 534523681}
-  winnerCanvas: {fileID: 0}
+  winnerCanvas: {fileID: 1872121662}
   playerSpawnLocation:
   - {fileID: 2012234718}
   - {fileID: 1836019597}
@@ -5396,6 +5396,8 @@ MonoBehaviour:
   - {fileID: 8765305107695649508, guid: 30874dfe926ac914882d54fce640ccd1, type: 3}
   - {fileID: 7591677208759408198, guid: b4bc75a4d25bcd44dadec7b553cc2886, type: 3}
   - {fileID: 8488119832265796733, guid: fc3b9bb3f961a2a4885d30303401a2f0, type: 3}
+  count: 0
+  winnerUITime: 1.5
 --- !u!4 &825163731
 Transform:
   m_ObjectHideFlags: 0
