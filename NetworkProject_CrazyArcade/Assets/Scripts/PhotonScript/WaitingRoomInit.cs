@@ -240,10 +240,12 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] != false)
 				PhotonNetwork.AutomaticallySyncScene = false;
-
-			Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
-				playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
-			playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
+			else
+			{
+				Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
+					playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
+				playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
+			}
 		}
 	}
 	
