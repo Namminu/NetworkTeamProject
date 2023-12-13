@@ -11,12 +11,6 @@ public class StreamController : MonoBehaviour
         Invoke("ColliderOff", 0.4f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    } 
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "BOMB")

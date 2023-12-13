@@ -50,8 +50,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	private GameObject[] bombNumbers;
 
 	private Vector3 movespeed;
-	private Vector3 otherVector;
-	private Vector3 otherMoveSpeed;
 
 	[SerializeField]
 	private AudioClip itemSound;
@@ -164,8 +162,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 					break;
 				}
 			}
-
-			//bomb.GetComponentInParent<BombController>().BombstreamLength(playerstat.bombLength);
 			bomb.GetComponentInParent<BombController>().photonView.RPC("BombLength", RpcTarget.All, playerstat.bombLength);
 			bomb.GetComponentInParent<BombController>().setBombName("Bomb" + (++bombCount));
 			bomb.GetComponentInParent<BombController>().overlappingPlayer = gameObject.name;
@@ -303,7 +299,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
 		else if(collision.gameObject.tag == "ITEM")
 		{
-			SoundManager.Instance.PlayEffectOneShot(itemSound);
+			if (pv.IsMine)
+			{
+				SoundManager.Instance.PlayEffectOneShot(itemSound);
+			}			
 		}
 	}
 
@@ -374,19 +373,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	{
 		if (stream.IsWriting)    //내 위치 서버로 원격 전송
 		{
-			//캐릭터 위치 전송
-			//stream.SendNext(tr.position);
-			//stream.SendNext(movespeed);
-
 			//캐릭터 상태 전송
 			stream.SendNext(isPlayerDie);
 		}
 		else //다른 사용자의 위치 동기화
 		{
-			//다른 사용자의 위치 동기화
-			//currentPos = (Vector3)stream.ReceiveNext();
-			//otherMoveSpeed = (Vector3)stream.ReceiveNext();
-
 			//다른 사용자의 상태 동기화
 			isOtherPlayerDie = (bool)stream.ReceiveNext();
 		}

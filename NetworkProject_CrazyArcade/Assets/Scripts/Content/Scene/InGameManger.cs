@@ -36,39 +36,18 @@ public class InGameManger : MonoBehaviourPun
 	[SerializeField]
 	private AudioClip finishSound;
 	[SerializeField]
-	private AudioClip Level1Sound;
-	[SerializeField]
-	private AudioClip Level2Sound;
-	[SerializeField]
-	private AudioClip Level3Sound;
+	private AudioClip LevelSound;
 
 	private void Start()
     {
 		winner = null;
-		count = 0;
-	}
-	private void Update()
-	{
-		if(SceneManager.GetActiveScene().name == "Level1")
-		{
-			Debug.Log("levedl1");
-			SoundManager.Instance.PlayBGM(Level1Sound);
-		}
-		else if (SceneManager.GetActiveScene().name == "Level2")
-		{
-			Debug.Log("levedl2");
-			SoundManager.Instance.PlayBGM(Level2Sound);
-		}
-		else if (SceneManager.GetActiveScene().name == "Level3")
-		{
-			Debug.Log("levedl3");
-			SoundManager.Instance.PlayBGM(Level3Sound);
-		}
+		count = 0;		
 	}
 
 	public void IsGameClear()
     {
 		winnerCanvas.SetActive(true);
+		SoundManager.Instance.StopBGM();
 		SoundManager.Instance.PlayEffectOneShot(finishSound);
 		RawImage image = Instantiate(winnerImgs[(int)winner.CustomProperties["characterIndex"]], winnerImgPos);
 		image.rectTransform.sizeDelta = new Vector2(165f, 165f);
@@ -106,6 +85,8 @@ public class InGameManger : MonoBehaviourPun
 
     public void GameStart(Player myInfo)
 	{
+		SoundManager.Instance.PlayBGM(LevelSound);
+
 		StartCoroutine(CheckWinner());
 
         if (PhotonNetwork.IsMasterClient)

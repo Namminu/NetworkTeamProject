@@ -11,7 +11,6 @@ public class ButtonSound : MonoBehaviour
 	void Start()
     {
 		sound = FindObjectOfType<SoundManager>();
-		//clickSound = sound.audioClips[5];
 	}
 
     // Update is called once per frame

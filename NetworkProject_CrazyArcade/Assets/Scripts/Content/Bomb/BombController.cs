@@ -56,12 +56,11 @@ public class BombController : MonoBehaviourPun
 
     void BombAction()
     {
-        if (isBomb)
+		SoundManager.Instance.PlayEffectOneShot(bombSound);
+		if (isBomb)
             return;
 		if (isburstsfast)
-        {
-            SoundManager.Instance.PlayEffectOneShot(bombSound);
-
+        {       
             // 아이템박스와의 거리
             {
                 RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));

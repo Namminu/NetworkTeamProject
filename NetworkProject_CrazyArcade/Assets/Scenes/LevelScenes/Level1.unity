@@ -12763,9 +12763,7 @@ MonoBehaviour:
   WaitTime: 7
   BackToWatingSecond: {fileID: 1836083980}
   finishSound: {fileID: 8300000, guid: c4ae4dab64b3b654ba36ab0d713087c4, type: 3}
-  Level1Sound: {fileID: 8300000, guid: b178f71d21a71b945ac9710ae9458ef9, type: 3}
-  Level2Sound: {fileID: 8300000, guid: 7b5e6ec42b381e3418d8f0537ddb7967, type: 3}
-  Level3Sound: {fileID: 8300000, guid: a382afcd01a826f4da31a6d710c20c26, type: 3}
+  LevelSound: {fileID: 8300000, guid: b178f71d21a71b945ac9710ae9458ef9, type: 3}
 --- !u!4 &2129061745
 Transform:
   m_ObjectHideFlags: 0
