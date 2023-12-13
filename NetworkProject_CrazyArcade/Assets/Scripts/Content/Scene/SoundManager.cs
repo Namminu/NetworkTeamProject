@@ -53,7 +53,6 @@ public class SoundManager : MonoBehaviour
 		m_EffectSource.PlayOneShot(clip);
 	}
 
-
 	public void PlayBGM(AudioClip clip)
 	{
 		m_AudioSource.clip = clip;

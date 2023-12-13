@@ -46,21 +46,22 @@ public class InGameManger : MonoBehaviourPun
     {
 		winner = null;
 		count = 0;
-
-		SoundManager.Instance.StopBGM();
 	}
 	private void Update()
 	{
-		if(SceneManager.GetActiveScene().name == "Leve1")
+		if(SceneManager.GetActiveScene().name == "Level1")
 		{
+			Debug.Log("levedl1");
 			SoundManager.Instance.PlayBGM(Level1Sound);
 		}
 		else if (SceneManager.GetActiveScene().name == "Level2")
 		{
+			Debug.Log("levedl2");
 			SoundManager.Instance.PlayBGM(Level2Sound);
 		}
 		else if (SceneManager.GetActiveScene().name == "Level3")
 		{
+			Debug.Log("levedl3");
 			SoundManager.Instance.PlayBGM(Level3Sound);
 		}
 	}
