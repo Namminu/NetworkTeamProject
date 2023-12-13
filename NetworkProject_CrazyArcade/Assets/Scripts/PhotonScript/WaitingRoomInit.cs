@@ -130,8 +130,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			{
 				if (i <= Players.Count - 1)
 				{
-					if ((bool)Players[i].CustomProperties["ready"]) readyText[i].SetActive(true);
-					else readyText[i].SetActive(false);
+					if (Players[i].CustomProperties["ready"] != null)
+					{
+						if ((bool)Players[i].CustomProperties["ready"]) readyText[i].SetActive(true);
+						else readyText[i].SetActive(false);
+					}
 				}
 				else
 				{
