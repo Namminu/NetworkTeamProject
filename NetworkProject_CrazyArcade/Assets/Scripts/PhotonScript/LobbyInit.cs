@@ -21,6 +21,9 @@ public class LobbyInit : MonoBehaviour
     [SerializeField] private InputField enterRoomPW;
     [SerializeField] private Button[] roomNumberButton;
 
+    [SerializeField]
+    private AudioClip buttonSound;
+    
     private int passwordRoomNum;
 
     void Start()
@@ -34,7 +37,15 @@ public class LobbyInit : MonoBehaviour
         }
     }
 
-    IEnumerator TryReconnect()
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			SoundManager.Instance.PlayEffectOneShot(buttonSound);
+		}
+	}
+
+	IEnumerator TryReconnect()
     {
         if (!PhotonNetwork.IsConnectedAndReady)
         {

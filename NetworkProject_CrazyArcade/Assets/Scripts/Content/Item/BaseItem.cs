@@ -9,15 +9,9 @@ public abstract class BaseItem : MonoBehaviourPun
 
     PhotonView pv;
 
-	public AudioClip soundClip;
-	private AudioSource audioSource;
-
 	private void Start()
     {
         pv = gameObject.GetComponent<PhotonView>();
-
-		audioSource = GetComponent<AudioSource>();
-		audioSource.clip = soundClip;
 	}
     void OnTriggerStay2D(Collider2D other) 
     {
@@ -32,7 +26,6 @@ public abstract class BaseItem : MonoBehaviourPun
                     OperateItemLogic(player);
                     Destroy(gameObject);
                     pv.RPC("ItemEat", RpcTarget.Others);
-				    audioSource.Play();
                 }
 			}
         }

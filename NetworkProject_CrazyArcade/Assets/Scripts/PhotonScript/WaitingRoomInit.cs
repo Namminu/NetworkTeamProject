@@ -28,6 +28,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	public InputField playerInput;
 	bool isEnter = false;
 
+	[SerializeField]
+	private AudioClip wating_BGM;
+	[SerializeField]
+	private AudioClip buttonSound;
 	private void Start()
 	{
 		// 현재 들어와있는 방 저장
@@ -35,6 +39,9 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		//채팅 관련
 		chatText = GameObject.Find("ChattingLog").GetComponent<Text>();
 		scroll_rext = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
+
+		SoundManager.Instance.StopBGM();
+		SoundManager.Instance.PlayBGM(wating_BGM);
 	}
 
 	[PunRPC]
@@ -75,6 +82,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		{
             playerInput.ActivateInputField();
         }
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			SoundManager.Instance.PlayEffectOneShot(buttonSound);
+		}
 	}
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)

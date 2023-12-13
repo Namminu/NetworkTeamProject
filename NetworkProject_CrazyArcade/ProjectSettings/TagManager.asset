@@ -10,6 +10,7 @@ TagManager:
   - VEHICLE
   - PlayerTarget
   - BombHere
+  - ITEM
   layers:
   - Default
   - TransparentFX

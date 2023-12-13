@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3557825289312274572}
   m_Layer: 0
   m_Name: feather
-  m_TagString: Untagged
+  m_TagString: ITEM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e796dc864f70a747b1faccfb744067f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundClip: {fileID: 8300000, guid: 606d4a4e864e621459dcb522b57eeb24, type: 3}
   speedBoost: 0.3
 --- !u!61 &179293206033986986
 BoxCollider2D:
@@ -180,8 +179,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 606d4a4e864e621459dcb522b57eeb24, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0

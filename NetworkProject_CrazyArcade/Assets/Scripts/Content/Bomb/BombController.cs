@@ -30,8 +30,8 @@ public class BombController : MonoBehaviourPun
     private float distanceLeft;
     private float distanceRight;
 
-    public AudioClip soundClip;
-    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip bombSound;
 
     enum Way
     {
@@ -52,26 +52,16 @@ public class BombController : MonoBehaviourPun
         raycastDistance = streamLength;
 
         DistanceCheck(1);
-
-		audioSource = GetComponent<AudioSource>();
-        audioSource.clip = soundClip;
-
 	}
-
-    private void playSound()
-    {
-		audioSource.Play();
-	}
-
-
 
     void BombAction()
     {
         if (isBomb)
             return;
-		Invoke("playSound", bombTime + 1.0f);
 		if (isburstsfast)
         {
+            SoundManager.Instance.PlayEffectOneShot(bombSound);
+
             // 아이템박스와의 거리
             {
                 RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, LayerMask.GetMask("ItemBox"));

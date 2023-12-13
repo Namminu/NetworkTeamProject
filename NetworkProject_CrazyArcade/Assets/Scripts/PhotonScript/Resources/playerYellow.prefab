@@ -284,6 +284,7 @@ MonoBehaviour:
   isPlayerDie: 0
   playerstat: {fileID: 3262803500573615609}
   bombNumbers: []
+  itemSound: {fileID: 8300000, guid: 606d4a4e864e621459dcb522b57eeb24, type: 3}
 --- !u!95 &2158617244492149962
 Animator:
   serializedVersion: 5

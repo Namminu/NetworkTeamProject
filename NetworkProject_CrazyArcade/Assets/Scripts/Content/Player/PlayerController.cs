@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	//private Text playerName;
 	private Transform tr;
 	private PhotonView pv;
-	private Vector3 currentPos; //실습에서는 Vector3였지만 2D게임 제작중이므로 Vector2로 변경
-	private Quaternion currentRot;  //회전이 필요한가?
 
 	private Direction dir = Direction.Down;
 	private Dictionary<string, Direction> hitObjectDirs = new Dictionary<string, Direction>();
@@ -55,8 +53,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 	private Vector3 otherVector;
 	private Vector3 otherMoveSpeed;
 
-
-
+	[SerializeField]
+	private AudioClip itemSound;
 
 	void Start()
 	{
@@ -115,7 +113,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 		{
 			isOtherDie();
 		}
-
 	}
 
 	//폭탄 놓기 호출
@@ -302,6 +299,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 					return;
 
 			SetHitDir(collision);
+		}
+
+		else if(collision.gameObject.tag == "ITEM")
+		{
+			SoundManager.Instance.PlayEffectOneShot(itemSound);
 		}
 	}
 

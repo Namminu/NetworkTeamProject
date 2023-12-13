@@ -33,15 +33,42 @@ public class InGameManger : MonoBehaviourPun
 	[Tooltip("대기방으로 화면 넘어가는 대기 시간")] public float WaitTime;
 	[Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")] public Text BackToWatingSecond; //시간 문구
 
-    private void Start()
+	[SerializeField]
+	private AudioClip finishSound;
+	[SerializeField]
+	private AudioClip Level1Sound;
+	[SerializeField]
+	private AudioClip Level2Sound;
+	[SerializeField]
+	private AudioClip Level3Sound;
+
+	private void Start()
     {
 		winner = null;
 		count = 0;
+
+		SoundManager.Instance.StopBGM();
+	}
+	private void Update()
+	{
+		if(SceneManager.GetActiveScene().name == "Leve1")
+		{
+			SoundManager.Instance.PlayBGM(Level1Sound);
+		}
+		else if (SceneManager.GetActiveScene().name == "Level2")
+		{
+			SoundManager.Instance.PlayBGM(Level2Sound);
+		}
+		else if (SceneManager.GetActiveScene().name == "Level3")
+		{
+			SoundManager.Instance.PlayBGM(Level3Sound);
+		}
 	}
 
-    public void IsGameClear()
+	public void IsGameClear()
     {
 		winnerCanvas.SetActive(true);
+		SoundManager.Instance.PlayEffectOneShot(finishSound);
 		RawImage image = Instantiate(winnerImgs[(int)winner.CustomProperties["characterIndex"]], winnerImgPos);
 		image.rectTransform.sizeDelta = new Vector2(165f, 165f);
 		winnerName.text = winner.NickName;

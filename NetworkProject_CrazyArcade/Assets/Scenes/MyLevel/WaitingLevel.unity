@@ -843,6 +843,8 @@ MonoBehaviour:
   - {fileID: 743973265}
   chatMessage: 
   playerInput: {fileID: 630070827}
+  wating_BGM: {fileID: 8300000, guid: 50e0f0e59b355f342956e9651ade94c8, type: 3}
+  buttonSound: {fileID: 8300000, guid: a6ae67a0d782d98489b4725d411adf02, type: 3}
 --- !u!1 &361850133
 GameObject:
   m_ObjectHideFlags: 0
@@ -3083,6 +3085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483682972}
   - component: {fileID: 1483682971}
+  - component: {fileID: 1483682973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3156,6 +3159,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1483682973
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483682969}
+  m_Enabled: 1
 --- !u!1 &1505492988
 GameObject:
   m_ObjectHideFlags: 0
