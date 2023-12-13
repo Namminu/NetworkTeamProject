@@ -163,7 +163,7 @@ public class BombController : MonoBehaviourPun
         }
         isBomb = true;
 
-        GetComponent<BoxCollider2D>().enabled = false;
+
 
         GameObject bombExplosion = Instantiate(Explosion, transform.position, Quaternion.identity);
         Destroy(bombExplosion, 0.8f);
