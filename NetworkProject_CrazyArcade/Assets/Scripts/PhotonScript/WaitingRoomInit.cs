@@ -183,7 +183,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 					tempProperties["waitingIndex"] = newPlayerIndex;
 
 					// 만약 방장 자리라면 방장으로 설정
-					if (newPlayerIndex == targetPlayerWaitingIndex)
+					if (newPlayerIndex == 0)
 					{
 						tempProperties["isMaster"] = true;
 						tempProperties["ready"] = true;
@@ -356,7 +356,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	
     public void StartGame()
     {
-		if (PhotonNetwork.LocalPlayer == PhotonNetwork.MasterClient)
+		if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == true)
 		{
 			foreach(Player player in Players)
             {
