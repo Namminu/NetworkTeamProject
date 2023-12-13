@@ -125,19 +125,18 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				}
 			}
 			Players[Players.IndexOf(targetPlayer)] = targetPlayer;
-		}
 
-		// 레디 텍스트 업데이트
-		for (int i = 0; i < readyText.Length; i++)
-		{
-			if (i <= Players.Count - 1)
+			for (int i = 1; i < readyText.Length; i++)
 			{
-				if ((bool)Players[i].CustomProperties["ready"]) readyText[i].SetActive(true);
-				else readyText[i].SetActive(false);
-			}
-			else
-			{
-				readyText[i].SetActive(false);
+				if (i <= Players.Count - 1)
+				{
+					if ((bool)Players[i].CustomProperties["ready"]) readyText[i].SetActive(true);
+					else readyText[i].SetActive(false);
+				}
+				else
+				{
+					readyText[i].SetActive(false);
+				}
 			}
 		}
 	}
