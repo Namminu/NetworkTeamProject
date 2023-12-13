@@ -219,7 +219,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				//playerText[(int)player.CustomProperties["waitingIndex"]].text = player.NickName;
 
 				Hashtable properites = player.CustomProperties;
-				if (PhotonNetwork.MasterClient != player)
+				if ((bool)player.CustomProperties["isMaster"] != false)
 				{
 					properites["ready"] = false;
 				}
@@ -229,14 +229,12 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				player.SetCustomProperties(properites);
 			}
 
-			if (PhotonNetwork.LocalPlayer != PhotonNetwork.MasterClient)
+			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] != false)
 				PhotonNetwork.AutomaticallySyncScene = false;
-			else
-			{
-				Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
-					playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
-				playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
-			}
+
+			Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
+				playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
+			playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
 		}
 	}
 	
