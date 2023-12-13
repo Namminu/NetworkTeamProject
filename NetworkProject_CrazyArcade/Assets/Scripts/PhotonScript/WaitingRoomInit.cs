@@ -222,25 +222,18 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			{
 				PhotonInit.Instance.SetIsGameStart(false);
 
-				//Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
-				//	playerImagePos[(int)player.CustomProperties["waitingIndex"]].transform);
-				//playerText[(int)player.CustomProperties["waitingIndex"]].text = player.NickName;
-
 				Hashtable properites = player.CustomProperties;
 				if ((bool)player.CustomProperties["isMaster"] != false)
 				{
 					properites["ready"] = false;
 				}
 				properites["waitingIndex"] = count++;
-				properites["InitComplete"] = false;
 				properites["isDie"] = false;
 				player.SetCustomProperties(properites);
-				if((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == true)
-                {
-					Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
+
+				Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
 					playerImagePos[(int)properites["waitingIndex"]].transform);
-					playerText[(int)properites["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
-				}
+				playerText[(int)properites["waitingIndex"]].text = player.NickName;
 
 				Players.Add(player);
 			}
