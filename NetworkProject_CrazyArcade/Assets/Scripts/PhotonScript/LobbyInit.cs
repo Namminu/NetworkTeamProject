@@ -56,16 +56,6 @@ public class LobbyInit : MonoBehaviour
         PhotonInit.Instance.toolTipText.SetInvisible();
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(PhotonNetwork.IsConnectedAndReady);
-            Debug.Log(PhotonNetwork.InLobby);
-        }
-
-    }
-
     public void InitMainLobby(string name)
     {
         playerName.text = name;

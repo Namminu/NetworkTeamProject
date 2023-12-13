@@ -35,13 +35,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		//채팅 관련
 		chatText = GameObject.Find("ChattingLog").GetComponent<Text>();
 		scroll_rext = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
-
-
-		//playerInput.OnDeselect(AddListener(delegate { disconnectEnter(); }));
-	}
-	private void disconnectEnter()
-	{
-		if (isEnter) isEnter = false;
 	}
 
 	[PunRPC]
@@ -49,11 +42,13 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	{
 		ShowChat(sChat, name);
 	}
+
 	public void ShowChat(string chat, string name)
 	{
 		chatText.text += name + " : " + chat + "\n";
 		scroll_rext.verticalNormalizedPosition = 0.0f;
 	}
+
 	public void OnEndEditEventMethod()
 	{
 		if(Input.GetKeyDown(KeyCode.Return)) 
@@ -61,6 +56,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			SendChatingMessage();
 		}
 	}
+
 	public void SendChatingMessage() 
 	{
 		if (playerInput.text.Equals("")) return;
@@ -69,6 +65,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, PhotonNetwork.LocalPlayer.NickName);
 		playerInput.text = string.Empty; 
 	}
+
 	private void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
@@ -218,10 +215,9 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		else
 		{
 			int count = 0;
+			PhotonInit.Instance.SetIsGameStart(false);
 			foreach (Player player in PhotonNetwork.PlayerList)
 			{
-				PhotonInit.Instance.SetIsGameStart(false);
-
 				Hashtable properites = player.CustomProperties;
 				if ((bool)player.CustomProperties["isMaster"] != false)
 				{

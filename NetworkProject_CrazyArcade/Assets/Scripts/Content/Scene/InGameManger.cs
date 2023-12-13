@@ -149,7 +149,6 @@ public class InGameManger : MonoBehaviourPun
 	[PunRPC]
 	public void MakePlayer(int index, Vector3 pos, Quaternion rotation)
     {
-		Debug.Log("생성 완료");
 		Instantiate(PlayerPrefabs[index], pos, rotation);
 	}
 } 

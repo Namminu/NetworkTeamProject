@@ -44,20 +44,13 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
 
     public void RandIteam()
     {
-        Debug.Log(PhotonNetwork.IsMasterClient.ToString() + "      1");
         if (PhotonNetwork.IsMasterClient)
         {
-           
             itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
-            Debug.Log("스폰율" + (itemSpawnInfo.spawnRate * 10f));
             if (Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
             {
-                Debug.Log("아이템 생성해야 됨");
                 SetRandomSpawnObject();
             }
-
-            Debug.Log(spawnObject);
-            //pv.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
         }
         
     }
@@ -110,7 +103,6 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
         }
 
         spawnObject = randomItemIndex;
-        //bjectsToSpawn
     }
 
     public void SpawnRandomObject()
