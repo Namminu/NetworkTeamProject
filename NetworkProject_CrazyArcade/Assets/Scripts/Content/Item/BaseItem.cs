@@ -9,10 +9,16 @@ public abstract class BaseItem : MonoBehaviourPun
 
     PhotonView pv;
 
-    private void Start()
+	public AudioClip soundClip;
+	private AudioSource audioSource;
+
+	private void Start()
     {
         pv = gameObject.GetComponent<PhotonView>();
-    }
+
+		audioSource = GetComponent<AudioSource>();
+		audioSource.clip = soundClip;
+	}
     void OnTriggerStay2D(Collider2D other) 
     {
         if (other.gameObject.tag == "Player")
@@ -26,8 +32,9 @@ public abstract class BaseItem : MonoBehaviourPun
                     OperateItemLogic(player);
                     Destroy(gameObject);
                     pv.RPC("ItemEat", RpcTarget.Others);
+				    audioSource.Play();
                 }
-            }
+			}
         }
         
         if(other.gameObject.tag == "BombStream")

@@ -29,6 +29,10 @@ public class BombController : MonoBehaviourPun
     private float distanceDown;
     private float distanceLeft;
     private float distanceRight;
+
+    public AudioClip soundClip;
+    private AudioSource audioSource;
+
     enum Way
     {
         up = 0,
@@ -49,8 +53,15 @@ public class BombController : MonoBehaviourPun
 
         DistanceCheck(1);
 
-    }
+		audioSource = GetComponent<AudioSource>();
+        audioSource.clip = soundClip;
 
+	}
+
+    private void playSound()
+    {
+		audioSource.Play();
+	}
 
 
 
@@ -58,8 +69,8 @@ public class BombController : MonoBehaviourPun
     {
         if (isBomb)
             return;
-
-        if (isburstsfast)
+		Invoke("playSound", bombTime + 1.0f);
+		if (isburstsfast)
         {
             // 아이템박스와의 거리
             {
@@ -115,13 +126,13 @@ public class BombController : MonoBehaviourPun
                 // 디버그 Ray 그리기
                 Debug.DrawRay(transform.position, Vector2.right * raycastDistance, Color.yellow);
             }
-        }
+		}
         else
         {
             DistanceCheck(2);
         }
 
-
+      
 
 
         Instantiate(BombStream, transform.position, Quaternion.identity);
@@ -166,8 +177,8 @@ public class BombController : MonoBehaviourPun
 
 
         GameObject bombExplosion = Instantiate(Explosion, transform.position, Quaternion.identity);
-        Destroy(bombExplosion, 0.8f);
-        Destroy(gameObject);
+		Destroy(bombExplosion, 0.8f);
+		Destroy(gameObject);
 
     }
 
