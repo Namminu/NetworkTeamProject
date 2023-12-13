@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 934365500949483413}
   - component: {fileID: 934365500949483414}
   - component: {fileID: 611610987012062089}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deco_02
-  m_TagString: Untagged
+  m_TagString: VEHICLE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
