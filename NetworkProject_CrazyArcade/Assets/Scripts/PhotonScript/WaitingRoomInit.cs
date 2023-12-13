@@ -65,7 +65,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		if (playerInput.text.Equals("")) return;
 
 		chatMessage = playerInput.text;
-		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, false, PhotonNetwork.LocalPlayer.NickName);
+		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, PhotonNetwork.LocalPlayer.NickName, false);
 		playerInput.text = string.Empty; 
 	}
 
