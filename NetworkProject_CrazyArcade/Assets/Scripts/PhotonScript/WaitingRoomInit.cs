@@ -227,6 +227,10 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				{
 					properites["ready"] = false;
 				}
+				else
+                {
+					properites["ready"] = true;
+				}
 				properites["waitingIndex"] = count++;
 				properites["isDie"] = false;
 				player.SetCustomProperties(properites);
