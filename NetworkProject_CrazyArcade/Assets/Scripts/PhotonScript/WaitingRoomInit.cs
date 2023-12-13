@@ -185,6 +185,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 					// 만약 방장 자리라면 방장으로 설정
 					if (newPlayerIndex == 0)
 					{
+						readyText[0].SetActive(true);
 						tempProperties["isMaster"] = true;
 						tempProperties["ready"] = true;
 					}
