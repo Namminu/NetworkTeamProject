@@ -128,7 +128,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		}
 
 		// 레디 텍스트 업데이트
-		for (int i = 1; i < readyText.Length; i++)
+		for (int i = 0; i < readyText.Length; i++)
 		{
 			if (i <= Players.Count - 1)
 			{
@@ -158,6 +158,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			// 나간 플레이어를 제거함
 			Destroy(playerImagePos[targetPlayerWaitingIndex].transform.GetChild(0).gameObject);
 			playerText[targetPlayerWaitingIndex].text = "";
+			readyText[targetPlayerWaitingIndex].SetActive(false);
 
 			foreach(Player player in Players)
             {
