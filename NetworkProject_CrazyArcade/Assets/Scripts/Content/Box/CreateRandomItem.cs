@@ -30,6 +30,7 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
     private void Start()
     {
         //RandIteam();
+        spawnObject = -1;
         pv = GetComponent<PhotonView>();
     }
 
@@ -48,10 +49,12 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
         {
            
             itemSpawnInfo = GameObject.Find("ItemSpawnController").GetComponent<SpawnController>();
-            Debug.Log((itemSpawnInfo.spawnRate * 10f));
+            Debug.Log("스폰율" + (itemSpawnInfo.spawnRate * 10f));
             if (Random.Range(1f, 10f) <= (itemSpawnInfo.spawnRate * 10f) || isAlwaysSpawnObject)
+            {
+                Debug.Log("아이템 생성해야 됨");
                 SetRandomSpawnObject();
-
+            }
 
             Debug.Log(spawnObject);
             //pv.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
@@ -112,8 +115,8 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
 
     public void SpawnRandomObject()
     {
-        
-        if (objectsToSpawn[spawnObject])
+
+        if (spawnObject != -1)
         {
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.InstantiateRoomObject(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
