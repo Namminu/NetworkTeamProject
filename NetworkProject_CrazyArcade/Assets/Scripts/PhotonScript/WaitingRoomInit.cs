@@ -68,20 +68,25 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //          for (int i = 0; i < Players.Count; i++)
+        //          {
+        //              Debug.Log("[" + PhotonNetwork.PlayerList[i].NickName + "]");
+        //              Debug.Log("IsMaster: " + PhotonNetwork.PlayerList[i].CustomProperties["isMaster"]);
+        //              Debug.Log("waitingIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["waitingIndex"]);
+        //              Debug.Log("characterIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["characterIndex"]);
+        //              Debug.Log("ready: " + PhotonNetwork.PlayerList[i].CustomProperties["ready"]);
+        //              Debug.Log("InitComplete: " + PhotonNetwork.PlayerList[i].CustomProperties["InitComplete"]);
+        //              Debug.Log("isDie: " + PhotonNetwork.PlayerList[i].CustomProperties["isDie"]);
+        //          }
+        //}
+        if (Input.GetKeyDown(KeyCode.Return) && playerInput.isFocused == false)
 		{
-            for (int i = 0; i < Players.Count; i++)
-            {
-                Debug.Log("[" + PhotonNetwork.PlayerList[i].NickName + "]");
-                Debug.Log("IsMaster: " + PhotonNetwork.PlayerList[i].CustomProperties["isMaster"]);
-                Debug.Log("waitingIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["waitingIndex"]);
-                Debug.Log("characterIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["characterIndex"]);
-                Debug.Log("ready: " + PhotonNetwork.PlayerList[i].CustomProperties["ready"]);
-                Debug.Log("InitComplete: " + PhotonNetwork.PlayerList[i].CustomProperties["InitComplete"]);
-                Debug.Log("isDie: " + PhotonNetwork.PlayerList[i].CustomProperties["isDie"]);
-            }
-		}
-	}
+            playerInput.ActivateInputField();
+        }
+
+    }
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)
 	{
