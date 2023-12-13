@@ -38,14 +38,17 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 	}
 
 	[PunRPC]
-	public void ChatInfo(string sChat, string name, PhotonMessageInfo info)
+	public void ChatInfo(string sChat, string name, bool is_EnterLeave, PhotonMessageInfo info)
 	{
-		ShowChat(sChat, name);
+		ShowChat(sChat, name, is_EnterLeave);
 	}
 
-	public void ShowChat(string chat, string name)
+	public void ShowChat(string chat, string name, bool is_EnterLeave)
 	{
-		chatText.text += name + " : " + chat + "\n";
+		if (!is_EnterLeave)
+			chatText.text += name + " : " + chat + "\n";
+		else
+			chatText.text += name + chat + "\n";
 		scroll_rext.verticalNormalizedPosition = 0.0f;
 	}
 
@@ -62,31 +65,17 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		if (playerInput.text.Equals("")) return;
 
 		chatMessage = playerInput.text;
-		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, PhotonNetwork.LocalPlayer.NickName);
+		photonView.RPC("ChatInfo", RpcTarget.All, chatMessage, false, PhotonNetwork.LocalPlayer.NickName);
 		playerInput.text = string.Empty; 
 	}
 
 	private void Update()
 	{
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //          for (int i = 0; i < Players.Count; i++)
-        //          {
-        //              Debug.Log("[" + PhotonNetwork.PlayerList[i].NickName + "]");
-        //              Debug.Log("IsMaster: " + PhotonNetwork.PlayerList[i].CustomProperties["isMaster"]);
-        //              Debug.Log("waitingIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["waitingIndex"]);
-        //              Debug.Log("characterIndex: " + PhotonNetwork.PlayerList[i].CustomProperties["characterIndex"]);
-        //              Debug.Log("ready: " + PhotonNetwork.PlayerList[i].CustomProperties["ready"]);
-        //              Debug.Log("InitComplete: " + PhotonNetwork.PlayerList[i].CustomProperties["InitComplete"]);
-        //              Debug.Log("isDie: " + PhotonNetwork.PlayerList[i].CustomProperties["isDie"]);
-        //          }
-        //}
         if (Input.GetKeyDown(KeyCode.Return) && playerInput.isFocused == false)
 		{
             playerInput.ActivateInputField();
         }
-
-    }
+	}
 
 	public override void OnPlayerEnteredRoom(Player newPlayer)
 	{
@@ -100,7 +89,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 
 	void UpdatePlayerList(Player player, bool b_Enter)
 	{
-		Debug.Log(player.NickName + string.Format("´ÔÀÌ {0}ÇÏ¼Ì½À´Ï´Ù.", b_Enter ? "ÀÔÀå" : "ÅðÀå"));
+		ShowChat(string.Format("´ÔÀÌ {0}ÇÏ¼Ì½À´Ï´Ù.", b_Enter ? "ÀÔÀå" : "ÅðÀå"), player.NickName, true);
 		if (b_Enter)
 		{
 			if (!Players.Contains(player))
@@ -224,14 +213,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			foreach (Player player in PhotonNetwork.PlayerList)
 			{
 				Hashtable properites = player.CustomProperties;
-				if ((bool)player.CustomProperties["isMaster"] != false)
+				if ((bool)player.CustomProperties["isMaster"] == false)
 				{
 					properites["ready"] = false;
 				}
-				else
-                {
-					properites["ready"] = true;
-				}
+
 				properites["waitingIndex"] = count++;
 				properites["isDie"] = false;
 				player.SetCustomProperties(properites);
@@ -243,7 +229,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				Players.Add(player);
 			}
 
-			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] != false)
+			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == false)
 				PhotonNetwork.AutomaticallySyncScene = false;
 
 		}
@@ -255,7 +241,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		
 		while(PhotonNetwork.NetworkClientState == ClientState.Joining)
         {
-			Debug.Log("Á¶ÀÎ Áß");
 			yield return null;
         }
 
@@ -330,7 +315,6 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 			PhotonInit.Instance.toolTipText.StartTextEffect("¹æÀåÀº ·¹µð¸¦ Ç® ¼ö ¾ø½À´Ï´Ù!", Effect.FADE);
 			return;
 		}
-		Debug.Log("¾ÈµÊ");
 		Hashtable properties = PhotonNetwork.LocalPlayer.CustomProperties;
 		properties["ready"] = (bool)properties["ready"] ? false : true;
 		PhotonNetwork.AutomaticallySyncScene = (bool)properties["ready"];
@@ -382,6 +366,7 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 					return;
 				}
             }
+			PhotonNetwork.AutomaticallySyncScene = true;
 			PhotonInit.Instance.SetPlayerForGame(PhotonNetwork.LocalPlayer);
 			int sceneIndex = Random.Range(1, 4);
 			PhotonNetwork.LoadLevel("Level" + sceneIndex);

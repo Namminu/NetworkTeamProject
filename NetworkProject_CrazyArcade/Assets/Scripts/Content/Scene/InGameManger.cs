@@ -13,49 +13,37 @@ using UnityEditor;
 
 public class InGameManger : MonoBehaviourPun
 {
-	PhotonView pv;
-
-	//대기방 전환을 위한 시간 변수
-	[Header("승리자 패널 표시 시간")]
-	[Tooltip("승리자 이름 텍스트")]
-	public Text winnerName;
-    [Tooltip("대기방으로 화면 넘어가는 대기 시간")]
-	public float WaitTime;
-
-    [Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")]
-    public Text BackToWatingSecond; //시간 문구
-
-    public GameObject winnerCanvas;
+	// 게임 시작 시의 로직과 관련
+	private Player winner;
+	private int count;
 
 	[Header("플레이어 생성 위치 할당")]
-	[Tooltip("플레이어 생성 위치 리스트")]
-	public  GameObject[] playerSpawnLocation = new GameObject[4];
+	[Tooltip("플레이어 생성 위치 리스트")] public  GameObject[] playerSpawnLocation = new GameObject[4];
 
-	//[Tooltip("해당 위치에 플레이어 생성 가능한지 여부 판단")]
-	//public bool[] canSpawnPlayer;
-	[Tooltip("플레이어 프리팹")]
-	public GameObject[] PlayerPrefabs = new GameObject[4];
+	[Header("플레이어 생성 관련")]
+	[Tooltip("플레이어 프리팹")] public GameObject[] PlayerPrefabs = new GameObject[4];
 
-	private int randomIndex;
+	//대기방 전환을 위한 시간 변수 포함
+	[Header("승리 플레이어 렌더링 관련")]
+	[Tooltip("게임 클리어를 띄울 winner UI캔버스")] public GameObject winnerCanvas;
+    [Tooltip("게임 클리어 시 winner UI 로딩까지의 시간")] public float showWinnerUIInvokeTime;
+	[Tooltip("승리자 이름 텍스트")] public Text winnerName;
+	[Tooltip("승리 이미지를 띄울 위치")] public RectTransform winnerImgPos;
+	[Tooltip("승리자 이미지 관련")] public RawImage[] winnerImgs = new RawImage[4];
+	[Tooltip("대기방으로 화면 넘어가는 대기 시간")] public float WaitTime;
+	[Tooltip("n 초 뒤에 대기방으로 이동합니다 텍스트")] public Text BackToWatingSecond; //시간 문구
 
-	// 게임 시작 시의 로직과 관련
-	private List<Player> playerList;
-	private Player me;
-	private Player winner;
-	public int count;
-
-	[Tooltip("게임 클리어 시 winner UI 로딩까지의 시간")]
-	public float winnerUITime;
-
-	// Start is called before the first frame update
-	void Start()
-	{
-		pv = GetComponent<PhotonView>();
+    private void Start()
+    {
+		winner = null;
+		count = 0;
 	}
 
     public void IsGameClear()
     {
 		winnerCanvas.SetActive(true);
+		RawImage image = Instantiate(winnerImgs[(int)winner.CustomProperties["characterIndex"]], winnerImgPos);
+		image.rectTransform.sizeDelta = new Vector2(165f, 165f);
 		winnerName.text = winner.NickName;
 		StartCoroutine(BackToWaitingRoom(WaitTime));
     }
@@ -90,7 +78,6 @@ public class InGameManger : MonoBehaviourPun
 
     public void GameStart(Player myInfo)
 	{
-		me = myInfo;
 		StartCoroutine(CheckWinner());
 
         if (PhotonNetwork.IsMasterClient)
@@ -117,8 +104,7 @@ public class InGameManger : MonoBehaviourPun
 
 		if(count == 0)
         {
-			CreatePlayer(me);
-			StartCoroutine(CheckWinner());
+			Debug.Log("플레이어가 다 뒤졌습니다 다시 시작해라");
         }
 		else
         {
@@ -129,7 +115,7 @@ public class InGameManger : MonoBehaviourPun
 					winner = player;
 				}
             }
-			Invoke("IsGameClear", winnerUITime);
+			Invoke("IsGameClear", showWinnerUIInvokeTime);
 		}
 	}
 
@@ -144,11 +130,5 @@ public class InGameManger : MonoBehaviourPun
 			}
 		}
 		return aliveCount;
-	}
-
-	[PunRPC]
-	public void MakePlayer(int index, Vector3 pos, Quaternion rotation)
-    {
-		Instantiate(PlayerPrefabs[index], pos, rotation);
 	}
 } 
