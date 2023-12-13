@@ -216,12 +216,11 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 		if (!PhotonInit.Instance.GetIsGameStart())
 			StartCoroutine(InitPlayerProperty());
 		else
-        {
+		{
 			int count = 0;
-			foreach(Player player in PhotonNetwork.PlayerList)
-            {
+			foreach (Player player in PhotonNetwork.PlayerList)
+			{
 				PhotonInit.Instance.SetIsGameStart(false);
-				Players.Add(player);
 
 				//Instantiate(playerImages[(int)player.CustomProperties["characterIndex"]],
 				//	playerImagePos[(int)player.CustomProperties["waitingIndex"]].transform);
@@ -236,16 +235,19 @@ public class WaitingRoomInit : MonoBehaviourPunCallbacks
 				properites["InitComplete"] = false;
 				properites["isDie"] = false;
 				player.SetCustomProperties(properites);
+				if((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] == true)
+                {
+					Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
+					playerImagePos[(int)properites["waitingIndex"]].transform);
+					playerText[(int)properites["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
+				}
+
+				Players.Add(player);
 			}
 
 			if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["isMaster"] != false)
 				PhotonNetwork.AutomaticallySyncScene = false;
-			else
-			{
-				Instantiate(playerImages[(int)PhotonNetwork.LocalPlayer.CustomProperties["characterIndex"]],
-					playerImagePos[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].transform);
-				playerText[(int)PhotonNetwork.LocalPlayer.CustomProperties["waitingIndex"]].text = PhotonNetwork.LocalPlayer.NickName;
-			}
+
 		}
 	}
 	
