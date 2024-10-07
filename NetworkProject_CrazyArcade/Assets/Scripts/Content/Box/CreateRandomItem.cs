@@ -81,6 +81,7 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
 
         int randomItemIndex = Random.Range(0, objectsToSpawn.Length); // 랜덤 인덱스 생성
         itemCount[randomItemIndex]++;
+
         if (itemCount[(int)ItemNumber.FEATHER] > itemSpawnInfo.maxFeathers)
         {
             itemCount[(int)ItemNumber.FEATHER]--;
@@ -107,18 +108,23 @@ public class CreateRandomItem : MonoBehaviourPunCallbacks
 
     public void SpawnRandomObject()
     {
-
         if (spawnObject != -1)
         {
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.InstantiateRoomObject(objectsToSpawn[spawnObject].name, transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+            {
+                PhotonNetwork.InstantiateRoomObject(objectsToSpawn[spawnObject].name,
+                    transform.position, Quaternion.identity); // 랜덤 오브젝트 생성
+            }
             createItem = true;
         }
         Destroy(gameObject);
     }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         if (PhotonNetwork.IsMasterClient)
+        {
             pv.RPC("OthersSpawnObject", RpcTarget.Others, spawnObject);
+        }
     }
 } 
