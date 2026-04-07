@@ -3,20 +3,27 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BOMB
+  - Wall
+  - BombStream
+  - VEHICLE
+  - PlayerTarget
+  - BombHere
+  - ITEM
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - HitBox
+  - BombStream
+  - PlayerTarget
+  - ItemBox
+  - BOMB
   - 
   - 
   - 
